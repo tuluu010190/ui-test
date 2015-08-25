@@ -288,7 +288,24 @@ public class SpaceManagement extends SpaceLocator {
 		info("Verify that join button is hidden and leave button is shown");
 		waitForAndGetElement(ELEMENT_SPACE_LEAVE_BTN.replace("${space}", space),3000,1);
 	}
+	/**
+	 * Open a space in list space
+	 * @param space
+	 */
+	public void goToSpace(String space){
+		info("Click on the title of the space");
+		click(ELEMENT_ALL_SPACE_SPACE_NAME.replace("$space",space.toLowerCase()));
+		waitForElementNotPresent(ELEMENT_ALL_SPACE_SPACE_NAME.replace("$space",space));
+	}
 	
+	/**
+	 * Verify the message when a user accesses to a space if the user is not member of that space
+	 * @param space
+	 */
+	public void verifyMessageAccessToSpace(String space){
+		info("Verify that");
+		waitForAndGetElement(ELEMENT_SPACE_ACCESS_SPACE_REQUEST_JOIN_MESSAGE.replace("$space",space));
+	}
 	/**
 	 * Open request pending tab
 	 */

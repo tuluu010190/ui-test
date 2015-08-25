@@ -4,21 +4,11 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class WikiDraftPage extends PlatformBase{
+public class WikiDraftPage extends WikiLocators{
 	ManageAlert magAl;
 	
-	//Manage Draft screen
-	public String ELEMENT_DRAFT_OF_NEW_PAGE = "//*[@id='UIWikiDraftGrid']//*[contains(text(),'${title} (New Page)')]";
-	public String ELEMENT_DELETE_DRAFT = ".//*[@id='UIWikiDraftGrid']//*[contains(text(),'${title}')]/../../..//*[@class='uiIconDeleteDraft uiIconLightGray']";
-	public String ELEMENT_DRAFT_OF_EDIT_PAGE = "//*[@id='UIWikiDraftGrid']//*[text()='${title}']";
-	public By ELEMENT_DRAFT_CONFIRM_POPUP = By.xpath("//div[@class='confirmMessage' and contains(text(), 'The draft has been created. Do you want to keep it?')]");
-	public By ELEMENT_DRAFT_NO_BUTTON = By.xpath("//*[contains(text(),'No')]");
-	public String ELEMENT_DRAFT_TITLE = "//*[contains(text(), '${title}')]";
-
 	/**
 	 * constructor
 	 * @param dr

@@ -40,10 +40,12 @@ public class Wiki_Basic_Action_Manage_Page_Rename extends Wiki_TestConfig {
 			Selected Page is renamed and new name is displayed in toolbar and navigation tree*/ 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		info("Double click on the title of the page");
+		wHome.selectAPage(wiki);
 		wikiMg.renamePageByDoubleClick(wiki, wiki2);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		

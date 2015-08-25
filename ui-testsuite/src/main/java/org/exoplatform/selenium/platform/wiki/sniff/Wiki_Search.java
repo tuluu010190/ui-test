@@ -29,7 +29,8 @@ public class Wiki_Search extends Wiki_TestConfig {
 			The Search Screen is displayed and the results matching the keyword into search box are displayed.*/ 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		wikiMg.saveAddPage();
 		wHome.goTosearchPage(wiki);
 		info("Verify that search page is shown with the text");
 		waitForAndGetElement(wSearchMg.ELEMENT_SEARCH_RESULT.replace("${title}",wiki),3000,0);
@@ -62,7 +63,8 @@ public class Wiki_Search extends Wiki_TestConfig {
 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki,wiki);
+		wikiMg.saveAddPage();
 		wHome.goTosearchPage(wiki);
 		info("Verify that search page is shown with the text");
 		waitForAndGetElement(wSearchMg.ELEMENT_SEARCH_RESULT.replace("${title}",wiki),3000,0);

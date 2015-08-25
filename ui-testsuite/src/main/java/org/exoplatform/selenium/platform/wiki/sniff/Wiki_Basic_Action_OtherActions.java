@@ -35,13 +35,15 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Create first new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title1,title1);
+		wikiMg.addSimplePageWithSourceEditor(title1,title1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
 		info("Create second new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title2,title2);
+		wikiMg.addSimplePageWithSourceEditor(title2,title2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
 		info("Move page 1 to page 2");
@@ -81,7 +83,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
+		wikiMg.addSimplePageWithSourceEditor(title,title);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Watch the wiki");
@@ -110,7 +112,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		hp.goToWiki();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor("", update);
+		wikiMg.editSimplePageWithSourceEditor("", update);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
@@ -160,7 +162,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Create a new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
+		wikiMg.addSimplePageWithSourceEditor(title,title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		
@@ -198,7 +201,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Create a new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
+		wikiMg.addSimplePageWithSourceEditor(title,title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		String perLink=wikiMg.permalinkAPage();
@@ -245,7 +249,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Create a new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
+		wikiMg.addSimplePageWithSourceEditor(title,title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		info("Un check view permission of any group");
 		wikiMg.unCheckViewAUserOfPage(wHome.ELEMENT_PERMISSION_VIEW_ANY);
@@ -306,7 +311,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki,wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		/*Step number: 2
@@ -372,7 +378,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki,wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		String perLink=wikiMg.permalinkAPage();
@@ -430,7 +437,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki,wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		info("Watch the wiki");
@@ -473,7 +481,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
+		wikiMg.addSimplePageWithSourceEditor(title,title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		magAc.signOut();
@@ -555,7 +564,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
+		wikiMg.addSimplePageWithSourceEditor(title,title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Un check view permission of any group");
@@ -632,7 +642,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
+		wikiMg.addSimplePageWithSourceEditor(title,title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		String perLink = wikiMg.permalinkAPage();
@@ -697,7 +708,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		info("Create space 2 and wiki page 2");
@@ -707,7 +719,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 2 for space 2");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki2,wiki2);
+		wikiMg.addSimplePageWithRichText(wiki2, wiki2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		/*Step number: 3
@@ -829,12 +842,14 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
+		wikiMg.addSimplePageWithSourceEditor(wiki2,wiki2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		/*Step number: 3
@@ -934,13 +949,15 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		info("Add new wiki page 2 for space ");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
+		wikiMg.addSimplePageWithSourceEditor(wiki2,wiki2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		/*Step number: 3
@@ -1031,12 +1048,14 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
+		wikiMg.addSimplePageWithSourceEditor(wiki2,wiki2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		/*Step number: 3
@@ -1142,7 +1161,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		info("Create space 2 and wiki page 2");
@@ -1152,13 +1172,15 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 2 for space 2");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
+		wikiMg.addSimplePageWithSourceEditor(wiki2,wiki2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		info("Add new wiki page 1 for space 2");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		
@@ -1266,14 +1288,16 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		wikiMg.addAUserToPermission(DATA_USER2,"");
 		
 		info("Add new wiki page 2 for space 2");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
+		wikiMg.addSimplePageWithSourceEditor(wiki2,wiki2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		wikiMg.addAUserToPermission(DATA_USER2,wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}",DATA_USER2));
@@ -1352,7 +1376,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
+		wikiMg.addSimplePageWithSourceEditor(wiki1,wiki1);
+		wikiMg.saveAddPage();
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -1380,7 +1405,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		spaHome.goToSpace(space);
 		spaHome.goToWikiTab();
 		wHome.goToAPage(wiki1);
-		wikiMg.editWikiPageSimpleWithSourceEditor("", wiki2);
+		wikiMg.editSimplePageWithSourceEditor("", wiki2);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);

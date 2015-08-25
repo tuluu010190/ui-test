@@ -108,7 +108,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 		hp.goToHomePage();
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title, "1", "Published");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}",comment)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",title).replace("${comment}",comment)));
 
 		// delete data
 		navTool.goToSiteExplorer();
@@ -212,7 +212,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 		SEHome.editDocument("",newContent);
 		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}",comment)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",title).replace("${comment}",comment)));
 
 		// delete data
 		navTool.goToSiteExplorer();
@@ -275,7 +275,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 		SEHome.selectNode(title);
 		SEHome.addTag(tag);
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}","Tag: "+tag+" has been added.")));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",title).replace("${comment}","Tag: "+tag+" has been added.")));
 
 
 		/*Step number: 3
@@ -291,7 +291,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 		SEHome.selectNode(title);
 		SEHome.addTag(secondTags);
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}","Tags: "+secondTags+" have been added.")));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",title).replace("${comment}","Tags: "+secondTags+" have been added.")));
 
 		// delete data
 		navTool.goToSiteExplorer();
@@ -457,7 +457,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 		SEHome.addCategoryForNode(file,"intranet");
 
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",file).replace("${comment}","Category: intranet has been added.")));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",file).replace("${comment}","Category: intranet has been added.")));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();
@@ -641,7 +641,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",file).replace("${comment}","File has been moved to: /sites/intranet/"+file.toLowerCase()));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",file).replace("${comment}","File has been moved to: /sites/intranet/"+file.toLowerCase()));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();
@@ -692,7 +692,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 		
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}","Publication has been moved to: /sites/intranet/"+title.toLowerCase()));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",title).replace("${comment}","Publication has been moved to: /sites/intranet/"+title.toLowerCase()));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();

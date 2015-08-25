@@ -1478,7 +1478,7 @@ import org.testng.annotations.*;
 		Utils.pause(3000);
 		wHome.goToAddBlankPage();
 		Utils.pause(3000);
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.
 				replace("${name}",wiki),2000,1);
 		

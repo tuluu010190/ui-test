@@ -936,7 +936,7 @@ import org.testng.annotations.*;
 		
 		String wikiText = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wikiText, wikiText);
+		wikiMg.addSimplePageWithSourceEditor(wikiText, wikiText);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wikiText),2000,1);
 		
 		info("Verify that list of applications of the space is shown with correct order");
@@ -1310,7 +1310,7 @@ import org.testng.annotations.*;
 		
 		String wikiText = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wikiText, wikiText);
+		wikiMg.addSimplePageWithSourceEditor(wikiText, wikiText);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wikiText),2000,1);
 		
 		info("Verify that list of applications of the space is shown with correct order");
@@ -1684,7 +1684,7 @@ import org.testng.annotations.*;
 		
 		String wikiText = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wikiText, wikiText);
+		wikiMg.addSimplePageWithSourceEditor(wikiText, wikiText);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wikiText),2000,1);
 		
 		info("Verify that list of applications of the space is shown with correct order");
@@ -2059,7 +2059,7 @@ import org.testng.annotations.*;
 		
 		String wikiText = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wikiText, wikiText);
+		wikiMg.addSimplePageWithSourceEditor(wikiText, wikiText);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wikiText),2000,1);
 		
 		info("Verify that list of applications of the space is shown with correct order");
@@ -2433,7 +2433,7 @@ import org.testng.annotations.*;
 		
 		String wikiText = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wikiText, wikiText);
+		wikiMg.addSimplePageWithSourceEditor(wikiText, wikiText);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wikiText),2000,1);
 		
 		info("Verify that list of applications of the space is shown with correct order");
@@ -2806,7 +2806,7 @@ import org.testng.annotations.*;
 		
 		String wikiText = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wikiText, wikiText);
+		wikiMg.addSimplePageWithSourceEditor(wikiText, wikiText);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wikiText),2000,1);
 		
 		info("Verify that list of applications of the space is shown with correct order");

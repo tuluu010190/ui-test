@@ -3,20 +3,13 @@ package org.exoplatform.selenium.platform.wiki;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-public class WikiSettingManagement extends PlatformBase{
+public class WikiSettingManagement extends WikiLocators{
 	
-	public final By ELEMENT_TEMPLATE_SEARCH_TEXTBOX = By.xpath(".//*[@id='TemplateSeachBox']");
-	public final By ELEMENT_WIKI_SETTINGS_TITLE = By.xpath(".//*[@id='UIWikiSettingContainer']/h4[text()='Wiki Settings']");
-	public final String ELEMENT_WIKI_SETTINGS_RESULTS = ".//*[@id='UIWikiTemplateGrid']//*[text()='${template}']";
-	public final String ELEMENT_EDIT_TEMPLATE = ".//*[@id='UIWikiTemplateGrid']//*[contains(text(),'{$template}')]/../..//*[@class='uiIconEditTemplate uiIconLightGray']";
-	public final String ELEMENT_DELETE_TEMPLATE = "//*[@id='UIWikiTemplateGrid']//*[contains(text(),'{$template}')]/../..//*[@class='uiIconDeleteTemplate uiIconLightGray']";
-	public final By ELEMENT_TITLE_TEMPLATE = By.id("titleInput");
-	public final By ELEMENT_SAVE_TEMPLATE = By.id("UISubmitToolBarUpper_SaveTemplate_");
+	
 	/**
 	 * constructor
 	 * @param dr

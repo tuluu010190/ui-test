@@ -120,7 +120,8 @@ public class Wiki_Settings extends Wiki_TestConfig{
 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		wikiMg.saveAddPage();
 
 		/*Step Number: 1
 		 *Step Name: Step 1: Add Permission
@@ -213,7 +214,8 @@ public class Wiki_Settings extends Wiki_TestConfig{
 		spaMg.addNewSpaceSimple(space, "");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		wikiMg.saveAddPage();
 		link = wHome.getPermaLink();
 
 		/*Step Number: 1

@@ -37,7 +37,8 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,content);
+		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.saveAddPage();
 		info("Verify that the new wiki page is created successfully");
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -89,7 +90,8 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,content);
+		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.saveAddPage();
 		info("Verify that the new wiki page is created successfully");
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		info("Verify that an activity is added to the activity stream");
@@ -137,7 +139,8 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,content);
+		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Click on the title of wiki page");
@@ -181,7 +184,8 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,content);
+		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Verify that an activity is added to the activity stream");
@@ -207,7 +211,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor(newTitle,"");
+		wikiMg.editSimplePageWithSourceEditor(newTitle,"");
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
@@ -252,7 +256,8 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,content);
+		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Verify that an activity is added to the activity stream");
@@ -278,14 +283,14 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor(newTitle,"");
+		wikiMg.editSimplePageWithSourceEditor(newTitle,"");
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		info("The title of wiki page's activity is updated");
 		hp.goToHomePage();
 		hpAct.checkActivity(newTitle);
 		info("Verify that No comment is added to the activity above");
-		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY
+		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_COMMENT
 				.replace("${title}", newTitle)
 				.replace("${comment}", comment));
 		
@@ -326,7 +331,8 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,content);
+		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Verify that an activity is added to the activity stream");
@@ -353,7 +359,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor("",newContent);
+		wikiMg.editSimplePageWithSourceEditor("",newContent);
 		wikiMg.addComment(comment);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
@@ -363,7 +369,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		hpAct.checkActivity(newContent);
 		info("Verify that only A comment that input above is added in the activity");
 		hpAct.checkCommentOfActivity(title,comment);
-		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY
+		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_COMMENT
 				.replace("${title}", title).replace("${comment}", comment1));
 		
 		/*Step Number: 3
@@ -385,7 +391,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor("",newContent1);
+		wikiMg.editSimplePageWithSourceEditor("",newContent1);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
@@ -434,13 +440,15 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create first new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title1,content1);
+		wikiMg.addSimplePageWithSourceEditor(title1,content1);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
 		info("Create second new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title2,content2);
+		wikiMg.addSimplePageWithSourceEditor(title2,content2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
 		info("Move page 1 to page 2");

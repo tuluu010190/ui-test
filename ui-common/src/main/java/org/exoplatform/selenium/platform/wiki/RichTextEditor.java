@@ -4,7 +4,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
@@ -13,73 +12,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
-public class RichTextEditor extends PlatformBase{
+public class RichTextEditor extends WikiLocators{
 	Button but;
 	
-	//Richtext mode
-	public final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//*[contains(text(),'Source Editor')]");
-	public final By ELEMENT_SOURCE_EDITOR_BUTTON_PLF4_1 = By.xpath("//button[contains(text(),'Source Editor')]");
-	public final By ELEMENT_CONTENT_WIKI_FRAME = By.xpath("//div[@class='xRichTextEditor']/iframe");
-	public final By ELEMENT_CONTENT_WIKI_IMG = By.xpath("//div[@id='UIViewContentDisplay']/../..//img");
-	public final By ELEMENT_TWO_LAYOUT_RIGHT = By.xpath("//div[@style='float:left;width:49.2%;padding-right:1.5%;']");
-	public final By ELEMENT_TWO_LAYOUT_LEFT = By.xpath("//div[@style='float:left;width:49.2%;']");
-	public final By ELEMENT_THREE_LAYOUT_RIGHT = By.xpath("//div[@style='float:left;width:32.300000000000004%;padding-right:1.5%;'][1]");
-	public final By ELEMENT_THREE_LAYOUT_MID = By.xpath("//div[@style='float:left;width:32.300000000000004%;padding-right:1.5%;'][2]");
-	public final By ELEMENT_THREE_LAYOUT_LEFT = By.xpath("//div[@style='float:left;width:32.300000000000004%;']");
-	public final String EMENENT_STATUS_LAYOUT = "//th[contains(text(), '${title}')]";
-	public final String EMENENT_HOW_LAYOUT = "//a[contains(text(), '${title}')]";
-	public final By EMENENT_LEAVE_PLANING_LAYOUT = By.xpath("//*[contains(text(), 'The Confluence team uses tables to communicate scheduled leave times')]"); 
-
-	//Macro
-	public By ELEMENT_MACRO_LINK = By.xpath("//*[text()='Macro']");
-	public By ELEMENT_INSERT_MACRO_LINK = By.xpath("//*[text()='Insert Macro...']");
-	public By ELEMENT_MACRO_CATEGORY_SELECT = By.xpath("//select[@title='Select a macro category']");
-	public By ELEMENT_MACRO_TYPE_FILTER = By.xpath("//input[@title='Type to filter']");
-	public String ELEMENT_MACRO_LABEL = "//*[text()='${macro}']";
-	public By ELEMENT_RICHTEXTMODE_FRAME = By.id("gwt-RichTextArea");
-	public String ELEMENT_MACRO_BOX = "//div[@class='box']/*[contains(.,'${macro}')]";
-	public String ELEMENT_MACRO_EXCERPT = "//*[@class='ExcerptClass' and contains(text(),'${macro}')]";
-	public String ELEMENT_MACRO_INFO_MESSAGE = "//*[@class='box infomessage' and contains(text(),'${macro}')]";
-	public String ELEMENT_MACRO_TABLE_CONTENT = "//span[@class='macro-placeholder' and contains(.,'toc')]";
-	public String ELEMENT_MACRO_TIP_MESSAGE = "//*[@class='box tipmessage' and contains(text(),'${macro}')]";
-	public String ELEMENT_MACRO_ERROR_MESSAGE = "//*[@class='box errormessage' and contains(text(),'${macro}')]";
-	public String ELEMENT_MACRO_SUCCESS_MESSAGE = "//*[@class='box successmessage' and contains(text(),'${macro}')]";
-	public String ELEMENT_MACRO_TEXT = "//*[contains(@style,'${color}') and contains(text(),'${text}')]";
-	public String ELEMENT_MACRO_WARNING_MESSAGE = "//*[@class='box warningmessage' and contains(text(),'${macro}')]";
-	public String ELEMENT_MACRO_CHART = "//img[@alt='${title}']";
-	public String ELEMENT_MACRO_FOOTNOTE = "//li[contains(.,'${macro}')]//a[text()='^']";
-	public By ELEMENT_MACRO_RSS_TITLE = By.xpath("//p[@class='rssitemtitle']");
-	public By ELEMENT_MACRO_COLLAPSE_LINK = By.xpath("//div[@class='gwt-MenuItemLabel' and text()='Collapse All']");
-	public By ELEMENT_MACRO_EXPAND_LINK = By.xpath("//div[@class='gwt-MenuItemLabel' and text()='Expand All']");
-
-	//Link menu
-	public By ELEMENT_LINK = By.xpath("//*[text()='Link']");
-	public By ELEMENT_WIKI_PAGE_LINK = By.xpath("//*[text()='Wiki Page...']");
-
-	//Add wiki page link popup
-	public By ELEMENT_SEARCH_TAB = By.xpath("//div[text()='Search']");
-	public By ELEMENT_SEARCH_TEXTBOX = By.xpath("//input[@title='Type a keyword to search for a wiki page']");
-	public By ELEMENT_SEARCH_BUTTON = By.xpath("//button[text()='Search']");
-	public String ELEMENT_PAGE_SELECTED = "//*[@class='xPagePreview' and @title='${page}']";
-	public String ELEMENT_PAGE_SELECTED_PLF41 = "//*[@class='xPagesSelector xPagesSearch']//*[@class='xPagePreview' and @title='${page}']";
-	public By ELEMENT_LABEL_LINK_TEXTBOX = By.xpath("//input[@title='Type the label of the created link.']");
-	public By ELEMENT_TOOLTIP_LINK_TEXTBOX = By.xpath("//input[@title='Type the tooltip of the created link, which appears when mouse is over the link.']");
-	public By ELEMENT_REMOVE_LINK = By.xpath("//div[text()='Remove Link']");
-	public By ELEMENT_EDIT_LINK = By.xpath("//div[text()='Edit Link...']");
-	public By ELEMENT_ADD_NEW_LINKPAGE_TEXTBOX =  By.xpath("//input[@title='Type the name of the page to be created. The final name of the page may vary since some characters are filtered.']");
-	public By ELEMENT_ALL_PAGE_TAB = By.xpath("//div[contains(text(), 'All pages')]");
-	public By ELEMENT_ADD_NEW_PAGE_LINK = By.xpath("//*[@class='gwt-Label xNewPagePreview']");
-	public By ELEMENT_ADD_WIKI_PAGE_FRAME = By.xpath("//iframe[@class='gwt-RichTextArea']");
-
-	//Table
-	public By ELEMENT_TABLE_LINK = By.xpath("//*[text()='Table']");
-	public By ELEMENT_INSERT_TABLE_LINK = By.xpath("//*[text()='Insert Table...']");
-	public By ELEMENT_ROW_TEXTBOX = By.xpath("//*[@title='Row count']");
-	public By ELEMENT_COLUMN_TEXTBOX = By.xpath("//*[@title='Column count']");
 	
-	//Macro: Color
-	public By ELEMENT_COLOR_TEXTBOX = By.id("pd-name-input");
-	public By ELEMENT_COLOR_MESSAGE = By.id("pd-content-input");
 	
 	/**
 	 * constructor
@@ -166,7 +102,7 @@ public class RichTextEditor extends PlatformBase{
 		info("Create link to the page " + page);
 		if (search){
 			click(ELEMENT_SEARCH_TAB);
-			type(ELEMENT_SEARCH_TEXTBOX, page, true);
+			type(ELEMENT_SEARCH_TEXTBOX_POPUP, page, true);
 			click(ELEMENT_SEARCH_BUTTON);
 		}
 		if(waitForAndGetElement(ELEMENT_PAGE_SELECTED.replace("${page}", page), 5000,0)!=null)

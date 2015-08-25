@@ -19,7 +19,7 @@ public class ActivityStream extends PlatformBase {
 
 	//Author of activity
 	public final String ELEMENT_ACTIVITY_AUTHOR_SPACE="//*[@class='author']//*[contains(@href,'$user')]/../..//*[@data-original-title='$space']";
-	public final String ELEMENT_ACTIVITY_BOX="//*[@id='boxContainer']//*[contains(text(),\"${name}\")]/../../../..";
+	public final String ELEMENT_ACTIVITY_BOX="//*[@id='boxContainer']//*[contains(text(),\"${name}\")]/../../../..//*[@class='heading']";
 	public final String ELEMENT_ACTIVITY_BOX_DELETE_BUTTON="//*[@id='boxContainer']//*[contains(text(),\"${name}\")]/../../../..//*[contains(@class,'uiIconClose')]";
 
 	//Home page space menu
@@ -94,7 +94,8 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_WIKI_VERSION = "//*[@class='linkTitle' and text()='${title}']/../..//*[@class = 'pull-right versionLabel' and contains(text(), 'Version: ${version}')]";
 	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
 	public final String ELEMENT_ACTIVITY_WIKI_LINK = "//*[@class='titleWiki']/a[@href='/portal/intranet/wiki/${title}']";
-
+    public final String ELEMENT_ACTIVITY_WIKI_VIEW_CHANGE_LINK=".//*[contains(text(),'$title')]/../../../..//*[contains(@class,'uiIconViewChange')]";
+	
 	//Question activity
 	public final String ELEMENT_QUESTION_ACTIVITY_TITLE="//*[@class='author']/*[contains(@href,'$user')]/../../..//*[@class='titleAnswer']/*[@class='linkTitle' and text()='$question']";
 	public final String ELEMENT_QUESTION_ACTIVITY_RATING="//*[@class='author']/*[contains(@href,'$user')]/../../..//*[@class='titleAnswer']/*[@class='linkTitle' and text()='$question']/../..//*[@class='avgRatingImages sumaryRate']";
@@ -134,7 +135,8 @@ public class ActivityStream extends PlatformBase {
 	public String ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE ="//*[@id='UIDocumentForm']//*[contains(text(),'{$title}')]";
 
 	// Common activity
-	public final String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'${title}')]/../../../../..//*[contains(text(),\"${comment}\")]";
+	public final String ELEMENT_ACTIVITY_COMMENT = ".//*[contains(text(),'${title}')]/../../../../..//*[contains(text(),\"${comment}\")]";
+	public final String ELEMENT_ACTIVITY_NOT_ANY_COMMENT=".//*[contains(text(),'$title')]/../../../../..//*[contains(@class,'commentList')][not(div)]";
 	public final String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'${title}')]";
@@ -256,8 +258,31 @@ public class ActivityStream extends PlatformBase {
 	 */
 	public void checkCommentOfActivity(String activity, String comment){
 		info("Verify that the comment is added");
-		waitForAndGetElement(ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",activity).replace("${comment}", comment),3000,1);
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT
+				.replace("${title}",activity).replace("${comment}", comment),3000,1);
 		info("The comment is added successfully");
+	}
+	
+	public enum changeTypes{
+		No_Value,Has_One_Value;
+	}
+	
+	public void checkComment(String title, String comment,String value,changeTypes type){
+		switch(type){
+		case Has_One_Value:
+			info("Verify that the comment is added");
+			waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT
+					.replace("${title}",title)
+					.replace("${comment}",comment)
+					.replace("$value",value));
+			break;
+		case No_Value:
+			waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT
+					.replace("${title}",title).replace("${comment}", comment));	
+			break;
+		
+		}
+			
 	}
 	/**
 	 * Check activity of adding wiki page with 4 lines in the content
@@ -271,18 +296,55 @@ public class ActivityStream extends PlatformBase {
 		String[] arrayline;
 		arrayline=content.split("</br>");
 		info("Check wiki page's title");
-		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",title),2000,0);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",title),2000,1);
 		info("Check wiki page's version");
-		waitForAndGetElement(ELEMENT_ACTIVITY_VERSION.replace("${name}",title).replace("${version}",version),2000,0);
+		waitForAndGetElement(ELEMENT_ACTIVITY_VERSION.replace("${name}",title).replace("${version}",version),2000,1);
 		info("Check first 4 lines of the wiki page");
-		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[0]),2000,0);
-		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[1]),2000,0);
-		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[2]),2000,0);
-		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[3]),2000,0);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[0]),2000,1);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[1]),2000,1);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[2]),2000,1);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[3]),2000,1);
 		info("Check line 5 of the wiki page is not shown");
 		waitForElementNotPresent(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[4]));
 	}
 
+	/**
+	 * Check Activity of Wiki page
+	 * @param title
+	 * @param content
+	 * @param version
+	 * @param isEdit
+	 *               = true for checking View Change link is shown
+	 *               = false if not View change link
+	 */
+	public void checkActivityWikiPage(String title,String content,String version,boolean isEdit){
+		if(!title.isEmpty()){
+			info("Check wiki page's title");
+			waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",title),2000,1);
+		}
+		if(!content.isEmpty()){
+			info("Check the content");
+			String[] arrayline;
+			arrayline=content.split("</br>");
+			if(arrayline.length>1){
+				info("Check first 4 lines of the wiki page");
+				waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[0]),2000,1);
+				waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[1]),2000,1);
+				waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[2]),2000,1);
+				waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[3]),2000,1);
+				info("Check line 5 of the wiki page is not shown");
+				waitForElementNotPresent(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[4]));
+			}else{
+				info("Check first line of the wiki page");
+				waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",arrayline[0]),2000,1);
+			}
+			
+		}
+		if(isEdit){
+			info("View change link is shown");
+			waitForAndGetElement(ELEMENT_ACTIVITY_WIKI_VIEW_CHANGE_LINK.replace("$title",title));
+		}
+	}
 	/**
 	 * Check activity after add a web content
 	 * @param title
@@ -611,11 +673,6 @@ public class ActivityStream extends PlatformBase {
 		}
 		info("----Upload a file-----");
 		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP,2000,1);
-		/*info("Click on drop down list");
-		click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
-		info("select a driver:"+nameDrive);
-		if(!nameDrive.isEmpty())
-			click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));*/
 		
 		if(!nameDrive.isEmpty()){
 			info("Click on drop down list");
@@ -842,6 +899,23 @@ public class ActivityStream extends PlatformBase {
 		waitElementAndTryGetElement(ELMEMENT_COMMENT_TIME
 				.replace("$activity",activity)
 				.replace("$comment",comment));
+	}
+	/**
+	 * Click on View Change link on action bar
+	 * @param title
+	 */
+	public void clickOnViewChange(String title){
+		info("Click on View change link");
+		click(ELEMENT_ACTIVITY_WIKI_VIEW_CHANGE_LINK.replace("$title",title));
+		waitForElementNotPresent(ELEMENT_ACTIVITY_WIKI_VIEW_CHANGE_LINK.replace("$title",title));
+	}
+	/**
+	 * Verify that has not any comment of an activity
+	 * @param title
+	 */
+	public void checkNotComment(String title){
+		info("Verify that the activity hasn't any comment");
+		waitForAndGetElement(ELEMENT_ACTIVITY_NOT_ANY_COMMENT.replace("$title",title));
 	}
 	
 }

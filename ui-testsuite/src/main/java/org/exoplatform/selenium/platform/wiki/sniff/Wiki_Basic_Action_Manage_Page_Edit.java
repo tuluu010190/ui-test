@@ -32,11 +32,12 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			Edit page successfully*/ 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		info("Verify that the page is editor successfully");
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor(wiki2, wiki2);
+		wikiMg.editSimplePageWithSourceEditor(wiki2, wiki2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
@@ -72,11 +73,13 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki,wiki);
+		wikiMg.addSimplePageWithRichText(wiki, wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		info("Verify that the page is editor successfully");
 		wHome.goToEditPage();
-		wikiMg.editWikipageSimpleWithRichText(wiki2, wiki2);
+		wikiMg.editSimplePageWithRichText(wiki2, wiki2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		info("Delete the page");
@@ -111,13 +114,13 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			if there's any modifications in the content or page title. */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageHasAutoSaveWithoutSave(wiki,wiki);
+		wikiMg.addSimplePageHasAutoSaveWithoutSave(wiki,wiki);
 		
 		wHome.goToMyDraft();
 		info("The draft is displayed in the list");
 		wDraft.resumeADraft(wiki);
 		info("The page in edit mode is displayed");
-		wikiMg.editWikiPageWithAutoSaveWithoutSaving(wiki2, wiki2);
+		wikiMg.editSimplePageWithAutoSave(wiki2, wiki2);
 		
 		info("Delete draf");
 		wHome.goToMyDraft();
@@ -154,7 +157,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor(title2,title2);
+		wikiMg.editSimplePageWithSourceEditor(title2,title2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
@@ -192,7 +195,8 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			- Other paragraph's content  in page is remain */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title,content);
+		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		wikiMg.editParagraph(title, content2);
@@ -227,7 +231,8 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			- Add new page successfully */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title, title);
+		wikiMg.addSimplePageWithSourceEditor(title, title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		/*Step Number: 2
@@ -245,7 +250,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		 *Expected Outcome: 
 			- Edit page successfully */
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor(newTitle,"");
+		wikiMg.editSimplePageWithSourceEditor(newTitle,"");
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
@@ -283,7 +288,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		hp.goToWiki();
 		wHome.goToAPage(newTitle);
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor("",newTitle);
+		wikiMg.editSimplePageWithSourceEditor("",newTitle);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wikiMg.ELEMENT_WIKI_PAGE_CONTENT.replace("${text}",newTitle),2000,0);
@@ -333,7 +338,8 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			- Add new page successfully */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(title, title);
+		wikiMg.addSimplePageWithSourceEditor(title, title);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		/*Step Number: 2
@@ -351,7 +357,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		 *Expected Outcome: 
 			- Edit page successfully */
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor(newTitle,"");
+		wikiMg.editSimplePageWithSourceEditor(newTitle,"");
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		
@@ -386,7 +392,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		hp.goToWiki();
 		wHome.goToAPage(newTitle);
 		wHome.goToEditPage();
-		wikiMg.editWikiPageSimpleWithSourceEditor("",newTitle);
+		wikiMg.editSimplePageWithSourceEditor("",newTitle);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wikiMg.ELEMENT_WIKI_PAGE_CONTENT.replace("${text}",newTitle),2000,0);
 		

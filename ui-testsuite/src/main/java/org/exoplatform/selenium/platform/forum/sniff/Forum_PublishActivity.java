@@ -104,7 +104,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that the topic's activity is shown on intranet");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",Topic).replace("${comment}",comment)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",Topic).replace("${comment}",comment)));
 		info("The activity is shown successfully");
 		
 		info("Delete topic");
@@ -203,7 +203,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that the topic's activity is updated");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",topicNewName).replace("${comment}",comment+topicNewName)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",topicNewName).replace("${comment}",comment+topicNewName)));
 		info("The topic's activity is updated successfully");
 		deleteDataTest();
 		info("Test 3: Finish testing");
@@ -234,7 +234,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that the new topic's activity is shown");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",topic1).replace("${comment}",comment2)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",topic1).replace("${comment}",comment2)));
 		info("the new topic's activity is shown successfully");
 		deleteDataTest();
 		info("Test 04: finished testing");
@@ -268,7 +268,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that the topic's activity is shown");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",topic1).replace("${comment}",comment4)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",topic1).replace("${comment}",comment4)));
 		info("The topic's activity is shown successfully");
 		
 		hp.goToForum();
@@ -279,7 +279,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that topic's activity is shown");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",topic1).replace("${comment}",comment3)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",topic1).replace("${comment}",comment3)));
 		info("The topic's activity is shown successfully");
 		deleteDataTest();
 		info("Test 05: Finish testing");
@@ -352,7 +352,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that topic's activity is added to the stream");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",topic1).replace("${comment}",comment)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",topic1).replace("${comment}",comment)));
 		info("The topic's activity is added to the stream successfully");
 		deleteDataTest();
 		info("Test 07: Finished testing");
@@ -422,7 +422,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that the poll's comment is shown on the stream");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",question).replace("${comment}",comment2)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",question).replace("${comment}",comment2)));
 		info("the poll's comment is shown on the stream successfully");
 		deleteDataTest();
 		info("Test 09: Testing finished");
@@ -457,7 +457,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		info("Verify that the comment is added to the topic on the stream after deleted poll");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",topic1).replace("${comment}",comment3)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMENT.replace("${title}",topic1).replace("${comment}",comment3)));
 		info("The comment is added to the topic on the stream successfully after deleted poll");
 		deleteDataTest();
 		info("Test 10: finshed testing");

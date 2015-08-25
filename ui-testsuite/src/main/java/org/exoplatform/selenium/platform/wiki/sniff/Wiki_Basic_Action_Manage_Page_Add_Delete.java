@@ -36,7 +36,8 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 			Page is added successful and listed in navigation tree*/ 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
+		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,1);
 		
 		info("Test 08: Delete the page that is created by using source editor");
@@ -91,7 +92,8 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki,wiki);
+		wikiMg.addSimplePageWithRichText(wiki, wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		info("Test 09: Delete the page that is created by using RichText");
@@ -138,7 +140,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 			After the draft was saved, a notification message will be showed near the title.*/
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithAutoSaveStatus(wiki,wiki);
+		wikiMg.addSimplePageWithAutoSaveStatus(wiki,wiki);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		info("Delete the page");
@@ -246,7 +248,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 			Show layout which you choose */
 		hp.goToWiki();
 		wHome.goToAddTemplateWikiPage();
-		wikiMg.addSimpleWikiPageByTemplateWithAutoSave(template,title);
+		wikiMg.addSimplePageByTemplateWithAutoSave(template,title);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",template),2000,0);
 		
 		info("Delete the page");
@@ -278,7 +280,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 			A draft version is saved after 30s */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageHasAutoSaveWithoutSave(title,title);
+		wikiMg.addSimplePageHasAutoSaveWithoutSave(title,title);
 		
 		
 		/*Step Number: 2
@@ -300,7 +302,8 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 		info("The draft is displayed in the list");
 		wDraft.resumeADraft(title);
 		info("The page in edit mode is displayed");
-		wikiMg.editWikipageSimpleWithRichText(newTitle, newTitle);
+		wikiMg.editSimplePageWithRichText(newTitle, newTitle);
+		wikiMg.saveAddPage();
 		info("Verify that the new page is added");
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 	    info("Verify that the new page is not shown in my draft list");
