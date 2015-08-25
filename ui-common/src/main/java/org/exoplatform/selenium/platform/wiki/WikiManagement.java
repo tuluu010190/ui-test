@@ -253,7 +253,7 @@ public class WikiManagement extends WikiLocators{
 			}
 		}
 		info("Waiting 30s before saved all changes");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
 		info("Save all changes");
 		saveAddPage();
 		info("Wiki page simple is created successfully");
@@ -280,7 +280,7 @@ public class WikiManagement extends WikiLocators{
 			}
 		}
 		info("Waiting 30s before saved all changes");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
 		info("Cancel adding page");
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
 		click(ELEMENT_CONFIRMATION_POPUP_YES_BTN);

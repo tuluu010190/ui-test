@@ -21,6 +21,7 @@ import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
+import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.testng.annotations.AfterMethod;
@@ -36,6 +37,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
+	WikiDraftPage wDraf;
 	
 	SpaceHomePage spaHome;
 	SpaceManagement spaMg;
@@ -73,6 +75,8 @@ public class WIKI_TestConfig extends PlatformBase {
 		hpAct = new ActivityStream(driver);
 		wHome=new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);
+		wDraf = new WikiDraftPage(driver);
+		
 		spaHome = new SpaceHomePage(driver);
 		spaMg = new SpaceManagement(driver);
 		spSettingMg = new SpaceSettingManagement(driver);
