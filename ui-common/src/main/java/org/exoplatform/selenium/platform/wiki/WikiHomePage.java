@@ -272,4 +272,57 @@ public class WikiHomePage extends WikiLocators{
 		waitForElementNotPresent(ELEMENT_PERMALINK_POPUP);
 		info("Permalink popup is closed");
 	}
+	
+	/**
+	 * Go to attach files in Wiki Home page
+	 * @param number
+	 */
+	public void goToAttachFiles(String number){
+		info("Click attach file link");
+		Utils.pause(2000);
+		waitForAndGetElement(ELEMENT_PAGE_ATTACHFILE_NUMBER.replace("${number}", number), DEFAULT_TIMEOUT, 1);
+		click(ELEMENT_PAGE_ATTACHFILE_NUMBER.replace("${number}", number));
+	}
+	
+	/**
+	 * Delete attach file in View mode in Wiki Homepage 
+	 * or in edit mode when editing a wiki page
+	 * @param fileName
+	 */
+	public void DeleteAttachFiles(String fileName){
+		info("Delete attach files");
+		Utils.pause(2000);
+		if (waitForAndGetElement(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE.replace("${fileName}", fileName), 5000, 0) != null){
+			click(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE.replace("${fileName}", fileName));
+			waitForElementNotPresent(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE.replace("${fileName}", fileName));
+		}
+		else{
+			waitForAndGetElement(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE_2.replace("${fileName}", fileName), DEFAULT_TIMEOUT, 0);
+			click(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE_2.replace("${fileName}", fileName));
+			waitForElementNotPresent(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE_2.replace("${fileName}", fileName));
+			}
+	}
+	
+	/**
+	 * Verify that attach file is displayed in a new window
+	 * @param title
+	 *//*
+	public void verifyWhenClickToAttachLinkFile(String file, String number){
+		info("Verify that attach file is displayed in a new window when being clicked");
+		Utils.pause(2000);
+		//driver.navigate().refresh();
+		info("Click files");
+		if (waitForAndGetElement(ELEMENT_PAGE_DOWNLOADATTACHFILE, 5000, 0) != null)
+			click(ELEMENT_PAGE_DOWNLOADATTACHFILE);
+		else {
+			//waitForAndGetElement(ELEMENT_PAGE_DOWNLOADATTACHFILE_2, DEFAULT_TIMEOUT, 1);
+			click(ELEMENT_PAGE_DOWNLOADATTACHFILE_2);
+		}
+		for(String windowHandle  : driver.getWindowHandles()){
+		     driver.switchTo().window(windowHandle);
+		     String windowUrl=driver.getCurrentUrl();
+		     info("driver.title:"+driver.getTitle());
+		     assert windowUrl.contains(file);
+		}
+	}*/
 }

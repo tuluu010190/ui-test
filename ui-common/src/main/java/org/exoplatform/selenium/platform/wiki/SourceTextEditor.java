@@ -2,9 +2,13 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.io.File;
+
 import org.exoplatform.selenium.Utils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class SourceTextEditor extends WikiLocators{
 	/**
@@ -293,6 +297,39 @@ public class SourceTextEditor extends WikiLocators{
 				}
 				info("Waiting 30s before saved all changes");
 				waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+			}
+
+			/** 
+			 * Attach a file to a Wiki page
+			 * 
+			 * @param link
+			 * 			link of file that will be attached
+			 */
+			/** 
+			 * Attach a file to a Wiki page
+			 * 
+			 * @param link
+			 * 			link of file that will be attached
+			 * @param type
+			 * 			optional parameter of this method.
+			 */
+			public void attachFile(String link ){
+				String fs = File.separator;
+				WebElement elem = waitForAndGetElement(ELEMENT_UPLOAD_NAME,5000,1,2);
+				scrollToElement(elem, driver);
+				click(elem,2,true);
+				uploadFileUsingRobot(link);
+				waitForAndGetElement(By.linkText(link.substring(link.lastIndexOf(fs)+1)));
+			}
+
+			/**
+			 * Attach many files to a wiki page
+			 */
+			public void attachMultiFiles(String link){
+				String[] upload = link.split(";");
+				for (int i = 0; i < upload.length; i++){
+					attachFile("TestData/" + upload[i]);
+				}
 			}
 	
 	

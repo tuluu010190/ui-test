@@ -98,11 +98,16 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_PAGE_TITLE = ".//*[@id='titleInfo'][text()='${title}']";
 	public final By ELEMENT_PAGE_TITLE_EDIT_TEXTBOX = By.id("EdiableInput");
 	public final By ELEMENT_PAGE_ATTACHFILE = By.xpath("//*[contains(.,'1')]//*[@class='uiIconAttach']");
+	public final String ELEMENT_PAGE_ATTACHFILE_NUMBER = "//*[contains(.,'${number}')]//*[@class='uiIconAttach']";
 	public final By ELEMENT_PAGE_DOWNLOADATTACHFILE = By.xpath("//*[@data-original-title='Download Attachment']");
+	public final By ELEMENT_PAGE_DOWNLOADATTACHFILE_2 = By.xpath(".//*[@id='UIWikiAttachmentUploadListForm']//*[@title='Download Attachment']/..//i");
 	public final By ELEMENT_PAGE_DELETEATTACHFILE = By.xpath("//*[@class='uiIconDelete uiIconLightGray']");
 	public final By ELEMENT_PAGE_CONTENT_TABLE_MODE=By.xpath(".//*[@id='UIViewContentDisplay']/table");
 	public final String ELEMETN_PAGE_CONTENT_TABLE_COL_NUM="(.//*[@id='UIViewContentDisplay']/table//th)[$col]";
 	public final String ELEMETN_PAGE_CONTENT_TABLE_ROW_NUM="(.//*[@id='UIViewContentDisplay']/table//td)[$row]";
+	public final String ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE = "//*[@title='Download Attachment' and text()='${fileName}']/../..//*[@class='uiIconDelete uiIconLightGray']";
+	public final String ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE_2 = "//*[@data-original-title='Download Attachment' and text()='${fileName}']/../..//*[@class='uiIconDelete uiIconLightGray']";
+	
 	
 	public final By ELEMENT_SAVE_PERMISSION = By.xpath(".//*[@id='UIWikiPagePermissionForm']//*[contains(text(),'Save')]");
 	public final By ELEMENT_ADD_PERMISSION = By.xpath("//*[@id='uiWikiPermissionOwner']//*[contains(text(),'Add')]");

@@ -1064,38 +1064,6 @@ public class RichTextEditor extends WikiLocators{
 		Utils.pause(2000);
 	}
 
-	/** 
-	 * Attach a file to a Wiki page
-	 * 
-	 * @param link
-	 * 			link of file that will be attached
-	 */
-	/** 
-	 * Attach a file to a Wiki page
-	 * 
-	 * @param link
-	 * 			link of file that will be attached
-	 * @param type
-	 * 			optional parameter of this method.
-	 */
-	public void attachFile(String link ){
-		String fs = File.separator;
-		WebElement elem = waitForAndGetElement(ELEMENT_UPLOAD_NAME,5000,1,2);
-		scrollToElement(elem, driver);
-		click(elem,2,true);
-		uploadFileUsingRobot(link);
-		waitForAndGetElement(By.linkText(link.substring(link.lastIndexOf(fs)+1)));
-	}
-
-	/**
-	 * Attach many files to a wiki page
-	 */
-	public void attachMultiFiles(String link){
-		String[] upload = link.split(";");
-		for (int i = 0; i < upload.length; i++){
-			attachFile("TestData/" + upload[i]);
-		}
-	}
 	/**
 	 * Replace a new link for old link that inserted into the page
 	 * @param label 
@@ -1158,6 +1126,29 @@ public class RichTextEditor extends WikiLocators{
 		info("Check Open New Window checkbox");
 		check(ELEMENT_OPEN_NEW_WINDOW_CHECKBOX,2);
 		Utils.pause(2000);
+	}
+
+	/** 
+	 * Attach a file to a Wiki page
+	 * 
+	 * @param link
+	 * 			link of file that will be attached
+	 */
+	/** 
+	 * Attach a file to a Wiki page
+	 * 
+	 * @param link
+	 * 			link of file that will be attached
+	 * @param type
+	 * 			optional parameter of this method.
+	 */
+	public void attachFile(String link ){
+		String fs = File.separator;
+		WebElement elem = waitForAndGetElement(ELEMENT_UPLOAD_NAME,5000,1,2);
+		scrollToElement(elem, driver);
+		click(elem,2,true);
+		uploadFileUsingRobot(link);
+		waitForAndGetElement(By.linkText(link.substring(link.lastIndexOf(fs)+1)));
 	}
 }
 

@@ -89,6 +89,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>wiki-func</id>
+			<properties>
+				<testSuite>wiki-func.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>social-sniff-part1</id>
 			<properties>
 				<testSuite>social-sniff-part1.xml</testSuite>
