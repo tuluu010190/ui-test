@@ -17,6 +17,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.DataTestPathDatab
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.ImageLinksDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -50,6 +51,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	UserProfilePage userProPage;
 	ConnectionsManagement connMag;
 	ActivityCommentDatabase actCommentData;
+	ImageLinksDatabase imgLinkData;
 	
 	AttachmentFileDatabase attFileData;
 	DataTestPathDatabase dataTestForlderPath;
@@ -90,6 +92,9 @@ public class WIKI_TestConfig extends PlatformBase {
 		attFileData = new AttachmentFileDatabase();
 		attFileData.setAttachFileData(attachmentFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		imgLinkData = new ImageLinksDatabase();
+		imgLinkData.setData(imageLinksFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
 		arrayPage  = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
@@ -103,6 +108,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		if(arrayPage.size()>0){
 			for(String title:arrayPage){
 				info("Delete the page:"+title);
+				driver.get(baseUrl);
 				hp.goToWiki();
 				wHome.deleteWiki(title);
 			}

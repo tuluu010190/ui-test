@@ -43,7 +43,7 @@ public class Wiki_Attachment extends Wiki_TestConfig {
 		wHome.goToAddBlankPage();
 		wikiMg.goToSourceEditor();
 		wikiMg.inputDataToPageSourceEditor(title,content,true,true);
-		wikiMg.attachFileInWiki("TestData/"+link, 2);
+		wikiMg.attachFileInWiki("TestData/"+link);
 		wikiMg.saveAddPage();
 		
 		waitForAndGetElement(wHome.ELEMENT_PAGE_ATTACHFILE,3000,1);

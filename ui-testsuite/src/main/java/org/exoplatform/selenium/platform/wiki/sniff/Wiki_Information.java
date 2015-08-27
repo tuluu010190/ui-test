@@ -305,7 +305,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Click on attachment icon at information area at the top of page");
 		waitForAndGetElement(wikiMg.ELEMENT_WIKI_PAGE_INFORMATION_AREA_TOTAL_ATTACHEDFILES.replace("${number}","0"),2000,0).click();
 		info("Add new attachment");
-		wikiMg.attachFileInWiki("TestData/"+link,2);
+		wikiMg.attachFileInWiki("TestData/"+link);
 		info("Delete attachment");
 		wikiMg.deleteAttachmentFile();
 		

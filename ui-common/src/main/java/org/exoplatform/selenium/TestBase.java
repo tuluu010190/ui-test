@@ -104,14 +104,13 @@ public class TestBase {
 	protected String userInfoFilePath;
 	protected String mailSuffixFilePath;
 	protected String userSearchOptionFilePath;
-	protected String wikiRichTextFilePath;
+	
 	protected String attachmentFilePath;
 	protected String texboxFilePath;
 	protected String permissionPath;
 	protected String linkPath;
 	protected String changLangDataPath;
-	protected String wikiTemplateFilePath;
-	protected String wikiMessageFilePath;
+	
 
 	protected String contactIMFilePath;
 	protected String contactPhoneFilePath;
@@ -166,6 +165,12 @@ public class TestBase {
 	protected String notiFormatEmailFilePath;
 	protected String notiLabelFilePath;
 	protected String notiMessageFilePath;
+	
+	//Wiki
+	protected String imageLinksFilePath;
+	protected String wikiTemplateFilePath;
+	protected String wikiMessageFilePath;
+	protected String wikiRichTextFilePath;
 
 	protected static String ssoType;
 
@@ -269,6 +274,9 @@ public class TestBase {
 
 	//Task Management
 	public final String DEFAULT_COLOR_FILE_URL="DataDriven/"+"color.xls";
+	
+	//Wiki
+	public final String DEFAULT_WIKI_IMAGE_LINKS_FILE_URL="DataDriven/"+"wiki_image_links.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -406,6 +414,9 @@ public class TestBase {
 		
 		//Task Management
 		colorNamefilePath =System.getProperty("colorNamefilePath");
+		
+		//Wiki
+		imageLinksFilePath = System.getProperty("imageLinksFilePath");
 
 
 		if (ssoType==null) ssoType = DEFAULT_SSOTYPE;
@@ -502,6 +513,9 @@ public class TestBase {
 		
 		//Task Management
 		if (colorNamefilePath==null) colorNamefilePath=DEFAULT_COLOR_FILE_URL;
+		
+		//Wiki
+		if (imageLinksFilePath==null) imageLinksFilePath=DEFAULT_WIKI_IMAGE_LINKS_FILE_URL;
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -576,6 +590,9 @@ public class TestBase {
 		
 		//Task Management
 		colorNamefilePath = getAbsoluteFilePath(colorNamefilePath);
+		
+		//wIKI
+		imageLinksFilePath = getAbsoluteFilePath(imageLinksFilePath);
 	}
 
 	/**
@@ -2014,6 +2031,12 @@ public class TestBase {
 	 */
 	public void pressEnterKey(){
 		action.sendKeys(Keys.ENTER).perform();
+		action.release();
+	}
+	
+	public void pressEndKey(WebDriver driver){
+		action = new Actions(driver);
+		action.sendKeys(Keys.END).perform();
 		action.release();
 	}
 

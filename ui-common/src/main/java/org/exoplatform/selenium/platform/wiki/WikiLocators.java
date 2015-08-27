@@ -104,6 +104,10 @@ public class WikiLocators extends PlatformBase{
 	//*===================================================================WIKI MANAGEMENT===========================================================*\\
 	public final String ELEMENT_PAGE_INFOR_RECENT_CHANES = ".//*[contains(text(),'v.1')]/../..//*[contains(text(),'John Smith')]";
 	public final String ELEMENT_PAGE_INFOR_HIERARCHY_CHILD_PAGES = ".//*[contains(text(),'Child Pages')]/..//*[contains(text(),'${child}')]";
+	public final String ELEMENT_TITLE_INFO = "//*[@id='titleInfo' and text()= '${title}']";
+	public final String ELMEENT_CONTENT_wiki_PAGE=".//*[@id='UIViewContentDisplay']//*[contains(text(),'$content')]";
+	public final String ELEMENT_EMAIL_LINK_EMAIL_FORMAT=".//*[@id='UIViewContentDisplay']//*[contains(@href,'mailto:$email')]";
+	
 	//Source editor
 	public final By ELEMENT_TITLE_WIKI_INPUT = By.id("titleInput");
 	public final By ELEMENT_CONTENT_WIKI_INPUT = By.id("Markup");
@@ -240,7 +244,8 @@ public class WikiLocators extends PlatformBase{
 	public final String EMENENT_STATUS_LAYOUT = "//th[contains(text(), '${title}')]";
 	public final String EMENENT_HOW_LAYOUT = "//a[contains(text(), '${title}')]";
 	public final By EMENENT_LEAVE_PLANING_LAYOUT = By.xpath("//*[contains(text(), 'The Confluence team uses tables to communicate scheduled leave times')]"); 
-
+    public final String ELEMENT_INSERTED_IMAGE_SIZE=".//*[@id='UIViewContentDisplay']//*[contains(@width,'$width')][contains(@height,'$height')]";
+    public final String ELEMENT_INSERTED_IMAGE_ALT_TEXT=".//*[@id='UIViewContentDisplay']//*[contains(@alt,'$alt')]";
 	//Macro
 	public By ELEMENT_MACRO_LINK = By.xpath("//*[text()='Macro']");
 	public By ELEMENT_INSERT_MACRO_LINK = By.xpath("//*[text()='Insert Macro...']");
@@ -266,12 +271,40 @@ public class WikiLocators extends PlatformBase{
 	//Link menu
 	public By ELEMENT_LINK = By.xpath("//*[text()='Link']");
 	public By ELEMENT_WIKI_PAGE_LINK_MENU = By.xpath("//*[text()='Wiki Page...']");
+	public By ELEMENT_WEB_PAGE_LINK_MENU = By.xpath("//*[text()='Web Page...']");
+	public By ELEMENT_ATTACHED_FILE_LINK_MENU = By.xpath("//*[text()='Attached File...']");
+	public By ELEMENT_EMAIL_LINK_MENU = By.xpath("//*[text()='Email Address...']");
+	public By ELEMENT_EDIT_LINK_MENU = By.xpath("//*[text()='Edit Link...']");
+	
+	//Image menu
+	public By ELEMENT_IMAGE_LINK = By.xpath("//*[text()='Image']");
+	public By ELEMENT_ATTACHED_IMAGE_LINK_MENU = By.xpath("//*[text()='Attached Image...']");
+	public By ELEMENT_EXTERNAL_IMAGE_LINK_MENU = By.xpath("//*[text()='External Image...']");
+	public By ELEMENT_EDIT_IMAGE_LINK_MENU = By.xpath("//*[text()='Edit Image...']");
+	public By ELEMENT_IMAGE_MENU_INSERT_IMAGE_BTN=By.xpath("//*[text()='Insert Image']");
+	public By ELEMENT_IMAGE_MENU_IMAGE_SETTINGS_BTN=By.xpath("//*[text()='Image Settings']");
+	
+	//Image link popup
+	public String ELEMENT_IMAGE_LINK_IMAGE_THUMBNAIL ="//*[contains(@title,'$image')]";
+	public By ELEMENT_IMAGE_WIDTH = By.xpath("//div[contains(text(), 'Width')]/..//input[1]");
+	public By ELEMENT_IMAGE_HEIGHT = By.xpath("//div[contains(text(), 'Height')]/..//input[2]");
+	public By ELEMENT_IMAGE_ALTERNATIVE_TEXT = By.xpath("//div[contains(text(), 'Alternative text')]/..//input[1]");
+	public By ELEMENT_IMAGE_ALIGN_LEFT=By.xpath(".//*[@value='LEFT']");
+	public By ELEMENT_IMAGE_ALIGN_CENTER=By.xpath(".//*[@value='CENTER']");
+	public By ELEMENT_IMAGE_ALIGN_RIGHT=By.xpath(".//*[@value='RIGHT']");
+	public By ELEMENT_IMAGE_ALIGN_TOP=By.xpath(".//*[@value='TOP']");
+	public By ELEMENT_IMAGE_ALIGN_MIDDLE=By.xpath(".//*[@value='MIDDLE']");
+	public By ELEMENT_IMAGE_ALIGN_BOTTOM=By.xpath(".//*[@value='BOTTOM']");
+	public By ELEMENT_EXTERNAL_IMAGE_INPUT_LINK=By.xpath("//*[@title='Image location']");
+	
 
 	//Add wiki page link popup
-	public By ELEMENT_SEARCH_TAB = By.xpath("//div[text()='Search']");
 	public By ELEMENT_SEARCH_TEXTBOX_POPUP = By.xpath("//input[@title='Type a keyword to search for a wiki page']");
 	public By ELEMENT_SEARCH_BUTTON = By.xpath("//button[text()='Search']");
 	public String ELEMENT_PAGE_SELECTED = "//*[@class='xPagePreview' and @title='${page}']";
+	public String ELEMENT_SEARCH_TAB_PAGE_SELECTED="//*[contains(@class,'xPagesSearch')]//*[@title='${page}']";
+	public final By ELEMENT_SELECT_BUTTON = By.xpath("//*[text()='Select']");
+	public final By ELEMENT_CREATE_LINK_BUTTON = By.xpath("//*[text()='Create Link']");
 	public String ELEMENT_PAGE_SELECTED_PLF41 = "//*[@class='xPagesSelector xPagesSearch']//*[@class='xPagePreview' and @title='${page}']";
 	public By ELEMENT_LABEL_LINK_TEXTBOX = By.xpath("//input[@title='Type the label of the created link.']");
 	public By ELEMENT_TOOLTIP_LINK_TEXTBOX = By.xpath("//input[@title='Type the tooltip of the created link, which appears when mouse is over the link.']");
@@ -281,7 +314,34 @@ public class WikiLocators extends PlatformBase{
 	public By ELEMENT_ALL_PAGE_TAB = By.xpath("//div[contains(text(), 'All pages')]");
 	public By ELEMENT_ADD_NEW_PAGE_LINK = By.xpath("//*[@class='gwt-Label xNewPagePreview']");
 	public By ELEMENT_ADD_WIKI_PAGE_FRAME = By.xpath("//iframe[@class='gwt-RichTextArea']");
-
+	public By ELEMENT_OPEN_NEW_WINDOW_CHECKBOX=By.xpath(".//*[contains(@class,'xLinkConfig')]//input[contains(@id,'gwt-uid')]");
+    public By ELEMENT_MY_RECENT_CHANGES_TAB=By.xpath("//div[contains(text(), 'My recent changes')]");
+    public By ELEMENT_SEARCH_TAB = By.xpath("//div[text()='Search']");
+    public By ELEMENT_EXPLORER_WIKIHOME=By.xpath(".//*[contains(text(),'WikiHome')]/..//*[contains(@src,'opener_closed.gif')]");
+    public String ELEMENT_ALL_PAGE_TAB_PAGE_SELECTED = ".//*[@class='listTable']//*[contains(text(),'$title')]";
+    public String ELEMENT_MY_RECENT_CHANGES_TAB_PAGE_SELECTED=".//*[@class='xPagePreview']//*[text()='$title']";
+    public By ELEMENT_MY_RECENT_CHANGES_TAB_ADD_NEW_PAGE_BTN=By.xpath("//*[contains(@class,'xPagesRecent')]//*[contains(@class,'xNewPagePreview')]");
+    public By ELEMENT_SEARCH_TAB_ADD_NEW_PAGE_BTN=By.xpath("//*[contains(@class,'xPagesSearch')]//*[contains(@class,'xNewPagePreview')]");
+    public By ELEMENT_ALL_PAGES_TAB_ADD_NEW_PAGE_BTN=By.xpath("//*[contains(@class,'listTable')]//*[contains(text(),'New page')]");
+    public By ELEMENT_INPUT_NAME_NEW_WIKI_PAGE=By.xpath("//input[contains(@class,'gwt-TextBox')]");
+    public By ELEMENT_WIKI_PAGE_LINK_LINK_SETTING_BTN=By.xpath("//button[contains(text(),'Link Settings')]");
+    public String ELEMENT_CURRENT_TAB_ATTACHED_FILE_SELECTED="//*[contains(text(),'$file')]";
+    
+    //Web page link popup
+    public By ELEMENT_WEB_PAGE_WEB_ADDRESS=By.xpath("//input[@title='Web page address']");
+    
+    //Email link popup
+    public By ELEMENT_EMAIL_LINK_EMAIL_ADDRESS=By.xpath("//input[@title='Email address']");
+    
+    //Attached file link popup
+    public By ELEMENT_CURRENT_PAGE_TAB = By.xpath("//div[contains(text(), 'Current page')]");
+    public By ELEMENT_CURRENT_PAGE_TAB_UPLOAD_NEW_FILE_BTN=By.xpath("//*[contains(@class,'xNewFilePreview')]");
+    public final By ELEMENT_CURRENT_PAGE_TAB_UPLOAD_NAME = By.name("filepath");
+    public String ELEMENT_ALL_PAGE_SELECT_ATTACHEMENT_FILE_PAGE=".//*[@class='listTable']//*[contains(text(),'Attachments ($page)')]";
+    
+    
+    //Image link popup
+    public By ELEMENT_CURRENT_PAGE_TAB_UPLOAD_IMAGE_BTN=By.xpath("//*[contains(@class,'xNewImagePreview')]");
 	//Table
 	public By ELEMENT_TABLE_LINK = By.xpath("//*[text()='Table']");
 	public By ELEMENT_INSERT_TABLE_LINK = By.xpath("//*[text()='Insert Table...']");
