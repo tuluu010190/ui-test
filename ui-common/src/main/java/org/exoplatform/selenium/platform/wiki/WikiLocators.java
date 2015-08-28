@@ -13,6 +13,8 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_FROM_TEMPLATE_LINK = By.xpath ("//i[@class='uiIconAddPageFromTemplate']");
 	public final By ELEMENT_BLANK_PAGE_LINK = By.xpath ("//i[@class='uiIconAddPage']");
 	public final By ELEMENT_WIKI_PAGE_TITLE_RENAME_FIELD = By.xpath(".//*[@id='EdiableInput']");
+	public final String ELEMENT_INFOR_BAR_VERSION=".//*[@id='UIWikiPageInfoArea']//*[contains(@class,'label')]//*[@href][text()='$version']";
+	
 	
 	public final String ELEMENT_WIKI_HOME_PAGE_TITLE = "//*[@id='titleInfo' and text()='${title}']";
 
@@ -23,6 +25,15 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_BTN_OK = By.xpath("//*[text()='OK']");
 	public final By ELEMENT_UNWATCH_CONFIRM = By.xpath("//*[contains(text(),'You have stopped watching this page now.')]");
 	public final By ELEMENT_WIKI_HOME_LEFTBOX_WIKIHOME = By.xpath("//*[text()=' Wiki Home']");
+	
+	//Warning message
+	public final String ELEMENT_WARNING_MESSAGES="//*[contains(@class,'warningIcon')][contains(text(),'$mess')]";
+	public final By ELEMENT_WARNING_OK_BTN=By.xpath(".//*[@class='btn'][text()='OK']");
+	
+	//Confirm popup
+	public final By ELEMENT_CONFIRM_POPUP_CONFIRM_BTN=By.xpath(".//*[@id='UIPortalApplication']//button[text()='Confirm']");
+	public final By ELEMENT_CONFIRM_POPUP_CANCEL_BTN=By.xpath(".//*[@id='UIPortalApplication']//button[text()='Cancel']");
+	public final By ELEMENT_CONFIRM_POPUP_OK_BTN=By.xpath(".//*[@id='UIPortalApplication']//button[text()='OK']");
 	
 	//More menu
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(), 'More')]");
@@ -76,6 +87,9 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_PAGE_ATTACHFILE = By.xpath("//*[contains(.,'1')]//*[@class='uiIconAttach']");
 	public final By ELEMENT_PAGE_DOWNLOADATTACHFILE = By.xpath("//*[@data-original-title='Download Attachment']");
 	public final By ELEMENT_PAGE_DELETEATTACHFILE = By.xpath("//*[@class='uiIconDelete uiIconLightGray']");
+	public final By ELEMENT_PAGE_CONTENT_TABLE_MODE=By.xpath(".//*[@id='UIViewContentDisplay']/table");
+	public final String ELEMETN_PAGE_CONTENT_TABLE_COL_NUM="(.//*[@id='UIViewContentDisplay']/table//th)[$col]";
+	public final String ELEMETN_PAGE_CONTENT_TABLE_ROW_NUM="(.//*[@id='UIViewContentDisplay']/table//td)[$row]";
 	
 	public final By ELEMENT_SAVE_PERMISSION = By.xpath(".//*[@id='UIWikiPagePermissionForm']//*[contains(text(),'Save')]");
 	public final By ELEMENT_ADD_PERMISSION = By.xpath("//*[@id='uiWikiPermissionOwner']//*[contains(text(),'Add')]");
@@ -105,7 +119,8 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_PAGE_INFOR_RECENT_CHANES = ".//*[contains(text(),'v.1')]/../..//*[contains(text(),'John Smith')]";
 	public final String ELEMENT_PAGE_INFOR_HIERARCHY_CHILD_PAGES = ".//*[contains(text(),'Child Pages')]/..//*[contains(text(),'${child}')]";
 	public final String ELEMENT_TITLE_INFO = "//*[@id='titleInfo' and text()= '${title}']";
-	public final String ELMEENT_CONTENT_wiki_PAGE=".//*[@id='UIViewContentDisplay']//*[contains(text(),'$content')]";
+	public final String ELEMENT_CONTENT_WIKI_PAGE=".//*[@id='UIViewContentDisplay']//*[contains(text(),'$content')]";
+	public final By ELEMENT_CONTENT_WIKI_PAGE_EMPTY=By.xpath(".//*[@id='UIViewContentDisplay']//*[not(//p)]");
 	public final String ELEMENT_EMAIL_LINK_EMAIL_FORMAT=".//*[@id='UIViewContentDisplay']//*[contains(@href,'mailto:$email')]";
 	
 	//Source editor
@@ -351,4 +366,27 @@ public class WikiLocators extends PlatformBase{
 	//Macro: Color
 	public By ELEMENT_COLOR_TEXTBOX = By.id("pd-name-input");
 	public By ELEMENT_COLOR_MESSAGE = By.id("pd-content-input");
+	//*=============================================================SOURCE EDITOR==========================================================*\\
+	public final String ELEMENT_EFFECT_BOLD="//strong[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_BULLET_LIST="//ul/li[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_NUMBER_LIST="//ol/li[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_HEADING_1="//h1//*[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_HEADING_3="//h3//*[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_HEADING_5="//h5//*[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_ITALIC="//em[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_LINK="//*[contains(@href,'$content')]";
+	public final String ELEMENT_EFFECT_STRIKE="//del[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_UNDERLINE="//ins[contains(text(),'$content')]";
+	
+	
+	//*============================================================= WIKI PERMISSION =======================================================*\\
+	public final String ELEMENT_DELETE_PERMISSION = "//*[contains(text(),'$user')]/../..//*[contains(@class,'uiIconDelete')]";
+	public final String MSG_PERMISSION_SAVE = "The permission setting has been saved successfully.";
+	public final By ELEMENT_PERMISSION_TYPE_INPUT = By.id("PermissionOwner");
+	public final By ELEMENT_PERMISSION_ADD_BUTTON = By.xpath("//*[text()='Add']");
+	public final By ELEMENT_PERMISSION_SELECT_USER = By.xpath("//a[contains(@onclick, 'OpenSelectUserForm')]");
+	public final By ELEMENT_PERMISSION_SELECT_GROUP = By.className("uiIconGroup");
+	public final By ELEMENT_PERMISSION_SELECT_MEMBERSHIP = By.className("uiIconMembership");
+	public final String ELEMENT_PERMISSION_EDIT_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'EDITPAGE')]";
+	public final String ELEMENT_PERMISSION_VIEW_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'VIEWPAGE')]";
 }

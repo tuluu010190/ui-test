@@ -230,9 +230,17 @@ public class WikiManagement extends WikiLocators{
 	 */
 	public void verifyContentPage(String content){
 		info("Verify that the content page is added successfully");
-		waitForAndGetElement(ELMEENT_CONTENT_wiki_PAGE
+		waitForAndGetElement(ELEMENT_CONTENT_WIKI_PAGE
 				.replace("$content",content));
 		info("The content also is added successfully");
+	}
+	/**
+	 * The page's content is empty
+	 */
+	public void verifyEmptyContentPage(){
+		info("Verify that the content page is empty");
+		waitForAndGetElement(ELEMENT_CONTENT_WIKI_PAGE_EMPTY,2000,1,2);
+		info("the page's content is empty");
 	}
 	/**
 	 * Add a page with checking auto save after 30s
@@ -321,13 +329,22 @@ public class WikiManagement extends WikiLocators{
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		info("Wiki page simple is created successfully");
 	}
+	/**
+	 * Click on save add Page without verifying
+	 */
+	public void savePage(){
+		info("Save all changes");
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		Utils.pause(300);
+	}
 
 	/**
 	 * Cancel add page
 	 */
 	public void cancelAddPage(){
+		info("Click on Cancel button");
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
-		waitForElementNotPresent(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+		Utils.pause(2000);
 	}
 
 	/**

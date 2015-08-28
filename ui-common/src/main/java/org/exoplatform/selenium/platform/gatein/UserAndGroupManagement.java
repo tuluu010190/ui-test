@@ -1,14 +1,15 @@
 package org.exoplatform.selenium.platform.gatein;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import java.util.ArrayList;
+
 import junit.framework.Assert;
 
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.platform.PlatformBase;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.ManageAlert;
 
@@ -621,5 +622,16 @@ public class UserAndGroupManagement extends PlatformBase {
 		alert.acceptAlert();
 		waitForElementNotPresent(ELEMENT_USER_REMOVE_MEMBER_ICON.replace("${userName}",username));
 		info("User is removed from the group successfully");
+	}
+	/**
+	 * Delete many users at the same time
+	 * @param arrayUsers
+	 */
+	public void deleteAllUsers(ArrayList<String> arrayUsers){
+		for(int i=0;i<arrayUsers.size();i++){
+			info("Delete user:"+arrayUsers.get(i));
+			deleteUser(arrayUsers.get(i));
+			info("Delete user:"+arrayUsers.get(i)+" successfully");
+		}
 	}
 }

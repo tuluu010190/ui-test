@@ -74,6 +74,22 @@ public class PlatformBase extends TestBase {
 	//Email notification
 	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
 	public final String ELEMENT_GMAIL_CONTENT_LINK_WIKI = ".//a[contains(@href,'${page}')]";
+	
+	//User list popup
+	public final String ELEMENT_USER_CHECKBOX = "//*[text()='$user']/../..//*[@type='checkbox']";
+	public final By ELEMENT_SEARCH_USER_INPUT = By.xpath("//*[@name='Quick Search']");
+	public final By ELEMENT_QUICK_SEARCH_BUTTON = By.xpath("//a[@data-original-title='Quick Search']");
+	public final By ELEMENT_SELECT_SEARCH = By.name("filter");
+	public final By ELEMENT_ADD_USERS_BUTTON = By.xpath("//*[@id='UIUserSelector']//*[text()='Add']");
+	
+	//Membership popup
+	public final String ELEMENT_GROUP_MEMBERSHIP_NAME_SELECT=".//*[@id='UIGroupMembershipSelector']//*[contains(text(),'$groupName')]";
+    public final By ELEMENT_MEMBERSHIP_POPUP=By.xpath(".//*[@id='UIGroupMembershipSelector']");
+    
+    //Group popup
+    public final String ELEMENT_GROUP_NAME=".//*[@id='UIGroupSelector']//*[contains(text(),'$group')]";
+    public final By ELEMENT_SELECT_THIS_GROUP=By.xpath(".//*[@id='UIGroupSelector']//*[contains(text(),'Select this Group')]");
+    public final By ELEMENT_SELECT_GROUP_POPUP=By.xpath(".//*[@id='UIGroupSelector']");
 		
 	/**
 	 * Available option
@@ -408,5 +424,93 @@ public class PlatformBase extends TestBase {
 		}
 	}
 	
+	/**
+	 * Define filter user option
+	 */
+	public enum filterOption{
+		userName,firstName,lastName,email;
+	}
+	/**
+	 * Search users in user list popup
+	 * @param user
+	 * @param op
+	 */
+	public void searchUser(String user,filterOption op){
+		if(!user.isEmpty()){
+			info("Type user into the search field");
+			type(ELEMENT_SEARCH_USER_INPUT,user,true);
+			switch(op){
+			case userName:
+				select(ELEMENT_SELECT_SEARCH,filterOption.userName.name());
+				break;
+			case firstName:
+				select(ELEMENT_SELECT_SEARCH,filterOption.firstName.name());
+				break;
+			case lastName:
+				select(ELEMENT_SELECT_SEARCH,filterOption.lastName.name());
+				break;
+			case email:
+				select(ELEMENT_SELECT_SEARCH,filterOption.email.name());
+				break;
+			}
+			click(ELEMENT_QUICK_SEARCH_BUTTON);
+			waitForAndGetElement(ELEMENT_USER_CHECKBOX
+					.replace("$user",user));
+			info("the user is shown in searched result list");
+		}
+		
+	}
+	/**
+	 * Select a user in User list
+	 * @param user
+	 * @param op
+	 */
+	public void selectUser(String user,filterOption op){
+		searchUser(user,op);
+		info("Select the user");
+		check(ELEMENT_USER_CHECKBOX.replace("$user",user), 2);
+		info("Click on Add button");
+		click(ELEMENT_ADD_USERS_BUTTON);
+		waitForElementNotPresent(ELEMENT_ADD_USERS_BUTTON);
+		info("the user is added");
+	}
+	
+	
+	/**
+	 * Select a membership in the list
+	 * @param group
+	 * @param membership
+	 */
+    public void selectMembership(String group,String membership){
+		String[] groups = group.split("/");
+		for(String groupName:groups){
+			info("Select the group:"+groupName);
+			click(ELEMENT_GROUP_MEMBERSHIP_NAME_SELECT
+					.replace("$groupName",groupName));
+		}
+		if(!membership.isEmpty()){
+			info("Select the membership:"+membership);
+			click(ELEMENT_GROUP_MEMBERSHIP_NAME_SELECT
+					.replace("$groupName",membership));
+		}
+		waitForElementNotPresent(ELEMENT_MEMBERSHIP_POPUP);
+	}
+    
+   
+    /**
+     * Select a group
+     * @param group
+     */
+    public void selectGroup(String group){
+    	String[] groups = group.split("/");
+		for(String groupName:groups){
+			info("Select the group:"+groupName);
+			click(ELEMENT_GROUP_NAME
+					.replace("$group",groupName));
+		}
+		info("Select the group");
+		click(ELEMENT_SELECT_THIS_GROUP);
+		waitForElementNotPresent(ELEMENT_SELECT_GROUP_POPUP);
+    }
 	
 }

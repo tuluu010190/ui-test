@@ -17,7 +17,8 @@ import org.exoplatform.selenium.platform.objectdatabase.common.DataTestPathDatab
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.wiki.ImageLinksDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadThreeColDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadTwoColDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -25,6 +26,7 @@ import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
+import org.exoplatform.selenium.platform.wiki.WikiPermission;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -39,6 +41,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
 	WikiDraftPage wDraf;
+	WikiPermission wPerm;
 	
 	SpaceHomePage spaHome;
 	SpaceManagement spaMg;
@@ -51,11 +54,16 @@ public class WIKI_TestConfig extends PlatformBase {
 	UserProfilePage userProPage;
 	ConnectionsManagement connMag;
 	ActivityCommentDatabase actCommentData;
-	ImageLinksDatabase imgLinkData;
+	ReadTwoColDatabase imgLinkData;
+	ReadTwoColDatabase wikiWarningData;
+	ReadThreeColDatabase permisGroups;
+	ReadTwoColDatabase permisMem;
+	ReadThreeColDatabase sourceTextEffect;
 	
 	AttachmentFileDatabase attFileData;
 	DataTestPathDatabase dataTestForlderPath;
 	ArrayList<String> arrayPage;
+	ArrayList<String> arrayUsers;
 	
 	
 	@BeforeMethod
@@ -78,6 +86,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		wHome=new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);
 		wDraf = new WikiDraftPage(driver);
+		wPerm = new WikiPermission(driver);
 		
 		spaHome = new SpaceHomePage(driver);
 		spaMg = new SpaceManagement(driver);
@@ -92,10 +101,24 @@ public class WIKI_TestConfig extends PlatformBase {
 		attFileData = new AttachmentFileDatabase();
 		attFileData.setAttachFileData(attachmentFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
-		imgLinkData = new ImageLinksDatabase();
+		imgLinkData = new ReadTwoColDatabase();
 		imgLinkData.setData(imageLinksFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		wikiWarningData = new ReadTwoColDatabase();
+		wikiWarningData.setData(wikiWarningsFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		permisGroups = new ReadThreeColDatabase();
+		permisGroups.setData(permisGroupFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		
+		permisMem = new ReadTwoColDatabase();
+		permisMem.setData(permisMemFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		sourceTextEffect = new ReadThreeColDatabase();
+		sourceTextEffect.setData(sourceTextEffectFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
 		arrayPage  = new ArrayList<String>();
+		arrayUsers = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -105,6 +128,17 @@ public class WIKI_TestConfig extends PlatformBase {
 	@AfterMethod
 	public void afterMethod(){
 		info("Start afterMethod");
+		deleteAllUsers();
+		deleteAllWikiPages();
+		driver.manage().deleteAllCookies();
+		driver.quit();
+		info("End afterMethod");
+	}
+	
+	/**
+	 * Delete all wiki pages that are created in testing proccess
+	 */
+	public void deleteAllWikiPages(){
 		if(arrayPage.size()>0){
 			for(String title:arrayPage){
 				info("Delete the page:"+title);
@@ -113,9 +147,17 @@ public class WIKI_TestConfig extends PlatformBase {
 				wHome.deleteWiki(title);
 			}
 		}
-		driver.manage().deleteAllCookies();
-		driver.quit();
-		info("End afterMethod");
+	}
+	/**
+	 * Delete all users that are created in testing process
+	 */
+	public void deleteAllUsers(){
+		if(arrayUsers.size()>0){
+			magAc.signOut();
+			magAc.signIn(DATA_USER1,DATA_PASS);
+			navTool.goToUsersAndGroupsManagement();
+			userAndGroup.deleteAllUsers(arrayUsers);
+		}
 	}
 	
 }

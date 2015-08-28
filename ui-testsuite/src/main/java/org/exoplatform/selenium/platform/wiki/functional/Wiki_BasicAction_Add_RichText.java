@@ -660,7 +660,7 @@ import org.testng.annotations.*;
 		info("Create a wiki page");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String linkImage = imgLinkData.getLinksByArrayTypeRandom(1);
+		String linkImage = imgLinkData.getDataContentByArrayTypeRandom(1);
 		String altText=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String width="200";
 		String height="200";

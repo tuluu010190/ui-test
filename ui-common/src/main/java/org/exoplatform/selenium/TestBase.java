@@ -171,6 +171,13 @@ public class TestBase {
 	protected String wikiTemplateFilePath;
 	protected String wikiMessageFilePath;
 	protected String wikiRichTextFilePath;
+	protected String wikiWarningsFilePath;
+	protected String sourceTextEffectFilePath;
+	
+	//Permission
+	protected String permisGroupFilePath;
+	protected String permisMemFilePath;
+	
 
 	protected static String ssoType;
 
@@ -277,6 +284,12 @@ public class TestBase {
 	
 	//Wiki
 	public final String DEFAULT_WIKI_IMAGE_LINKS_FILE_URL="DataDriven/"+"wiki_image_links.xls";
+	public final String DEFAULT_WIKI_WARNING_FILE_URL="DataDriven/"+"wiki_warnings.xls";
+	public final String DEFAULT_SOURCE_TEXT_EFFECT ="DataDriven/"+"wiki_sourceEditor_effects.xls";
+	
+	//Permission
+	public final String DEFAULT_PERMISSION_GROUP_FILE_URL="DataDriven/"+"permission_groups.xls";
+	public final String DEFAULT_PERMISSION_MEMBERSHIP_FILE_URL="DataDriven/"+"permission_memberships.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -417,6 +430,12 @@ public class TestBase {
 		
 		//Wiki
 		imageLinksFilePath = System.getProperty("imageLinksFilePath");
+		wikiWarningsFilePath= System.getProperty("wikiWarningsFilePath");
+		sourceTextEffectFilePath = System.getProperty("sourceTextEffectFilePath");
+		
+		//Permission
+		permisGroupFilePath = System.getProperty("permisGroupFilePath");
+		permisMemFilePath = System.getProperty("permisMemFilePath");
 
 
 		if (ssoType==null) ssoType = DEFAULT_SSOTYPE;
@@ -516,6 +535,12 @@ public class TestBase {
 		
 		//Wiki
 		if (imageLinksFilePath==null) imageLinksFilePath=DEFAULT_WIKI_IMAGE_LINKS_FILE_URL;
+		if (wikiWarningsFilePath==null) wikiWarningsFilePath=DEFAULT_WIKI_WARNING_FILE_URL;
+		if (sourceTextEffectFilePath==null) sourceTextEffectFilePath=DEFAULT_SOURCE_TEXT_EFFECT;
+		
+		//Permission
+		if (permisGroupFilePath==null) permisGroupFilePath=DEFAULT_PERMISSION_GROUP_FILE_URL;
+		if (permisMemFilePath==null) permisMemFilePath=DEFAULT_PERMISSION_MEMBERSHIP_FILE_URL;
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -593,6 +618,12 @@ public class TestBase {
 		
 		//wIKI
 		imageLinksFilePath = getAbsoluteFilePath(imageLinksFilePath);
+		wikiWarningsFilePath = getAbsoluteFilePath(wikiWarningsFilePath);
+		sourceTextEffectFilePath = getAbsoluteFilePath(sourceTextEffectFilePath);
+		
+		//Permission
+		permisGroupFilePath = getAbsoluteFilePath(permisGroupFilePath);
+		permisMemFilePath = getAbsoluteFilePath(permisMemFilePath);
 	}
 
 	/**

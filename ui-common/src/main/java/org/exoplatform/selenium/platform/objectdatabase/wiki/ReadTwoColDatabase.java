@@ -6,26 +6,27 @@ import java.util.Random;
 
 import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
 
-public class ImageLinksDatabase {
+public class ReadTwoColDatabase {
 	public ArrayList<Integer> type;
-	public ArrayList<String> links;
+	public ArrayList<String> Content;
 
 	/**
 	 * ImageLinkDatabase
 	 * @param type
-	 * @param links
+	 * @param Content
 	 */
-	public ImageLinksDatabase(ArrayList<Integer> type, ArrayList<String> links){
+	public ReadTwoColDatabase(ArrayList<Integer> type, 
+			ArrayList<String> Content){
 		this.type = type;
-		this.links = links;
+		this.Content = Content;
 	}
 
 	/**
 	 * Create array
 	 */
-	public ImageLinksDatabase(){
+	public ReadTwoColDatabase(){
 		type  = new ArrayList<Integer>();
-		links  = new ArrayList<String>();
+		Content  = new ArrayList<String>();
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class ImageLinksDatabase {
 		for(int i = 0; i<testData.length; i++)
 		{	
 			type.add(Integer.valueOf(testData[i][0]));
-			links.add(testData[i][1]);
+			Content.add(testData[i][1]);
 		}
 	}
 
@@ -50,24 +51,24 @@ public class ImageLinksDatabase {
 	 * Get link by random
 	 * @return linkFile
 	 */
-	public String getLinksRandom(){
+	public String getDataContentRandom(){
 		Random randomGenerator = new Random();
-		int index = randomGenerator.nextInt(this.links.size());
-		String linkFile = this.links.get(index);
+		int index = randomGenerator.nextInt(this.Content.size());
+		String linkFile = this.Content.get(index);
 		return linkFile;
 	}
 
 	/**
-	 * Get links by type
+	 * Get Content by type
 	 * @param type
 	 * @return array
 	 */
-	public ArrayList<String> getLinksByType(int type){
+	public ArrayList<String> getDataContentByType(int type){
 		ArrayList<String> array = new ArrayList<String>();
 		for(int i = 0; i<this.type.size(); i++)
 		{	
 			if(this.type.get(i) == type) {
-				array.add(this.links.get(i));
+				array.add(this.Content.get(i));
 			}
 		}
 		return array;
@@ -78,33 +79,34 @@ public class ImageLinksDatabase {
 	 * @param type
 	 * @return
 	 */
-	public ArrayList<String> getLinksByArrayType(int...type){
+	public ArrayList<String> getDataContentByArrayType(int...type){
 		ArrayList<String> array = new ArrayList<String>();
 		for (int j = 0; j<type.length; j++){
 			for(int i = 0; i<this.type.size(); i++)
 			{	
 				if(this.type.get(i) == type[j]) {
-					array.add(this.links.get(i));
+					array.add(this.Content.get(i));
 				}
 			}
 		}
 		return array;
 	}
 
-	public String getLinksByArrayTypeRandom(int...type){
+	public String getDataContentByArrayTypeRandom(int...type){
 		ArrayList<String> array = new ArrayList<String>();
 		Random randomGenerator = new Random();
 		for (int j = 0; j<type.length; j++){
 			for(int i = 0; i<this.type.size(); i++)
 			{	
 				if(this.type.get(i) == type[j]) {
-					array.add(this.links.get(i));
+					array.add(this.Content.get(i));
 				}
 			}
 		}
 		int index = randomGenerator.nextInt(array.size());
-		String links = array.get(index);
-		info("links is: "+links);
-		return links;
+		String Content = array.get(index);
+		info("Content is: "+Content);
+		return Content;
 	}
+	
 }

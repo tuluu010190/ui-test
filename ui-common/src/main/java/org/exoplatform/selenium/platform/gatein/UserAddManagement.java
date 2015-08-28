@@ -10,6 +10,8 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.ArrayList;
+
 public class UserAddManagement extends PlatformBase {
 	
 	UserAndGroupManagement userAndGroupManage;
@@ -73,9 +75,28 @@ public class UserAddManagement extends PlatformBase {
 		click(ELEMENT_SAVE_ADD_USER);
 		Utils.pause(2500);
 		waitForMessage(ELEMENT_MSG_CREATE_ACCOUNT);
-		//dialog.closeMessageDialog();
 		click(ELEMENT_CLOSE_MESSAGE);
 		info("Finish adding an user");
+	}
+	/**
+	 * Add many users at the same time
+	 * @param number
+	 *              is the number of user that wants to create
+	 * @param password
+	 * @return array
+	 */
+	public  ArrayList<String> addUsers(int number,String password){
+		ArrayList<String> array = new ArrayList<String>();
+		for(int i=0;i<number;i++){
+			info("Add new a user");
+			String user=getRandomString();
+			String email=user+"@gmail.com";
+			addUser(user,password, email,user,user);
+			info("Add users to user's array");
+			array.add(user);
+			info("User"+i+": "+user);
+		}
+		return  array;
 	}
 
 	
