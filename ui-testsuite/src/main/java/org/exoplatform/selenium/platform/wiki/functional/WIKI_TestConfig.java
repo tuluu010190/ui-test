@@ -140,6 +140,8 @@ public class WIKI_TestConfig extends PlatformBase {
 	 */
 	public void deleteAllWikiPages(){
 		if(arrayPage.size()>0){
+			magAc.signOut();
+			magAc.signIn(DATA_USER1,DATA_PASS);
 			for(String title:arrayPage){
 				info("Delete the page:"+title);
 				driver.get(baseUrl);

@@ -26,20 +26,21 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_UNWATCH_CONFIRM = By.xpath("//*[contains(text(),'You have stopped watching this page now.')]");
 	public final By ELEMENT_WIKI_HOME_LEFTBOX_WIKIHOME = By.xpath("//*[text()=' Wiki Home']");
 	
-	//Warning message
-	public final String ELEMENT_WARNING_MESSAGES="//*[contains(@class,'warningIcon')][contains(text(),'$mess')]";
+	//Confirm message
+	public final String ELEMENT_MESSAGES_TEXT="//*[contains(text(),'$mess')]";
 	public final By ELEMENT_WARNING_OK_BTN=By.xpath(".//*[@class='btn'][text()='OK']");
-	
-	//Confirm popup
-	public final By ELEMENT_CONFIRM_POPUP_CONFIRM_BTN=By.xpath(".//*[@id='UIPortalApplication']//button[text()='Confirm']");
-	public final By ELEMENT_CONFIRM_POPUP_CANCEL_BTN=By.xpath(".//*[@id='UIPortalApplication']//button[text()='Cancel']");
-	public final By ELEMENT_CONFIRM_POPUP_OK_BTN=By.xpath(".//*[@id='UIPortalApplication']//button[text()='OK']");
+	public final By ELEMENT_CONFIRM_POPUP_CONFIRM_BTN=By.xpath("//button[text()='Confirm']");
+	public final By ELEMENT_CONFIRM_POPUP_CANCEL_BTN=By.xpath("//button[text()='Cancel']");
+	public final By ELEMENT_CONFIRM_POPUP_OK_BTN=By.xpath("//button[text()='OK']");
+	public final By ELEMENT_CONFIRM_POPUP_YES_BTN=By.xpath("//button[text()='Yes']");
+	public final By ELEMENT_CONFIRM_POPUP_NO_BTN=By.xpath("//button[text()='No']");
 	
 	//More menu
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(), 'More')]");
 	public final By ELEMENT_DELETE_LINK = By.xpath(".//*[text()='Delete Page']");
 	public final By ELEMENT_DELETE_LINK_2 = By.className("uiIconDeletePage");
 	public final By ELEMENT_CONFIRM_WIKI_DELETE = By.xpath(".//*[@id='UIWikiDeletePageConfirm']//button[text()='OK']");
+	public final By ELEMENT_CANCEL_WIKI_DELETE = By.xpath(".//*[@id='UIWikiDeletePageConfirm']//button[text()='Cancel']");
 	public final By ELEMENT_MOVE_PAGE = By.xpath(".//*[text()='Move Page']");
 	public final By ELEMENT_PAGE_INFO = By.xpath(".//*[text()='Page Info']");
 	public final By ELEMENT_MOVE_LINK = By.xpath("//*[@class='uiIconMovePage']");
@@ -261,7 +262,10 @@ public class WikiLocators extends PlatformBase{
 	public final By EMENENT_LEAVE_PLANING_LAYOUT = By.xpath("//*[contains(text(), 'The Confluence team uses tables to communicate scheduled leave times')]"); 
     public final String ELEMENT_INSERTED_IMAGE_SIZE=".//*[@id='UIViewContentDisplay']//*[contains(@width,'$width')][contains(@height,'$height')]";
     public final String ELEMENT_INSERTED_IMAGE_ALT_TEXT=".//*[@id='UIViewContentDisplay']//*[contains(@alt,'$alt')]";
-	//Macro
+    public final String ELEMENT_CHECK_IMAGE = "//img[contains(@alt, '${file}')]";
+    public final String ELEMENT_CHECK_ATTACHED_FILE_LINK=".//*[contains(@href,'$file')]";
+    
+    //Macro
 	public By ELEMENT_MACRO_LINK = By.xpath("//*[text()='Macro']");
 	public By ELEMENT_INSERT_MACRO_LINK = By.xpath("//*[text()='Insert Macro...']");
 	public By ELEMENT_MACRO_CATEGORY_SELECT = By.xpath("//select[@title='Select a macro category']");
@@ -288,6 +292,7 @@ public class WikiLocators extends PlatformBase{
 	public By ELEMENT_WIKI_PAGE_LINK_MENU = By.xpath("//*[text()='Wiki Page...']");
 	public By ELEMENT_WEB_PAGE_LINK_MENU = By.xpath("//*[text()='Web Page...']");
 	public By ELEMENT_ATTACHED_FILE_LINK_MENU = By.xpath("//*[text()='Attached File...']");
+	public By ELEMENT_REMOVE_LINK_MENU = By.xpath("//*[text()='Remove Link']");
 	public By ELEMENT_EMAIL_LINK_MENU = By.xpath("//*[text()='Email Address...']");
 	public By ELEMENT_EDIT_LINK_MENU = By.xpath("//*[text()='Edit Link...']");
 	
@@ -296,6 +301,7 @@ public class WikiLocators extends PlatformBase{
 	public By ELEMENT_ATTACHED_IMAGE_LINK_MENU = By.xpath("//*[text()='Attached Image...']");
 	public By ELEMENT_EXTERNAL_IMAGE_LINK_MENU = By.xpath("//*[text()='External Image...']");
 	public By ELEMENT_EDIT_IMAGE_LINK_MENU = By.xpath("//*[text()='Edit Image...']");
+	public By ELEMENT_REMOVE_IMAGE_LINK_MENU = By.xpath("//*[text()='Remove Image']");
 	public By ELEMENT_IMAGE_MENU_INSERT_IMAGE_BTN=By.xpath("//*[text()='Insert Image']");
 	public By ELEMENT_IMAGE_MENU_IMAGE_SETTINGS_BTN=By.xpath("//*[text()='Image Settings']");
 	

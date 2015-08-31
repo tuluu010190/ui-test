@@ -92,6 +92,27 @@ public class WikiHomePage extends WikiLocators{
 			waitForElementNotPresent(ELEMENT_TREE_WIKI_NAME.replace("${name}",title));
 		}
 	}
+	
+	/**
+	 * Select any page
+	 * @param title
+	 */
+	public void cancelDeleteWiki(String title){
+		if(waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",title),3000,0)!=null){
+			info("Go to delete wiki page...");
+			info("Select the wiki page to delete");
+			selectAPage(title);
+			info("Click on More link");
+			click(ELEMENT_MORE_LINK);
+			if (waitForAndGetElement(ELEMENT_DELETE_LINK, 5000, 0) == null){
+				mouseOverAndClick(ELEMENT_DELETE_LINK);
+			}else {
+				click(ELEMENT_DELETE_LINK);
+			}
+			waitForAndGetElement(ELEMENT_CANCEL_WIKI_DELETE,2000,0).click();
+			waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",title));
+		}
+	}
 	/**
 	 * Select a page
 	 * @param page
@@ -180,11 +201,23 @@ public class WikiHomePage extends WikiLocators{
 	 */
 	public void verifyWarningMessage(String mess){
 		info("Verify that the warning message is shown");
-		waitForAndGetElement(ELEMENT_WARNING_MESSAGES
+		waitForAndGetElement(ELEMENT_MESSAGES_TEXT
 				.replace("$mess",mess));
 		info("Close the warning popup");
 		click(ELEMENT_WARNING_OK_BTN);
 		waitForElementNotPresent(ELEMENT_WARNING_OK_BTN);
+	}
+	/**
+	 * Verify Confirmation message
+	 * @param mess
+	 * @param isConfirm
+	 */
+	public void verifyConfirmationMess(String mess,Boolean isConfirm){
+		info("Verify that the warning message is shown");
+		waitForAndGetElement(ELEMENT_MESSAGES_TEXT
+				.replace("$mess",mess));
+		confirmWaringMessage(isConfirm);
+		Utils.pause(2000);
 	}
 	/**
 	 * Confirm messages
@@ -197,13 +230,30 @@ public class WikiHomePage extends WikiLocators{
 			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK_BTN,2000,0)!=null){
 				info("Click on OK button");
 				click(ELEMENT_CONFIRM_POPUP_OK_BTN);
-			}else{
+			}
+			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_CONFIRM_BTN,2000,0)!=null){
 				info("Click on Confirm button");
 				click(ELEMENT_CONFIRM_POPUP_CONFIRM_BTN);
 			}
+			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_YES_BTN,2000,0)!=null){
+				info("Click on Yes button");
+				click(ELEMENT_CONFIRM_POPUP_YES_BTN);
+			}
+			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_YES_BTN,2000,0)!=null){
+				info("Click on Yes button");
+				click(ELEMENT_CONFIRM_POPUP_YES_BTN);
+			}
 		}else{
-			info("Click on Cancel button");
-			click(ELEMENT_CONFIRM_POPUP_CANCEL_BTN);
+			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_CANCEL_BTN,2000,0)!=null){
+				info("Click on Cancel button");
+				click(ELEMENT_CONFIRM_POPUP_CANCEL_BTN);
+			}
+			
+			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_NO_BTN,2000,0)!=null){
+				info("Click on No button");
+				click(ELEMENT_CONFIRM_POPUP_NO_BTN);
+			}
+			
 		}
 	}
 	/**

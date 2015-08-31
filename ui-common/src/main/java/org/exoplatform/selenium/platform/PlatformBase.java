@@ -152,6 +152,16 @@ public class PlatformBase extends TestBase {
 		switchToParentWindow();
 	}
 	
+	public void switchFrame(By frameLocator){
+		info("Finding the frameLocator:"+frameLocator);
+		WebElement e = waitForAndGetElement(frameLocator,DEFAULT_TIMEOUT,1,2);
+		info("Switch to the frame:"+frameLocator);
+		driver.switchTo().frame(e);
+		WebElement inputsummary = driver.switchTo().activeElement();
+		info("focus on the text area");
+		inputsummary.click();
+	}
+	
 	/**
 	 * Select option from combo box
 	 * @param locator

@@ -1081,7 +1081,7 @@ public class WikiManagement extends WikiLocators{
 	 * @param tab
 	 */
 	public void insertNewWikiPageLink(String page, 
-			String label, String tooltip,wikiPageLinkTab tab){
+			String label, String tooltip,wikiPageLinkTab tab,Boolean isPressEndKey){
 		info("Open Wiki Page link popup");
 		goToWikiPageLink();
 		switch(tab){
@@ -1112,8 +1112,10 @@ public class WikiManagement extends WikiLocators{
 		inputToolTip(tooltip);
 		info("Click on Create link button");
 		createLink();
-		info("Move focus at the end of the line");
-		pressEndKey(this.driver);
+		if(isPressEndKey){
+			info("Move focus at the end of the line");
+			pressEndKey(this.driver);
+		}
 		info("Verify that the wiki page link is inserted");
 		verifyInsertedWikipageLink(label, tooltip);
 	}
@@ -1187,7 +1189,7 @@ public class WikiManagement extends WikiLocators{
 	 * @param label
 	 * @param tooltip
 	 */
-	public void insertWebLink(String address,String label,String tooltip){
+	public void insertWebLink(String address,String label,String tooltip,Boolean isPressEndKey){
 		info("Go to Web page Link");
 		goToWebPageLink();
 		info("Input web address for the page");
@@ -1198,8 +1200,10 @@ public class WikiManagement extends WikiLocators{
 		inputToolTip(tooltip);
 		info("Click on Create link button");
 		createLink();
-		info("Move focus at the end of the line");
-		pressEndKey(this.driver);
+		if(isPressEndKey){
+			info("Move focus at the end of the line");
+			pressEndKey(this.driver);
+		}
 		info("Verify that the wiki page link is inserted");
 		verifyInsertedWikipageLink(label, tooltip);
 	}
@@ -1230,7 +1234,7 @@ public class WikiManagement extends WikiLocators{
 	 * @param label
 	 * @param tooltip
 	 */
-	public void insertEmailLink(String address,String label,String tooltip){
+	public void insertEmailLink(String address,String label,String tooltip,Boolean isPressEndKey){
 		info("Go to Email Link");
 		goToEmailLink();
 		info("Input Email for the page");
@@ -1241,8 +1245,10 @@ public class WikiManagement extends WikiLocators{
 		inputToolTip(tooltip);
 		info("Click on Create link button");
 		createLink();
-		info("Move focus at the end of the line");
-		pressEndKey(this.driver);
+		if(isPressEndKey){
+			info("Move focus at the end of the line");
+			pressEndKey(this.driver);
+		}
 		info("Verify that the wiki page link is inserted");
 		verifyInsertedWikipageLink(label, tooltip);
 	}
@@ -1358,7 +1364,7 @@ public class WikiManagement extends WikiLocators{
 	 * @param tooltip
 	 * @param tab
 	 */
-	public void insertAttachedFileLink(String attachedFile){
+	public void insertAttachedFileLink(String attachedFile,Boolean isPreEndKey){
 		String[] fileNames = attachedFile.split("/");
 		info("Go to Attached file Link");
 		goToAttachedFileLink();
@@ -1366,8 +1372,10 @@ public class WikiManagement extends WikiLocators{
 		uploadAttachedFile(attachedFile);
 		info("Click on Create link button");
 		createLink();
-		info("Move focus at the end of the line");
-		pressEndKey(this.driver);
+		if(isPreEndKey){
+			info("Move focus at the end of the line");
+			pressEndKey(this.driver);
+		}
 		info("Verify that the wiki page link is inserted");
 		verifyInsertedWikipageLink(fileNames[1],"");
 	}
@@ -1405,7 +1413,7 @@ public class WikiManagement extends WikiLocators{
 	 * Insert an image into the content of the page
 	 * @param attachedFile
 	 */
-	public void insertImage(String attachedFile){
+	public void insertImage(String attachedFile,Boolean isPressEndKey){
 		info("Go to Attached file Link");
 		goToAttachedImageLink();
 		info("Open Current page tab");
@@ -1414,9 +1422,12 @@ public class WikiManagement extends WikiLocators{
 		uploadImageFile(attachedFile);
 		info("Click on Insert Image button");
 		clickInsertImageBtn();
-		info("Move focus at the end of the line");
-		pressEndKey(this.driver);
+		if(isPressEndKey){
+			info("Move focus at the end of the line");
+			pressEndKey(this.driver);
+		}
 	}
+	
 	/**
 	 * Click on Image Settings button on Attached Image link popup
 	 */
@@ -1503,6 +1514,16 @@ public class WikiManagement extends WikiLocators{
 		mouseOverAndClick(ELEMENT_EDIT_IMAGE_LINK_MENU);
 		Utils.pause(500);
 	}
+	/**
+	 * Remove an image
+	 */
+	public void goToRemoveImageLink(){
+		info("Click on Link menu");
+		mouseOverAndClick(ELEMENT_IMAGE_LINK);
+		info("Click on Edit image Link menu");
+		mouseOverAndClick(ELEMENT_REMOVE_IMAGE_LINK_MENU);
+		Utils.pause(500);
+	}
 	
 	public enum alignType{
 		None,Left,Center,Right,Top,Middle,Bottom;
@@ -1533,6 +1554,50 @@ public class WikiManagement extends WikiLocators{
 			type(ELEMENT_IMAGE_ALTERNATIVE_TEXT,altText,true);
 		}
 	}
+	
+	/**
+	 * Remove a link in wiki page
+	 * @param content
+	 */
+	public void removeLink(String content){
+		info("Click on link");
+		mouseOverAndClick(ELEMENT_LINK);
+		info("Click on Remove link");
+		mouseOverAndClick(ELEMENT_REMOVE_LINK_MENU);
+		info("Switch to the frame");
+		driver.switchTo().frame(waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME));
+		info("Verify that the link is removed");
+		waitForElementNotPresent(By.linkText(content));
+		info("Switch to the parent");
+		switchToParentWindow();
+		Utils.pause(500);
+		info("click on link again");
+		mouseOverAndClick(ELEMENT_LINK);
+		info("Verify that Remove link is not shown");
+		waitForElementNotPresent(ELEMENT_REMOVE_LINK_MENU);
+	}
+	/**
+	 * Delete an image in wiki page
+	 * @param content
+	 */
+	public void removeImage(String content){
+		info("Click on Image link");
+		mouseOverAndClick(ELEMENT_IMAGE_LINK);
+		info("Click on Remove Image link");
+		mouseOverAndClick(ELEMENT_REMOVE_IMAGE_LINK_MENU);
+		info("Switch to the frame");
+		driver.switchTo().frame(waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME));
+		info("Verify that the image is removed");
+		waitForElementNotPresent(ELEMENT_CHECK_IMAGE.replace("${file}",content));
+		info("Switch to the parent");
+		switchToParentWindow();
+		Utils.pause(500);
+		info("click on Image link again");
+		mouseOverAndClick(ELEMENT_IMAGE_LINK);
+		info("Verify that Remove Image link is not shown");
+		waitForElementNotPresent(ELEMENT_REMOVE_IMAGE_LINK_MENU);
+	}
+	
 	/**
 	 * Open Edit link popup
 	 */
