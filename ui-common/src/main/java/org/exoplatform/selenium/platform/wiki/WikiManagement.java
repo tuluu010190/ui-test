@@ -522,4 +522,19 @@ public class WikiManagement extends WikiLocators{
 		info("Save all changes");
 		saveAddPage();
 	}
+	
+	/**
+	 * Preview a simple page
+	 * @param title
+	 * @param content
+	 */
+	public void PreviewASimplePage(String title, String content){
+		info("Preview a simple page");
+		goToPreviewPage();
+		waitForAndGetElement(ELEMENT_PREVIEW_TEMPLATE_CONTENT
+				.replace("${template}", title), DEFAULT_TIMEOUT, 1);
+		waitForAndGetElement(ELEMENT_PREVIEW_PAGE_CONTENT
+				.replace("${content}", content), DEFAULT_TIMEOUT, 1);
+	}
+
 }

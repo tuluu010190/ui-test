@@ -3,11 +3,15 @@ package org.exoplatform.selenium.platform.wiki;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Dialog;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.WebDriver;
 
 public class WikiHomePage extends WikiLocators{
 	Dialog dialog;
+
+	ManageAlert alert;
+	
 	/**
 	 * constructor
 	 * @param dr
@@ -15,6 +19,7 @@ public class WikiHomePage extends WikiLocators{
 	public WikiHomePage(WebDriver dr){
 		this.driver=dr;
 		dialog = new Dialog(dr);
+		alert = new ManageAlert(driver, this.plfVersion);
 	}
 	/**
 	 * Go to "Add blank wiki page"
@@ -127,6 +132,7 @@ public class WikiHomePage extends WikiLocators{
 		click(ELEMENT_SEARCH_BROWSERS_DROPDOWN);
 		info("Select wiki settings label");
 		click(ELEMENT_SEARCH_BROWSERS_MY_DRAFT);
+		waitForAndGetElement(ELEMENT_DRAFT_PAGE_TITLE);
 		Utils.pause(2000);
 	}
 	/**

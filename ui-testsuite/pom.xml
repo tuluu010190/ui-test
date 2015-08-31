@@ -89,6 +89,7 @@
 			</properties>
 		</profile>
 		<profile>
+<<<<<<< HEAD
 			<id>wiki-func-1</id>
 			<properties>
 				<testSuite>wiki-func-part1.xml</testSuite>
@@ -98,6 +99,11 @@
 			<id>wiki-func-2</id>
 			<properties>
 				<testSuite>wiki-func-part2.xml</testSuite>
+=======
+			<id>wiki-func</id>
+			<properties>
+				<testSuite>wiki-func.xml</testSuite>
+>>>>>>> FQA-2633: Write High Func/Wiki/Basic Action/Add(Draff, Others and Template)
 			</properties>
 		</profile>
 		<profile>

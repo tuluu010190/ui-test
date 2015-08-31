@@ -850,4 +850,23 @@ public class WikiValidattions extends WikiLocators{
 	   waitForAndGetElement(ELEMENT_PAGE_HISTORY_VERSION
 			   .replace("$version",version));
    }
+
+/**
+ * Verify that Draft exists n Draft list or not
+ * @param title
+ * @param exist
+ */
+public void verifyDraftExistsInDraftListOrNot(String title, boolean exist){
+	info("Verify that Draft exists in Draft list or Not");
+	if(exist){
+		waitForAndGetElement(ELEMENT_DRAFT_OF_NEW_PAGE
+				.replace("${title}",title));
+		info("Draft exists in Draft list");
+	} else{
+		waitForElementNotPresent(ELEMENT_DRAFT_OF_NEW_PAGE
+				.replace("${title}",title));
+		info("Draft does not exist in Draft list");
+	}
+		
+}
 }

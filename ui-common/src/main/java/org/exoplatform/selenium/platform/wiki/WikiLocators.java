@@ -201,9 +201,10 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_TEMPLATE_CANCEL_BTN = By.xpath(".//*[@id='UIWikiSelectTemplateForm']//*[text()='Cancel']");
 	//Preview page
 	public final String ELEMENT_PREVIEW_TEMPLATE_CONTENT = "//*[@class='uiWikiPageTitlePreview' and contains(text(), '${template}')]";
+	public final String ELEMENT_PREVIEW_PAGE_CONTENT = ".//*[@id='UIPreviewContentDisplay']//*[contains(text(),'${content}')]";
 	public By ELEMENT_CLOSE_PREVIEW_WINDOW=By.xpath("//div[text()='Preview']/..//*[contains(@class,'uiIconClose')]");
 	public By ELEMENT_TEMPLATE_PREVIEW_PAGE_CLOSE_BTN = By.xpath(".//*[@id='UIWikiMaskWorkspace']//*[@class='uiIconClose uiIconLightGray']");
-
+	
 	//comment field
 	public final By ELEMENT_WIKI_PAGE_INPUT_COMMENT = By.id("Comment");
 
@@ -325,6 +326,8 @@ public class WikiLocators extends PlatformBase{
 	
 	//*==============================================================WIKI DRAFF PAGE===================================================================*\\
 	//Manage Draft screen
+	public String ELEMENT_DRAFT_PAGE_TITLE = ".//*[@id='UIWikiMyDraftsForm']//*[@class='titleInfo' and contains(text(),'My drafts')]";
+	public String ELEMENT_DELETE_DRAFT_MESSAGE = "Are you sure you want to delete this draft?";
 	public String ELEMENT_DRAFT_OF_NEW_PAGE = "//*[@id='UIWikiDraftGrid']//*[contains(text(),'${title}')]";
 	public String ELEMENT_DELETE_DRAFT = ".//*[@id='UIWikiDraftGrid']//*[contains(text(),'${title}')]/../../..//*[@class='uiIconDeleteDraft uiIconLightGray']";
 	public String ELEMENT_DRAFT_OF_EDIT_PAGE = "//*[@id='UIWikiDraftGrid']//*[text()='${title}']";

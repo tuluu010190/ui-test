@@ -20,6 +20,7 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionD
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadThreeColDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadTwoColDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -61,6 +62,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	SpaceManagement spaMg;
 	SpaceSettingManagement spSettingMg;
 	
+	WikiTemplateDatabase wTempData;
 	TextBoxDatabase txData;
 	UserInfoDatabase userInfoData;
 	UserAddManagement addUserPage;
@@ -79,6 +81,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	AttachmentFileDatabase attFileData;
 	DataTestPathDatabase dataTestForlderPath;
 	ArrayList<String> arrayPage;
+	ArrayList<String> arrayDraft;
 	ArrayList<String> arrayUsers;
 	ArrayList<String> arrayGroups;
 	ArrayList<String> arraySpace;
@@ -136,6 +139,8 @@ public class WIKI_TestConfig extends PlatformBase {
 		permisGroups = new ReadThreeColDatabase();
 		permisGroups.setData(permisGroupFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		wTempData = new WikiTemplateDatabase();
+		wTempData.setWikiTemplateData(wikiTemplateFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		permisMem = new ReadTwoColDatabase();
 		permisMem.setData(permisMemFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -151,6 +156,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		arraySpace = new ArrayList<String>();
 		arrayTemplate = new ArrayList<String>();
 		arrayGroups = new ArrayList<String>();
+		arrayDraft = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -182,6 +188,14 @@ public class WIKI_TestConfig extends PlatformBase {
 				driver.get(baseUrl);
 				hp.goToWiki();
 				wHome.deleteWiki(title);
+			}
+		} else if(arrayDraft.size()>0){
+			for(String title:arrayDraft){
+				info("Delete the page:"+title);
+				driver.get(baseUrl);
+				hp.goToWiki();
+				wHome.goToMyDraft();
+				wDraf.deleteDraft(title);
 			}
 		}
 	}

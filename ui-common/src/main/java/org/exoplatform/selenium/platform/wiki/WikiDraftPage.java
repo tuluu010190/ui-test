@@ -39,31 +39,4 @@ public class WikiDraftPage extends WikiLocators{
 		waitForAndGetElement(ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}", title),3000,0).click();
 	    Utils.pause(3000);
 	}
-	/**
-	 * Verify a draf page
-	 * @param title
-	 *//*
-	public void verifyTitleDrafPage(String title){
-		info("Verify that a draf page with the title:"+title+" is shown in draf table");
-		waitForAndGetElement(ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}",title));
-	}*/
-	/**
-	 * Verify that Draf page is not shown
-	 * @param title
-	 *//*
-	public void verifyNotTitleDrafPage(String title){
-		info("Verify that a draf page with the title:"+title+" is shown in draf table");
-		waitForElementNotPresent(ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}",title));
-	}
-	*//**
-	 * Verify resuming a draf page
-	 * @param titleBeforeDraf
-	 *//*
-	public void verifyResumADraf(String titleBeforeDraf){
-		info("Get current title in iput field");
-		String currentTitle =this.driver.findElement(ELEMENT_TITLE_WIKI_INPUT).getAttribute("value").toString();
-		if(currentTitle.contains(titleBeforeDraf))
-			assert true;
-		else assert false;
-	}*/
 }
