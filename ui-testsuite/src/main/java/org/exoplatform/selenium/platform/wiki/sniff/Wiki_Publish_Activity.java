@@ -212,7 +212,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
 		rtMode.editSimplePage(newTitle,"");
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		info("The title of wiki page's activity is updated");
@@ -361,7 +361,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		wHome.goToEditPage();
 		rtMode.editSimplePage("",newContent);
 		wikiMg.addComment(comment);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		info("The content of wiki page's activity is updated");
@@ -392,7 +392,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
 		rtMode.editSimplePage("",newContent1);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		info("The content of wiki page's activity is updated");

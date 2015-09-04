@@ -246,6 +246,21 @@ public class PlatformBase extends TestBase {
 	}
 	
 	/**
+	 * Add by @author vuna2
+	 * Open a new browser by Javascript
+	 */
+	public void openNewBrowser(String url){
+		//Open new browser by Javascript
+		((JavascriptExecutor) driver).executeScript("window.open()");
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+		driver.manage().window().maximize();
+		driver.navigate().refresh();
+		driver.navigate().to(url);
+	}
+	
+	/**
 	 * function: switch between windows using title windows
 	 * @param windowTitle
 	 */
@@ -380,6 +395,39 @@ public class PlatformBase extends TestBase {
 		Utils.pause(1000);
 	}
 	
+	/**
+	 * Get list all Browsers
+	 */
+	public void getAllChildWindows() {
+		for (String windowHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(windowHandle);
+			info("driver.title:" + driver.getTitle());
+			driver.manage().window().maximize();
+		}
+	}
+	
+	/**
+	 * Close all child drivers
+	 * @param parentTitle
+	 *                    is the tilte of parent browsers
+	 */
+	public void closeChildBrowsers(String parentWindow){
+		info("parentWindow:"+parentWindow);
+		Set<String> handlers=driver.getWindowHandles(); 
+		//Handler will have all the three window handles
+		for(String windowHandle  : handlers){
+		     driver.switchTo().window(windowHandle);
+		     info("windowHandle"+windowHandle);
+		     //If it is not the parent window it will close the child window 
+		     if(!windowHandle.contains(parentWindow)){
+		    	  info("close driver.title:"+driver.getTitle());
+		    	  Utils.pause(2000);
+				  driver.close();
+		     }
+		   
+	    }
+		switchToParentWindow();
+	}
 	/**
 	 * function: check content of mail then delete mail
 	 * @param title title of the page

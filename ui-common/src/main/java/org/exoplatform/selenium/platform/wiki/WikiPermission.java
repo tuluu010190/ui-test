@@ -42,7 +42,7 @@ public class WikiPermission extends WikiLocators{
 	 * @param group
 	 */
 	public void deletePermission(String groupUsers){
-		By bDelete = By.xpath(ELEMENT_DELETE_PERMISSION.replace("{$user}",groupUsers));
+		By bDelete = By.xpath(ELEMENT_DELETE_PERMISSION.replace("$user",groupUsers));
 		if (waitForAndGetElement(bDelete, 10000, 0) != null){
 			info("--Delete permission--");
 			click(bDelete);
@@ -59,7 +59,7 @@ public class WikiPermission extends WikiLocators{
 	}
 	
 	/**
-	 * Select permission for a user/group/membership
+	 * Select permission for a username/group/membership
 	 * @param userGroup
 	 * @param type
 	 */
@@ -78,6 +78,25 @@ public class WikiPermission extends WikiLocators{
 		}
 	}
 	/**
+	 * Unselect permission for a username/group/membership
+	 * @param userGroup
+	 * @param type
+	 */
+	public void unSelectPermission(String userGroup,permissionType type){
+		switch(type){
+		case View_Pages:
+			info("Select View pages permission");
+			uncheck(ELEMENT_PERMISSION_VIEW_CHECKBOX
+					.replace("$userGroup",userGroup),2);
+			break;
+		case Edit_Pages:
+			info("Select View pages permission");
+			uncheck(ELEMENT_PERMISSION_EDIT_CHECKBOX
+					.replace("$userGroup",userGroup),2);
+			break;
+		}
+	}
+	/**
 	 * Add a group/user/membership to permission table by type
 	 * @param groupUsers
 	 */
@@ -87,7 +106,7 @@ public class WikiPermission extends WikiLocators{
 			type(ELEMENT_PERMISSION_TYPE_INPUT,groupUsers,true);
 			info("Click on Add button");
 			click(ELEMENT_PERMISSION_ADD_BUTTON);
-			waitForAndGetElement(ELEMENT_DELETE_PERMISSION.replace("{$user}",groupUsers));
+			waitForAndGetElement(ELEMENT_DELETE_PERMISSION.replace("$user",groupUsers));
 			info("The group/user/membership is added successfully");
 		}
 	}
@@ -141,7 +160,16 @@ public class WikiPermission extends WikiLocators{
 	    }
 		info("Click on Add button");
 		click(ELEMENT_PERMISSION_ADD_BUTTON);
-		waitForAndGetElement(ELEMENT_DELETE_PERMISSION.replace("{$user}",groupUsers));
+		waitForAndGetElement(ELEMENT_DELETE_PERMISSION.replace("$user",groupUsers));
 		info("The group/user/membership is added successfully");
 	}
+	/**
+	 * Click on Save button
+	 */
+	public void savePermisison(){
+		info("Click on Save button");
+		click(ELEMENT_PERMISSION_BUTTON_SAVE);
+		waitForElementNotPresent(ELEMENT_PERMISSION_BUTTON_SAVE);
+	}
+	
 }

@@ -216,7 +216,8 @@ public class Wiki_Settings extends Wiki_TestConfig{
 		wHome.goToAddBlankPage();
 		rtMode.addSimplePage(wiki,wiki);
 		wikiMg.saveAddPage();
-		link = wHome.getPermaLink();
+		wHome.goToPermalink();
+		link=wHome.getPermalink();
 
 		/*Step Number: 1
 		 *Step Name: Step 1: Add Permission

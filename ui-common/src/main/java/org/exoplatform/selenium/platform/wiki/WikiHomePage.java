@@ -2,17 +2,19 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.WebDriver;
 
 public class WikiHomePage extends WikiLocators{
-
+	Dialog dialog;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public WikiHomePage(WebDriver dr){
 		this.driver=dr;
+		dialog = new Dialog(dr);
 	}
 	/**
 	 * Go to "Add blank wiki page"
@@ -155,18 +157,9 @@ public class WikiHomePage extends WikiLocators{
 	public void goToPermissions(){
 		info("Permissions page");
 		click(ELEMENT_MORE_LINK);
-		click(ELEMENT_PAGE_PERMISSIONS);
-	}
-	/**
-	 * Get permalink
-	 * @return link
-	 */
-	public String getPermaLink(){
-		String link="";
-		click(ELEMENT_MORE_LINK);
-		click(ELEMENT_PERMALINK);
-		link = waitForAndGetElement(ELEMENT_PERMALINK_LINKCOPY).getAttribute("value");
-		return link;
+		click(ELEMENT_PERMISSION_LINK);
+		waitForAndGetElement(ELEMENT_PAGE_PERMISSION_POPUP);
+		info("The permission popup is shown");
 	}
 	
 	/**
@@ -207,4 +200,72 @@ public class WikiHomePage extends WikiLocators{
 		}
 	}
 	
+	/**
+	 * Get a permalink of the page
+	 * @return perLink
+	 */
+	public void goToPermalink(){
+		info("Go to permalink");
+		mouseOverAndClick(ELEMENT_MORE_LINK);
+		mouseOverAndClick(ELEMENT_PERMALINK_LINK);
+		waitForAndGetElement(ELEMENT_PERMALINK_POPUP);
+		Utils.pause(2000);
+	}
+
+	/**
+	 * Public a page from infor bar or More menu
+	 * @param opParams
+	 */
+	public void publicPage(Boolean...opParams){
+		info("Make Public page");
+		Boolean useRestrictLink = (Boolean)(opParams.length>0 ? opParams[0]:false);
+		if(useRestrictLink){
+			waitForAndGetElement(ELEMENT_RESTRICTED_WIKI_ICON);
+			click(ELEMENT_RESTRICTED_WIKI_ICON);
+		}
+		else{
+			goToPermalink();
+		}
+		click(ELEMENT_MAKE_PUBLIC_BUTTON);
+		waitForAndGetElement(ELEMENT_MAKE_RESTRICT_BUTTON);
+		dialog.closeMessageDialog();
+		Utils.pause(2000);
+	}
+	/**
+	 * Restricted a page from infor bar or More menu
+	 * @param opParams
+	 */
+	public void restrictedPage(Boolean...opParams){
+		info("Make Restricted page");
+		Boolean useRestrictLink = (Boolean)(opParams.length>0 ? opParams[0]:false);
+		if(useRestrictLink){
+			waitForAndGetElement(ELEMENT_PUBLIC_WIKI_ICON );
+			click(ELEMENT_PUBLIC_WIKI_ICON );
+		}
+		else{
+			goToPermalink();
+		}
+		click(ELEMENT_MAKE_RESTRICT_BUTTON);
+		waitForAndGetElement(ELEMENT_MAKE_PUBLIC_BUTTON);
+		dialog.closeMessageDialog();
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Gets a permanent link by a given value.
+	 * 
+	 * @return The value.
+	 */
+	public String getPermalink(){
+		return getValue(ELEMENT_PERMALINK_TEXT);
+	}
+	/**
+	 * Close permalink popup
+	 */
+	public void closePermalinkPopup(){
+		info("Click on Close button");
+		click(ELEMENT_PERMALINK_CLOSE);
+		waitForElementNotPresent(ELEMENT_PERMALINK_POPUP);
+		info("Permalink popup is closed");
+	}
 }

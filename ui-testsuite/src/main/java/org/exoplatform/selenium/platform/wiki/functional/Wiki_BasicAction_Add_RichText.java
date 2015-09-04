@@ -82,7 +82,7 @@ import org.testng.annotations.*;
 			- Page is shown successfully*/ 
 		info("Page is shown successfully");
 		wHome.goToAPage(title2);
-		wikiMg.verifyInsertedExistLink(label,title1);
+		wValidate.verifyInsertedExistLink(label,title1);
 
  	}
 
@@ -148,12 +148,12 @@ import org.testng.annotations.*;
 			- Show new page with name created above and user can add content for it*/ 
 		info("Show new page with name created above");
 		wHome.goToAPage(title2);
-		wikiMg.verifyInsertNewLink(label,title1);
+		wValidate.verifyInsertNewLink(label,title1);
 		info("user can add content for it");
 		wikiMg.addContentPage(content1);
 		wikiMg.saveAddPage();
 		info("Verify that the content is added successfully");
-		wikiMg.verifyContentPage(content1);
+		wValidate.verifyContentPage(content1);
  	}
 
 	/**
@@ -228,7 +228,7 @@ import org.testng.annotations.*;
 			- Show new page successfully*/ 
 		info("Page is shown successfully");
 		wHome.goToAPage(title2);
-		wikiMg.verifyInsertedExistLink(label,title1);
+		wValidate.verifyInsertedExistLink(label,title1);
 
  	}
 
@@ -431,7 +431,7 @@ import org.testng.annotations.*;
 			Show mail with format mailto:email_address*/ 
 		info("The file is attached in the page");
 		wHome.goToAPage(title1);
-	    wikiMg.verifyEmailFormatLink(address);
+		wValidate.verifyEmailFormatLink(address);
 
  	}
 
@@ -564,8 +564,8 @@ import org.testng.annotations.*;
 		
 		info("Add attach file is added successfully in content of page");
 		wHome.goToAPage(title);
-	    wikiMg.verifySizeImageInContentPage(width, height);
-	    wikiMg.verifyAltTextImageInContentPage(altText);
+		wValidate.verifySizeImageInContentPage(width, height);
+		wValidate.verifyAltTextImageInContentPage(altText);
 
  	}
 
@@ -630,7 +630,7 @@ import org.testng.annotations.*;
 		
 		info("Add attach file is added successfully in content of page");
 		wHome.goToAPage(title);
-	    wikiMg.verifyAltTextImageInContentPage(altText);
+		wValidate.verifyAltTextImageInContentPage(altText);
 
  	}
 
@@ -692,6 +692,6 @@ import org.testng.annotations.*;
 		
 		info("Add attach file is added successfully in content of page");
 		wHome.goToAPage(title);
-	    wikiMg.verifyAltTextImageInContentPage(altText);
+		wValidate.verifyAltTextImageInContentPage(altText);
 
  	}}

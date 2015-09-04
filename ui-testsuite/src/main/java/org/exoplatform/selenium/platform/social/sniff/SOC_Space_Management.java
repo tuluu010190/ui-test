@@ -554,7 +554,8 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToMySpaces();
@@ -599,7 +600,8 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(perLink);

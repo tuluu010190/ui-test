@@ -278,7 +278,7 @@ import org.testng.annotations.*;
 	    info("A page is opened in edit mode and a warning message is displayed:");
 	    info("Your version is outdated, a version of this content has been updated by another user. "
 	    		+ "You can [view your changes] and continue editing or [delete] your draft.");
-        wikiMg.verifyDraftInOutDateVersionStatus(message);
+	    wValidate.verifyDraftInOutDateVersionStatus(message);
         
 		/*Step number: 5
 		*Step Name: Step 5: Check View your changes
@@ -430,7 +430,7 @@ import org.testng.annotations.*;
 	    info("A page is opened in edit mode and a warning message is displayed:");
 	    info("Your version is outdated, a version of this content has been updated by another user. "
 	    		+ "You can [view your changes] and continue editing or [delete] your draft.");
-        wikiMg.verifyDraftInOutDateVersionStatus(message);
+	    wValidate.verifyDraftInOutDateVersionStatus(message);
 
 		/*Step number: 6
 		*Step Name: Step 6: Check continue editting
@@ -581,7 +581,7 @@ import org.testng.annotations.*;
 	    info("A page is opened in edit mode and a warning message is displayed:");
 	    info("Your version is outdated, a version of this content has been updated by another user. "
 	    		+ "You can [view your changes] and continue editing or [delete] your draft.");
-        wikiMg.verifyDraftInOutDateVersionStatus(message);
+	    wValidate.verifyDraftInOutDateVersionStatus(message);
 
 		/*Step number: 7
 		*Step Name: Step 7: Check delete draft
@@ -660,7 +660,7 @@ import org.testng.annotations.*;
 	    info("A draft of this page was saved on Month Day, Year HH:MM. "
 	    		+ "You can view your changes and decide to resume the draft or delete it.");
 	    String currentDate = getCurrentDate("M/d/yyyy");
-	    wikiMg.verifyStatusWhenEditPageHasExistingDraf(message, currentDate);
+	    wValidate.verifyStatusWhenEditPageHasExistingDraf(message, currentDate);
 
 		/*Step number: 5
 		*Step Name: Step 5: Delete draft
@@ -751,7 +751,7 @@ import org.testng.annotations.*;
 	    info("A draft of this page was saved on Month Day, Year HH:MM. "
 	    		+ "You can view your changes and decide to resume the draft or delete it.");
 	    String currentDate = getCurrentDate("M/d/yyyy");
-	    wikiMg.verifyStatusWhenEditPageHasExistingDraf(message, currentDate);
+	    wValidate.verifyStatusWhenEditPageHasExistingDraf(message, currentDate);
 
 		/*Step number: 3
 		*Step Name: Step 3: Check view changes
@@ -826,7 +826,7 @@ import org.testng.annotations.*;
 	    info("A draft of this page was saved on Month Day, Year HH:MM. "
 	    		+ "You can view your changes and decide to resume the draft or delete it.");
 	    String currentDate = getCurrentDate("M/d/yyyy");
-	    wikiMg.verifyStatusWhenEditPageHasExistingDraf(message, currentDate);
+	    wValidate.verifyStatusWhenEditPageHasExistingDraf(message, currentDate);
 
 		/*Step number: 4
 		*Step Name: Step 4: Resume draft
@@ -1450,7 +1450,7 @@ import org.testng.annotations.*;
 		
 		info("Add attach file is added successfully in content of page");
 		wHome.goToAPage(title2);
-	    wikiMg.verifyAltTextImageInContentPage(altText2);
+		wValidate.verifyAltTextImageInContentPage(altText2);
 		
 
  	}
@@ -1498,7 +1498,6 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.goToSourceEditor();
 		wikiMg.goToSourceEditor();
 		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();

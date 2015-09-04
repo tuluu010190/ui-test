@@ -46,6 +46,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	WikiDraftPage wDraf;
 	WikiPermission wPerm;
 	WikiValidattions wValidate;
+	WikiPermission wPermission;
 	RichTextEditor richEditor;
 	SourceTextEditor sourceEditor;
 	
@@ -96,6 +97,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		richEditor = new RichTextEditor(driver);
 		sourceEditor = new SourceTextEditor(driver);
 		wValidate = new WikiValidattions(driver);
+		wPermission = new WikiPermission(driver);
 		
 		spaHome = new SpaceHomePage(driver);
 		spaMg = new SpaceManagement(driver);

@@ -110,7 +110,7 @@ import org.testng.annotations.*;
 		arrayPage.add(title);
 		
 		info("Verify that the content of the page is empty");
-		wikiMg.verifyEmptyContentPage();
+		wValidate.verifyEmptyContentPage();
  	}
 
 	/**

@@ -340,4 +340,76 @@ public class WikiValidattions extends WikiLocators{
 		info("Verify status with Delete link");
 		waitForAndGetElement(ELEMENT_WIKI_STATUS_VERSION_DELETE_LINK);
 	}
+	/**
+	 * Verify that the page is published
+	 */
+	public void verifyPublishedPage(){
+		info("Verify that the page is published");
+		waitForAndGetElement(ELEMENT_PUBLIC_WIKI_ICON );
+	}
+	
+	/**
+	 * Verify that the page is restricted
+	 */
+	public void verifyRestrictedPage(){
+		info("Verify that the page is restricted");
+		waitForAndGetElement(ELEMENT_RESTRICTED_WIKI_ICON);
+	}
+	/**
+	 * Verify that edit permission is checked or not
+	 * @param userGroupMembership
+	 *                is username/Group or Membership
+	 * @param isChecked
+	 *                = true if want to verify that is checked
+	 *                = false if want to verify that is not checked
+	 */
+	public void verifyEditPermisison(String userGroupMembership, boolean isChecked){
+		if(isChecked){
+			info("Verify that edit permission is checked");
+			waitForAndGetElement( ELEMENT_PERMISSION_EDIT_USER_CHECKED
+					.replace("$userGroup",userGroupMembership),2000,1,2);
+		}else{
+			info("Verify that edit permission isnot checked");
+			waitForElementNotPresent(ELEMENT_PERMISSION_EDIT_USER_CHECKED
+					.replace("$userGroup",userGroupMembership),2000,1,2);
+		}
+	}
+	/**
+	 * Verify that view permission is checked or not
+	 * @param userGroupMembership
+	 *                  is username/Group or Membership
+	 * @param isChecked
+	 *                = true if want to verify that is checked
+	 *                = false if want to verify that is not checked
+	 */
+	public void verifyViewPermisison(String userGroupMembership, boolean isChecked){
+		if(isChecked){
+			info("Verify that view permission is checked");
+			waitForAndGetElement( ELEMENT_PERMISSION_VIEW_USER_CHECKED
+					.replace("$userGroup",userGroupMembership),1000,2);
+		}else{
+			info("Verify that view permission isnot checked");
+			waitForElementNotPresent( ELEMENT_PERMISSION_VIEW_USER_CHECKED
+					.replace("$userGroup",userGroupMembership),1000,2);
+		}
+	}
+	/**
+	 * Verify that the page is not found
+	 */
+	public void verifyPageNotFound(){
+		info("Verify that the page is not found");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_NOT_FOUND);
+		info("The page is not found");
+	}
+	/**
+	 * Verify a parent page has not permission for a user
+	 */
+	public void verifyRestrictedPageHasChildPage(){
+		info("Verify that parent page is shown under the title: restricted on the left tree");
+		waitForAndGetElement(ELEMENT_WIKI_LEFT_TREE_RESTRICTED_PAGE_TITLE);
+		info("Verify the tooltip of the page as:[this page is restricted, you don't have permissions to view it]");
+		waitForAndGetElement(ELEMENT_WIKI_TOOLTIP_RESTRICTED_PAGE_TITLE);
+		info("Verify that cannot click on parent page");
+		waitForAndGetElement(ELEMENT_WIKI_PARENT_PAGE_UN_LINK);
+	}
 }

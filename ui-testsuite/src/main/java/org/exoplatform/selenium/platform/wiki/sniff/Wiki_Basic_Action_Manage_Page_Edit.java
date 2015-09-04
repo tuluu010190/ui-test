@@ -251,7 +251,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			- Edit page successfully */
 		wHome.goToEditPage();
 		rtMode.editSimplePage(newTitle,"");
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		
@@ -289,7 +289,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		wHome.goToAPage(newTitle);
 		wHome.goToEditPage();
 		rtMode.editSimplePage("",newTitle);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wikiMg.ELEMENT_WIKI_PAGE_CONTENT.replace("${text}",newTitle),2000,0);
 		

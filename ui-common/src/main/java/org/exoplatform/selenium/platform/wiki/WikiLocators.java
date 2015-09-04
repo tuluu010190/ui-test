@@ -49,19 +49,29 @@ public class WikiLocators extends PlatformBase{
 	
 	//Permalink page
 	public final By ELEMENT_PERMALINK_LINK = By.xpath("//*[@class='uiIconPermalink']");
-	public final By ELEMENT_PERMALINK_LINKCOPY = By.xpath("//*[@id='PermalinkText']");
 	public final By ELEMENT_PERMALINK_MANAGEPERM = By.xpath("//*[text()='Manage Permissions']");
-	public final By ELEMENT_PERMALINK_MAKEPUBLIC = By.xpath("//*[text()='Make Public']");
-	public final By ELEMENT_PERMALINK_RESTRICT = By.xpath("//*[text()='Restrict']");
 	public final String ELEMENT_PERMALINK_STATUS = ".//*[@id='UIWikiPermalinkForm']//*[text()='${status}']";
 	public final By ELEMENT_PERMALINK_CLOSE=By.xpath(".//*[@id='UIWikiPopupWindowL1']//*[@class='uiIconClose pull-right']");
+	public final By ELEMENT_RESTRICTED_WIKI_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[contains(@class,'uiIconLockMini')]");
+	public final By ELEMENT_MAKE_PUBLIC_BUTTON = By.xpath("//*[contains(@onclick,'MakePublic')]");
+	public final By ELEMENT_MAKE_RESTRICT_BUTTON = By.xpath("//*[contains(@onclick,'Restrict')]");
+	public final By ELEMENT_PERMALINK_NOTIFY = By.xpath("//*[@id='UIWikiPermalinkForm']/*[@class='permalinkNotify']");
+	public final By ELEMENT_PERMALINK_TEXT = By.id("PermalinkText");
+	public final By ELEMENT_PERMALINK_POPUP=By.id("UIWikiPermalinkForm");
+	public final By ELEMENT_PUBLIC_WIKI_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[contains(@class,'uiIconUnlockMini')]");
 	
 	//permission page
 	public final By ELEMENT_PERMISSION_EDIT_ANY = By.xpath("//*[@id='EDITPAGEany']");
 	public final String ELEMENT_PERMISSION_EDIT_USER = "//*[@id='EDITPAGE${user}']";
+	public final String ELEMENT_PERMISSION_VIEW_USER = "//*[@id='VIEWPAGE${user}']";
+	public final String ELEMENT_PERMISSION_EDIT_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'EDITPAGE')]";
+	public final String ELEMENT_PERMISSION_VIEW_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'VIEWPAGE')]";
 	public final By ELEMENT_PERMISSION_BUTTON_SAVE = By.xpath("//*[text()='Save']");
 	public final By ELEMENT_PERMISSION_VIEW_ANY = By.xpath("//*[@id='VIEWPAGEany']");
 	public final String ELEMENT_PERMISSION_REMOVE_USER_GROUP = ".//*[@id='UIPermissionGrid']//*[contains(text(),'${name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
+	public final By ELEMENT_PAGE_PERMISSION_POPUP=By.id("UIWikiPagePermissionForm");
+	public final String ELEMENT_PERMISSION_EDIT_USER_CHECKED=".//*[@id='EDITPAGE$userGroup'][@checked='']";
+	public final String ELEMENT_PERMISSION_VIEW_USER_CHECKED=".//*[@id='VIEWPAGE$userGroup'][@checked='']";
 	
 	//move wiki
 	public final By ELEMENT_MOVE_SPACESWITCHER = By.xpath("//*[@id='uiSpaceSwitcher_UIWikiMovePageForm']/..//*[@class='btn dropdown-toggle']");
@@ -75,8 +85,6 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_SAME_NAME=".//*[@class='alert'][contains(.,'${message}')]";
 	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME=By.xpath(".//*[@class='alert']/a[text()='Rename']");
 
-	public final By ELEMENT_PAGE_PERMISSIONS = By.xpath(".//*[text()='Page Permissions']");
-	public final By ELEMENT_PERMALINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//*[text()='Permalink']");
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
@@ -95,7 +103,6 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_CHECK_PERMISSION_EDIT_PAGE =".//*[@id='UIPermissionGrid']/table//*[contains(text(),'{$name}')]/../..//*[@id='EDITPAGE{$name}']";
 	public final String ELEMENT_REMOVE_PERMISSION = ".//*[@id='UIPermissionGrid']/table//*[contains(text(),'{$name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
 	
-	public final By ELEMENT_WIKI_PAGE_NOT_FOUND = By.xpath(".//*[@id='UIWikiPageArea']//*[contains(text(),'Page Not Found')]");
 	
 	//Action bar
 	public final String ELEMENT_ATTACHMENT_NUMBER = "//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${No}')]/*[@class='uiIconAttach']";
@@ -401,6 +408,9 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_PERMISSION_SELECT_USER = By.xpath("//a[contains(@onclick, 'OpenSelectUserForm')]");
 	public final By ELEMENT_PERMISSION_SELECT_GROUP = By.className("uiIconGroup");
 	public final By ELEMENT_PERMISSION_SELECT_MEMBERSHIP = By.className("uiIconMembership");
-	public final String ELEMENT_PERMISSION_EDIT_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'EDITPAGE')]";
-	public final String ELEMENT_PERMISSION_VIEW_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'VIEWPAGE')]";
+	public final By ELEMENT_WIKI_PAGE_NOT_FOUND=By.xpath(".//*[@class='uiWikiPageNotFound']");
+	public final By ELEMENT_MANAGER_PERMISSION_BTN=By.xpath(".//*[contains(@onclick,'ManagePermisisons')]");
+	public final By ELEMENT_WIKI_LEFT_TREE_RESTRICTED_PAGE_TITLE=By.xpath(".//*[@id='iconTreeExplorer']//em[contains(text(),'restricted')]");
+	public final By ELEMENT_WIKI_TOOLTIP_RESTRICTED_PAGE_TITLE=By.xpath(".//*[@id='iconTreeExplorer']//em[contains(@data-original-title,'This page is restricted, you do not have permission to view it.')]");
+	public final By ELEMENT_WIKI_PARENT_PAGE_UN_LINK=By.xpath(".//*[@id='iconTreeExplorer']//em[contains(@onclick,'')]");
 }

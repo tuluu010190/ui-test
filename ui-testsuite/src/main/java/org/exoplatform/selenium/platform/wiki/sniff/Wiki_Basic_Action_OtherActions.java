@@ -113,7 +113,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
 		rtMode.editSimplePage("", update);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -204,8 +204,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		rtMode.addSimplePage(title,title);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
-		
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(perLink);
@@ -255,7 +255,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Un check view permission of any group");
 		wikiMg.unCheckViewAUserOfPage(wHome.ELEMENT_PERMISSION_VIEW_ANY);
 		
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 	
 		/*Step number: 2
 		 *Step Name: Step 2: Check permalink when user is not member of page
@@ -327,7 +328,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 
 		 *Expected Outcome: 
 			The member of space can view the page created by the manager*/ 
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToMySpaces();
@@ -382,7 +384,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		
 		/*Step number: 2
 		 *Step Name: Step 2: Check permalink when user is not member of space
@@ -506,10 +509,10 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		hp.goToWiki();
 		wHome.goToAPage(title);
 		
-		wikiMg.permalinkAPage();
-		click(wHome.ELEMENT_PERMALINK_MAKEPUBLIC);
+		wHome.goToPermalink();
+		click(wHome.ELEMENT_MAKE_PUBLIC_BUTTON);
 		waitForAndGetElement(wHome.ELEMENT_PERMALINK_STATUS.replace("${status}","public"),2000,0);
-		click(wHome.ELEMENT_PERMALINK_RESTRICT);
+		click(wHome.ELEMENT_MAKE_RESTRICT_BUTTON);
 		waitForAndGetElement(wHome.ELEMENT_PERMALINK_STATUS.replace("${status}","restricted"),2000,0);
 		click(wHome.ELEMENT_PERMALINK_CLOSE);
 		Utils.pause(2000);
@@ -524,7 +527,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 
 		 *Expected Outcome: 
 			The "Page Not found" is displayed, the user B cannot view the page<br />*/ 
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		click(wHome.ELEMENT_PERMALINK_CLOSE);
 		Utils.pause(2000);
 		magAc.signOut();
@@ -582,8 +586,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 
 		 *Expected Outcome: 
 			The form will show that the page is changed into the public status, and someone can view and edit it.*/
-		wikiMg.permalinkAPage();
-		click(wHome.ELEMENT_PERMALINK_MAKEPUBLIC);
+		wHome.goToPermalink();
+		click(wHome.ELEMENT_MAKE_PUBLIC_BUTTON);
 		waitForAndGetElement(wHome.ELEMENT_PERMALINK_STATUS.replace("${status}","public"),2000,0);
 		click(wHome.ELEMENT_PERMALINK_CLOSE);
 		/*Step number: 3
@@ -597,7 +601,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 
 		 *Expected Outcome: 
 			The user B can view the page created by the manager*/ 
-		String perLink=wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		click(wHome.ELEMENT_PERMALINK_CLOSE);
 		Utils.pause(2000);
 
@@ -646,7 +651,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
-		String perLink = wikiMg.permalinkAPage();
+		wHome.goToPermalink();
+		String perLink=wHome.getPermalink();
 		click(wHome.ELEMENT_PERMALINK_MANAGEPERM);
 		info("Un check view permission of any group");
 		wikiMg.unCheckViewAUserOfPage(wHome.ELEMENT_PERMISSION_VIEW_ANY);
@@ -1408,7 +1414,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		spaHome.goToWikiTab();
 		wHome.goToAPage(wiki1);
 		rtMode.editSimplePage("", wiki2);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		

@@ -140,7 +140,7 @@ import org.testng.annotations.*;
 			- The wiki application is opened in the view to compare Version N
 			-1 and Version N*/ 
 		hpAct.clickOnViewChange(editTitle);
-		wikiMg.verifyCompareVersions("1");
+		wValidate.verifyCompareVersions("1");
 		
 
  	}
@@ -197,7 +197,7 @@ import org.testng.annotations.*;
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
 		sourceEditor.editSimplePage(editTitle, "");
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		wValidate.verifyTitleWikiPage(editTitle);
 		arrayPage.add(editTitle);
@@ -334,7 +334,7 @@ import org.testng.annotations.*;
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
 		sourceEditor.editSimplePage("", editContent);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		wValidate.verifyTitleWikiPage(title);
 		/*Step number: 3
@@ -407,7 +407,7 @@ import org.testng.annotations.*;
 		wHome.goToEditPage();
 		sourceEditor.editSimplePage("", editContent);
 		wikiMg.addComment(comment);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		wValidate.verifyTitleWikiPage(title);
 
@@ -951,7 +951,7 @@ import org.testng.annotations.*;
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
 		sourceEditor.editSimplePageWithAutoSave("",editContent);
-		wikiMg.publishPage();
+		wikiMg.publishPageWhenEditPage();
 		wikiMg.saveAddPage();
 		wValidate.verifyTitleWikiPage(title);
 

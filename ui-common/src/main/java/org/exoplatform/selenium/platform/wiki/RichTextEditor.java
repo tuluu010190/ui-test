@@ -1141,5 +1141,23 @@ public class RichTextEditor extends WikiLocators{
 		.perform();
 		action.release();
 	}
+
+	/**
+     * Uncheck Open New Window checkbox
+	 */
+	public void uncheckOpenNewWindow(){
+		info("Uncheck Open New Window checkbox");
+		uncheck(ELEMENT_OPEN_NEW_WINDOW_CHECKBOX,2);
+		Utils.pause(2000);
+	}
+
+	/**
+	 * Check Open New Window checkbox
+	 */
+	public void checkOpenNewWindow(){
+		info("Check Open New Window checkbox");
+		check(ELEMENT_OPEN_NEW_WINDOW_CHECKBOX,2);
+		Utils.pause(2000);
+	}
 }
 

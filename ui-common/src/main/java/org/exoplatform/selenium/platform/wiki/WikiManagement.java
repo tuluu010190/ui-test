@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
@@ -17,6 +16,7 @@ public class WikiManagement extends WikiLocators{
 
 	ManageAlert alert;
 	Button but ;
+	
 	/**
 	 * constructor
 	 * @param dr
@@ -72,25 +72,6 @@ public class WikiManagement extends WikiLocators{
 		Utils.pause(2000);
 	}
 	/**
-	 * Verify the content of a page after created successfully
-	 * @param content
-	 */
-	public void verifyContentPage(String content){
-		info("Verify that the content page is added successfully");
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_PAGE
-				.replace("$content",content));
-		info("The content also is added successfully");
-	}
-	/**
-	 * The page's content is empty
-	 */
-	public void verifyEmptyContentPage(){
-		info("Verify that the content page is empty");
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_PAGE_EMPTY,2000,1,2);
-		info("the page's content is empty");
-	}
-
-	/**
 	 * Save add page
 	 */
 	public void saveAddPage(){
@@ -120,7 +101,7 @@ public class WikiManagement extends WikiLocators{
 	/**
 	 * publish page
 	 */
-	public void publishPage(){
+	public void publishPageWhenEditPage(){
 		info("check on publish checkbox");
 		check(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
 		Utils.pause(2000);
@@ -129,7 +110,7 @@ public class WikiManagement extends WikiLocators{
 	/**
 	 * unpublish page
 	 */
-	public void unPublishPage(){
+	public void unPublishPageWhenEditPage(){
 		uncheck(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
 		Utils.pause(2000);
 	}
@@ -277,17 +258,6 @@ public class WikiManagement extends WikiLocators{
 		info("Compare reversion page is shown");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE,2000,0);
 
-	}
-	/**
-	 * Check versions on Compare version page
-	 * @param oldVersion
-	 */
-	public void verifyCompareVersions(String oldVersion){
-		info("The compare version page is shown");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_COMPARE_VERSION_TITLE);
-		info("Verify that Version N-1 and current version is shown on the page");
-		waitForAndGetElement(ELEMENT_COMPARE_VERSION_VERSION_NUMBER.replace("$num",oldVersion));
-		waitForAndGetElement(ELEMENT_COMPARE_VERSION_CURRENT_VERSION);
 	}
 	/**
 	 * Delete an attachment file
@@ -497,18 +467,7 @@ public class WikiManagement extends WikiLocators{
 		Utils.pause(2000);
 
 	}
-	/**
-	 * Get a permalink of the page
-	 * @return perLink
-	 */
-	public String permalinkAPage(){
-		info("click on Permalink link");
-		click(ELEMENT_MORE_LINK);
-		click(ELEMENT_PERMALINK_LINK);
-		info("Get the link");
-		String perLink=waitForAndGetElement(ELEMENT_PERMALINK_LINKCOPY).getAttribute("value");
-		return perLink;
-	}
+	
 	/**
 	 * Un check view permission for a user or a group
 	 * @param locator
@@ -566,25 +525,6 @@ public class WikiManagement extends WikiLocators{
 	}
 	
 	/**
-	 * Check Open New Window checkbox
-	 */
-	public void checkOpenNewWindow(){
-		info("Check Open New Window checkbox");
-		check(ELEMENT_OPEN_NEW_WINDOW_CHECKBOX,2);
-		Utils.pause(2000);
-	}
-	/**
-	 * Uncheck Open New Window checkbox
-	 */
-	public void uncheckOpenNewWindow(){
-		info("Uncheck Open New Window checkbox");
-		uncheck(ELEMENT_OPEN_NEW_WINDOW_CHECKBOX,2);
-		Utils.pause(2000);
-	}
-	
-
-	
-	/**
 	 * Click on inserted link in the wiki page
 	 * @param label
 	 */
@@ -595,76 +535,6 @@ public class WikiManagement extends WikiLocators{
 		click(By.linkText(label));
 	}
 	
-	/**
-	 * Verify that the system redirects to the wiki page link that is inserted
-	 * @param label
-	 * @param pageLink
-	 */
-	public void verifyInsertedExistLink(String label,String pageLink){
-		viewInsertLink(label);
-		info("The page link is shown");
-		waitForAndGetElement(ELEMENT_TITLE_INFO.replace("${title}", pageLink));
-	}
-	/**
-	 * Verify email format of the email link after inserted a email link to the page
-	 * @param address
-	 */
-	public void verifyEmailFormatLink(String address){
-		info("Verify that email format of the link is correct");
-		waitForAndGetElement(ELEMENT_EMAIL_LINK_EMAIL_FORMAT.replace("$email",address));
-	}
-	/**
-	 * Verify that the system redirects to the wiki page that is created
-	 * @param label
-	 * @param pageLink
-	 */
-	public void verifyInsertNewLink(String label,String pageLink){
-		viewInsertLink(label);
-		info("The page link is shown");
-		String actualTitle = this.driver.findElement(ELEMENT_TITLE_WIKI_INPUT).getAttribute("value").toString();
-		if(actualTitle.contains(pageLink))
-			assert true;
-		else assert false;
-	}
-
-	
-	/**
-	 * Verify the size of the image in the page's content
-	 * @param width
-	 * @param height
-	 */
-	public void verifySizeImageInContentPage(String width,String height){
-		info("Verify that the size of image is changed");
-		waitForAndGetElement(ELEMENT_INSERTED_IMAGE_SIZE
-				.replace("$width", width)
-				.replace("$height", height));
-	}
-	/**
-	 * Verify alt Text of image is changed
-	 * @param altText
-	 */
-	public void verifyAltTextImageInContentPage(String altText){
-		info("Verify that alt text is changed");
-		waitForAndGetElement(ELEMENT_INSERTED_IMAGE_ALT_TEXT
-				.replace("$alt", altText));
-	}
-	/**
-	 * Verify draf in out date version status
-	 * with text: "Your version is outdated, a version of this content has been updated by another user.
-	    		You can [view your changes] and [Continue Editing] or [delete] your draft."
-	 * @param message
-	 */
-	public void verifyDraftInOutDateVersionStatus(String message){
-		info("Verify status text");
-		waitForAndGetElement(ELEMETN_WIKI_STATUS_VERSION_TEXT
-				.replace("$status",message));
-		info("Verify status with View Changes link");
-		waitForAndGetElement(ELEMENT_WIKI_STATUS_VERSION_VIEW_CHANGES_LINK);
-		info("Verify status with Continue Editting link");
-		waitForAndGetElement(ELEMENT_WIKI_STATUS_VERSION_CONTINUE_EDITTING_LINK);
-		info("Verify status with Delete link");
-		waitForAndGetElement(ELEMENT_WIKI_STATUS_VERSION_DELETE_LINK);
-	}
 	/**
 	 * Click on View Changes link on the Status when editting a wiki
 	 */
@@ -693,22 +563,6 @@ public class WikiManagement extends WikiLocators{
 		waitForElementNotPresent(ELEMENT_WIKI_STATUS_VERSION_DELETE_LINK);
 	}
 	/**
-	 * Verify status when edit a page that has existing a draf
-	 * @param message
-	 */
-	public void verifyStatusWhenEditPageHasExistingDraf(String message,String date){
-		info("Verify status text");
-		waitForAndGetElement(ELEMETN_WIKI_STATUS_VERSION_TEXT
-				.replace("$status",message)
-				.replace("$date",date));
-		info("Verify status with View Changes link");
-		waitForAndGetElement(ELEMENT_WIKI_STATUS_VERSION_VIEW_CHANGES_LINK);
-		info("Verify status with Resume the draf link");
-		waitForAndGetElement(ELEMENT_WIKI_STATUS_RESUME_THE_DRAF_LINK);
-		info("Verify status with Delete link");
-		waitForAndGetElement(ELEMENT_WIKI_STATUS_VERSION_DELETE_LINK);
-	}
-	/**
 	 * Click on Resume the Draf link on the Status when editting a page
 	 */
 	public void goToResumDrafLinkOnStatus(){
@@ -717,5 +571,7 @@ public class WikiManagement extends WikiLocators{
 		Utils.pause(2000);
 		
 	}
+	
+	
 
 }
