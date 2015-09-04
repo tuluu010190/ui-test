@@ -567,7 +567,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		hp.goToWiki();
 		wikiHome.goToAddBlankPage();
 		wikiMag.goToSourceEditor();
-		wikiMag.inputDataToPageSourceEditor(title,content,true,true);
+		sourceEditor.inputDataToPage(title,content,true,true);
 		wikiMag.saveAddPage();
 		
 		DateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy");

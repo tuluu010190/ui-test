@@ -3,7 +3,7 @@ package org.exoplatform.selenium.platform.wiki.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.wiki.WikiManagement.wikiPageLinkTab;
+import org.exoplatform.selenium.platform.wiki.RichTextEditor.wikiPageLinkTab;
 import org.testng.annotations.*;
 
 
@@ -37,10 +37,10 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 
 		/*Step number: 2
@@ -89,10 +89,10 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 
 		/*Step number: 2
@@ -137,10 +137,10 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		
 		info("Edit the page");
@@ -148,8 +148,7 @@ import org.testng.annotations.*;
 		String newContent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.goToRichTextEditor();
-		wikiMg.editSimplePageWithAutoSave(newTitle, newContent);
+		sourceEditor.editSimplePageWithAutoSave(newTitle, newContent);
 
 		/*Step number: 2
 		*Step Name: Step 2. Cancel a page in edit mode
@@ -172,7 +171,8 @@ import org.testng.annotations.*;
 		info("The draft was created. Do you want to keep it?");
 		String mess="";
 		wikiMg.cancelAddPage();
-		wHome.verifyConfirmationMess(mess,false);
+		wValidate.verifyWarningMessage(mess);
+		wHome.confirmWaringMessage(true);
 
 		/*Step number: 4
 		*Step Name: Step 4. Verify the manager draft
@@ -186,8 +186,8 @@ import org.testng.annotations.*;
 			The draft is deleted from the list of draft*/ 
 		info("The draft is deleted from the list of draft");
 		wHome.goToMyDraft();
-		wDraf.verifyNotTitleDrafPage(newTitle);
-		wDraf.verifyNotTitleDrafPage(title);
+		wValidate.verifyNotTitleDrafPage(newTitle);
+		wValidate.verifyNotTitleDrafPage(title);
 
  	}
 
@@ -213,11 +213,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave(title, content);
+		sourceEditor.addSimplePageHasAutoSaveWithoutSave(title, content);
 		
 		info("The draft is shown from the list of draft");
 		wHome.goToMyDraft();
-		wDraf.verifyTitleDrafPage(title);
+		wValidate.verifyTitleDrafPage(title);
 
 		/*Step number: 2
 		*Step Name: Step 2: Delete the draft
@@ -271,15 +271,15 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave(title, content);
+		sourceEditor.addSimplePageHasAutoSaveWithoutSave(title, content);
 		
 		info("The draft is shown from the list of draft");
 		wHome.goToMyDraft();
-		wDraf.verifyTitleDrafPage(title);
+		wValidate.verifyTitleDrafPage(title);
 		wDraf.resumeADraft(title);
 		wikiMg.saveAddPage();
 		info("The page is saved");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 
 		/*Step number: 2
 		*Step Name: Step 2: Verification on the draft manager
@@ -292,7 +292,7 @@ import org.testng.annotations.*;
 		
 		info("The draft version become the published version");
 		wHome.goToMyDraft();
-		wDraf.verifyNotTitleDrafPage(title);
+		wValidate.verifyNotTitleDrafPage(title);
  	}
 
 	/**
@@ -324,7 +324,7 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave(title, content);
+		sourceEditor.addSimplePageHasAutoSaveWithoutSave(title, content);
 
 		/*Step number: 2
 		*Step Name: Step 2: View Draft page by user B
@@ -342,7 +342,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER2,DATA_PASS);
 		hp.goToWiki();
 		wHome.goToMyDraft();
-		wDraf.verifyNotTitleDrafPage(title);
+		wValidate.verifyNotTitleDrafPage(title);
 
  	}
 
@@ -374,9 +374,10 @@ import org.testng.annotations.*;
 		String attachedFile = attFileData.getAttachFileByArrayTypeRandom(26);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title,"");
-		wikiMg.insertImage("TestData/"+attachedFile,false);
-		wikiMg.removeImage(attachedFile);
+		richEditor.addSimplePage(title,"");
+		richEditor.goToAttachedImageLink();
+		richEditor.insertImage("TestData/"+attachedFile,false);
+		richEditor.removeImage(attachedFile);
 
  	}
 
@@ -417,9 +418,10 @@ import org.testng.annotations.*;
 		String attachedFile = attFileData.getAttachFileByArrayTypeRandom(26);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title,"");
-		wikiMg.insertAttachedFileLink("TestData/"+attachedFile,false);
-		wikiMg.removeLink(attachedFile);
+		richEditor.addSimplePage(title,"");
+		richEditor.insertAttachedFileLink("TestData/"+attachedFile,false);
+		wValidate.verifyInsertedLinkIntoFrame(attachedFile,"");
+		richEditor.removeLink(attachedFile);
 
  	}
 
@@ -455,9 +457,10 @@ import org.testng.annotations.*;
 		String address=getRandomString()+"@gmail.com";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title1,content1);
-		wikiMg.insertEmailLink(address, label, tooltip,false);
-		wikiMg.removeLink(label);
+		richEditor.addSimplePage(title1,content1);
+		richEditor.insertEmailLink(address, label, tooltip,false);
+		wValidate.verifyInsertedLinkIntoFrame(label, tooltip);
+		richEditor.removeLink(label);
  	}
 
 	/**
@@ -492,9 +495,11 @@ import org.testng.annotations.*;
 		String address = "www.google.com";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title1,content1);
-		wikiMg.insertWebLink(address, label, tooltip,false);
-		wikiMg.removeLink(label);
+		richEditor.addSimplePage(title1,content1);
+		richEditor.goToWebPageLink();
+		richEditor.insertWebLink(address, label, tooltip,false);
+		wValidate.verifyInsertedLinkIntoFrame(label, tooltip);
+		richEditor.removeLink(label);
  	}
 
 	/**
@@ -526,7 +531,8 @@ import org.testng.annotations.*;
 		String tooltip = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title2,content2);
-		wikiMg.insertNewWikiPageLink(title1, label, tooltip, wikiPageLinkTab.My_Recent_Changes,false);
-		wikiMg.removeLink(label);
+		richEditor.addSimplePage(title2,content2);
+		richEditor.insertNewWikiPageLink(title1, label, tooltip, wikiPageLinkTab.My_Recent_Changes,false);
+		wValidate.verifyInsertedLinkIntoFrame(label, tooltip);
+		richEditor.removeLink(label);
  	}}

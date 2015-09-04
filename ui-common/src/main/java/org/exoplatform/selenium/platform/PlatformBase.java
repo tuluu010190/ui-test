@@ -151,7 +151,10 @@ public class PlatformBase extends TestBase {
 		info("Back to parent window");
 		switchToParentWindow();
 	}
-	
+	/**
+	 * Switch into the frame
+	 * @param frameLocator
+	 */
 	public void switchFrame(By frameLocator){
 		info("Finding the frameLocator:"+frameLocator);
 		WebElement e = waitForAndGetElement(frameLocator,DEFAULT_TIMEOUT,1,2);

@@ -16,6 +16,7 @@ import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
@@ -31,6 +32,7 @@ public class SOC_TestConfig_1 extends PlatformBase {
 	HomePagePlatform hp;
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
+	SourceTextEditor sourceEditor;
 
 	SpaceApplicationDatabase spAppData;
 	ActivityStream hpAct;
@@ -71,6 +73,7 @@ public class SOC_TestConfig_1 extends PlatformBase {
 		connMag = new ConnectionsManagement(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
 		hp = new HomePagePlatform(driver);
+		sourceEditor= new SourceTextEditor(driver);
 
 		notiEmail = new EmailNotifications(driver);
 		

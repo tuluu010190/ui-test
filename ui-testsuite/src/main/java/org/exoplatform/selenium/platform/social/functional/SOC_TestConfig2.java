@@ -31,6 +31,7 @@ import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
+import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.testng.annotations.AfterMethod;
@@ -52,6 +53,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 	
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
+	SourceTextEditor sourceEditor;
 	
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
@@ -101,6 +103,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 		emailNot = new EmailNotifications(driver);
 		wHome=new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);
+		sourceEditor = new SourceTextEditor(driver);
 		
 		spaHome = new SpaceHomePage(driver);
 		spaMg = new SpaceManagement(driver);

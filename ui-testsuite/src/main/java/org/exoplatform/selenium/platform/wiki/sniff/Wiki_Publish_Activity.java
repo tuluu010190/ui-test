@@ -37,7 +37,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		info("Verify that the new wiki page is created successfully");
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
@@ -90,7 +90,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		info("Verify that the new wiki page is created successfully");
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
@@ -139,7 +139,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -184,7 +184,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -211,7 +211,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(newTitle,"");
+		rtMode.editSimplePage(newTitle,"");
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
@@ -256,7 +256,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -283,7 +283,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(newTitle,"");
+		rtMode.editSimplePage(newTitle,"");
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		info("The title of wiki page's activity is updated");
@@ -331,7 +331,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -359,7 +359,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor("",newContent);
+		rtMode.editSimplePage("",newContent);
 		wikiMg.addComment(comment);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
@@ -391,7 +391,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
 		info("Edit the title of the wiki page and check on published checkbox");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor("",newContent1);
+		rtMode.editSimplePage("",newContent1);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
@@ -440,14 +440,14 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Create first new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1,content1);
+		rtMode.addSimplePage(title1,content1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
 		info("Create second new wiki pages");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title2,content2);
+		rtMode.addSimplePage(title2,content2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		

@@ -38,10 +38,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		
 
@@ -90,10 +91,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 
 		/*Step number: 2
@@ -111,9 +113,9 @@ import org.testng.annotations.*;
 		String editContent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(editTitle, editContent);
+		sourceEditor.editSimplePage(editTitle, editContent);
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(editTitle);
+		wValidate.verifyTitleWikiPage(editTitle);
 		arrayPage.add(editTitle);
 
 		/*Step number: 3
@@ -172,10 +174,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Edit title of page with active notification
@@ -193,10 +196,10 @@ import org.testng.annotations.*;
 		String editTitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(editTitle, "");
+		sourceEditor.editSimplePage(editTitle, "");
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(editTitle);
+		wValidate.verifyTitleWikiPage(editTitle);
 		arrayPage.add(editTitle);
 		/*Step number: 3
 		*Step Name: Step 3: Check wiki's activity after change title with active notification
@@ -243,10 +246,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Edit title of page with inactive notification
@@ -263,9 +267,9 @@ import org.testng.annotations.*;
 		String editTitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(editTitle, "");
+		sourceEditor.editSimplePage(editTitle, "");
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(editTitle);
+		wValidate.verifyTitleWikiPage(editTitle);
 		arrayPage.add(editTitle);
 		/*Step number: 3
 		*Step Name: Step 3: Check wiki's activity after edit title with inactive notification
@@ -308,10 +312,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Edit content with active notification
@@ -328,10 +333,10 @@ import org.testng.annotations.*;
 		String editContent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor("", editContent);
+		sourceEditor.editSimplePage("", editContent);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		/*Step number: 3
 		*Step Name: Step 3: Check wiki's activity after edit content with active notification
 		*Step Description: 
@@ -377,10 +382,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Edit content of page with comment associated
@@ -399,11 +405,11 @@ import org.testng.annotations.*;
 		String comment = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor("", editContent);
+		sourceEditor.editSimplePage("", editContent);
 		wikiMg.addComment(comment);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 
 		/*Step number: 3
 		*Step Name: Step 3:Check wiki's activity after edit page with comment
@@ -449,10 +455,11 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Edit content of page with inactive notification
@@ -467,9 +474,9 @@ import org.testng.annotations.*;
 		String editContent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor("", editContent);
+		sourceEditor.editSimplePage("", editContent);
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 
 		/*Step number: 3
 		*Step Name: Step 3: Check wiki's activity after edit content with inactive notification
@@ -512,10 +519,11 @@ import org.testng.annotations.*;
 		String content1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1, content1);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title1, content1);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title1);
+		wValidate.verifyTitleWikiPage(title1);
 		arrayPage.add(title1);
 		
 		info("Create a wiki page 2");
@@ -523,10 +531,11 @@ import org.testng.annotations.*;
 		String content2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title2, content2);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title2, content2);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title2);
+		wValidate.verifyTitleWikiPage(title2);
 		arrayPage.add(title2);
 		/*Step number: 2
 		*Step Name: Step 2: Move page
@@ -588,10 +597,11 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		
 		/*Step number: 2
 		*Step Name: Step 2: Check show delete icon
@@ -642,10 +652,11 @@ import org.testng.annotations.*;
 		String content= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Like a wiki's activity
@@ -721,10 +732,11 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 
 		/*Step number: 3
 		*Step Name: Step 3: Check wiki's activity after created page
@@ -790,10 +802,11 @@ import org.testng.annotations.*;
 		String content= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		navTool.goToMyWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Check wiki's activity after created wiki page
@@ -839,10 +852,11 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		
 		/*Step number: 2
 		*Step Name: Step 2: Check show delete icon
@@ -915,10 +929,11 @@ import org.testng.annotations.*;
 		String content= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Edit content of page with active notification
@@ -935,10 +950,10 @@ import org.testng.annotations.*;
 		String editContent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithAutoSave("",editContent);
+		sourceEditor.editSimplePageWithAutoSave("",editContent);
 		wikiMg.publishPage();
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 
 		/*Step number: 3
 		*Step Name: Step 3: Check wiki's activity after change content with active notification
@@ -985,10 +1000,11 @@ import org.testng.annotations.*;
 		String content= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		/*Step number: 2
 		*Step Name: Step 2: Edit content of page with inactive notification
@@ -1006,9 +1022,9 @@ import org.testng.annotations.*;
 		String editContent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithAutoSave("",editContent);
+		sourceEditor.editSimplePageWithAutoSave("",editContent);
 		wikiMg.saveAddPage();
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 
 		/*Step number: 3
 		*Step Name: Step 3: Check wiki's activity after edit content with inactive notification

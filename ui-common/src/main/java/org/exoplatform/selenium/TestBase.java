@@ -2064,12 +2064,24 @@ public class TestBase {
 		action.sendKeys(Keys.ENTER).perform();
 		action.release();
 	}
-	
+	/**
+	 * Press End Key
+	 * @param driver
+	 */
 	public void pressEndKey(WebDriver driver){
+		info("Press End key");
 		action = new Actions(driver);
 		action.sendKeys(Keys.END).perform();
 		action.release();
 	}
+	
+	public void pressHomeKey(WebDriver driver){
+		info("Press Home key");
+		action = new Actions(driver);
+		action.sendKeys(Keys.HOME).perform();
+		action.release();
+	}
+	
 
 	/**
 	 * Import a Category

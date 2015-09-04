@@ -3,7 +3,7 @@ package org.exoplatform.selenium.platform.wiki.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.wiki.WikiHomePage.effectTypes;
+import org.exoplatform.selenium.platform.wiki.WikiValidattions.effectTypes;
 import org.testng.annotations.*;
 
 
@@ -48,20 +48,21 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		
 		info("Create a wiki page 2 with the same title");
 		String mess = wikiWarningData.getDataContentByArrayTypeRandom(1);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		sourceEditor.addSimplePage(title, content);
 		wikiMg.savePage();
 		Utils.pause(2000);
-		wHome.verifyWarningMessage(mess);
+		wValidate.verifyWarningMessage(mess);
 
  	}
 
@@ -101,10 +102,11 @@ import org.testng.annotations.*;
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,"");
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title, "");
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		
 		info("Verify that the content of the page is empty");
@@ -146,12 +148,13 @@ import org.testng.annotations.*;
 		String title = "Untitled";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor("","");
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage("", "");
 		wikiMg.cancelAddPage();
 		Utils.pause(2000);
 		
 		info("New page is not created");
-		wHome.verifyNOTTitleWikiPage(title);
+		wValidate.verifyNotTitleWikiPage(title);
 
 		/*Step number: 3
 		*Step Name: Step 3: Create new page when click confirm button
@@ -168,14 +171,15 @@ import org.testng.annotations.*;
 		info("Create a wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor("","");
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage("","");
 		wikiMg.savePage();
 		Utils.pause(2000);
 		
 		info("click on Confirm button");
 		wHome.confirmWaringMessage(true);
 		info("New page is created with name is 'Untitled page.''");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 
  	}
@@ -230,7 +234,7 @@ import org.testng.annotations.*;
 		
 		info("Can not see Add Page function");
 		hp.goToWiki();
-		wHome.verifyNotShowAddPageBtn();
+		wValidate.verifyNotShowAddPageBtn();
  	}
 
 	/**
@@ -278,12 +282,13 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.cancelAddPage();
 		wHome.confirmWaringMessage(true);
 		Utils.pause(2000);
 		info("No page is created");
-		wHome.verifyNOTTitleWikiPage(title);
+		wValidate.verifyNotTitleWikiPage(title);
 
  	}
 
@@ -324,11 +329,12 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("New page is created successfully. It is displayed in the destination path");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 
  	}
@@ -369,14 +375,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(1);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("New page is created successfully. It is displayed in the destination path");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The result is the table with 2 columms and 2 rows");
-		wHome.verifyTableInContentPage(2,2);
+		wValidate.verifyTableInContentPage(2,2);
 
  	}
 
@@ -417,14 +424,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(2).replace("$value",value);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with Bold effect");
-		wHome.verifyEffectsPageContent(effectTypes.Bold,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Bold,value);
 
  	}
 
@@ -465,14 +473,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(3).replace("$value",value);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with Bullest list effect");
-		wHome.verifyEffectsPageContent(effectTypes.Bullest_List,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Bullest_List,value);
 
  	}
 
@@ -536,18 +545,19 @@ import org.testng.annotations.*;
 		String content=contentHeading1+"\n"+contentHeading3+"\n"+contentHeading5;
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with Heading 1 effect");
-		wHome.verifyEffectsPageContent(effectTypes.Heading1,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Heading1,value);
 		info("The page is shown with Heading 3 effect");
-		wHome.verifyEffectsPageContent(effectTypes.Heading3,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Heading3,value);
 		info("The page is shown with Heading 5 effect");
-		wHome.verifyEffectsPageContent(effectTypes.Heading5,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Heading5,value);
 
  	}
 
@@ -588,14 +598,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(7).replace("$value",value);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with Italic effect");
-		wHome.verifyEffectsPageContent(effectTypes.Italic,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Italic,value);
 
  	}
 
@@ -636,14 +647,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(8).replace("$value",value);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with link effect");
-		wHome.verifyEffectsPageContent(effectTypes.Link,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Link,value);
 
  	}
 
@@ -684,14 +696,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(9).replace("$value",value);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with Number list effect");
-		wHome.verifyEffectsPageContent(effectTypes.Number_List,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Number_List,value);
 
  	}
 
@@ -740,14 +753,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(10).replace("$value",value);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with Strike effect");
-		wHome.verifyEffectsPageContent(effectTypes.Strike,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Strike,value);
 
  	}
 
@@ -788,14 +802,15 @@ import org.testng.annotations.*;
 		String content = sourceTextEffect.getDataColTwoByArrayTypeRandom(11).replace("$value",value);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("The page is created successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		info("The page is shown with Underline effect");
-		wHome.verifyEffectsPageContent(effectTypes.Underline,value);
+		wValidate.verifyEffectsPageContent(effectTypes.Underline,value);
 
  	}
 
@@ -836,7 +851,8 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("Verify the version on infor bar");

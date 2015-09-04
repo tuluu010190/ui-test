@@ -48,6 +48,7 @@ import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
+import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.openqa.selenium.interactions.Actions;
@@ -107,6 +108,7 @@ public class Plf_TestConfig extends PlatformBase {
 	
 	WikiHomePage wikiHome;
 	WikiManagement wikiMag;
+	SourceTextEditor sourceEditor;
 	
 	TextBoxDatabase txData;
 	UserDatabase userData;
@@ -171,6 +173,7 @@ public class Plf_TestConfig extends PlatformBase {
 		//userProfile=new UserProfile(driver);
 		wikiHome=new WikiHomePage(driver);
 		wikiMag = new WikiManagement(driver);
+		sourceEditor = new SourceTextEditor(driver);
 		eventMag = new EventManagement(driver);
 		taskMag = new TaskManagement(driver);
 		

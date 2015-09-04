@@ -41,9 +41,8 @@ public class Wiki_Attachment extends Wiki_TestConfig {
 			- Attachment(s) is uploaded successful and listed in Attachment table with properties*/ 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.goToSourceEditor();
-		wikiMg.inputDataToPageSourceEditor(title,content,true,true);
-		wikiMg.attachFileInWiki("TestData/"+link);
+		rtMode.addSimplePage(title, content);
+		rtMode.attachFile("TestData/"+link);
 		wikiMg.saveAddPage();
 		
 		waitForAndGetElement(wHome.ELEMENT_PAGE_ATTACHFILE,3000,1);

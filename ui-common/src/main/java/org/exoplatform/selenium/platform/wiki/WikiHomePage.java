@@ -24,14 +24,6 @@ public class WikiHomePage extends WikiLocators{
 		mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK);
 		info("Blank wiki page is shown");
 	}
-	/**
-	 * Verify that Add page button isnot shown
-	 */
-	public void verifyNotShowAddPageBtn(){
-		info("Verify that Add Page button isnot shown");
-		waitForElementNotPresent(ELEMENT_ADD_PAGE_LINK);
-		info("The button is not shown");
-	}
 
 	/**
 	 * Go to "Add template wiki page"
@@ -176,49 +168,7 @@ public class WikiHomePage extends WikiLocators{
 		link = waitForAndGetElement(ELEMENT_PERMALINK_LINKCOPY).getAttribute("value");
 		return link;
 	}
-	/**
-	 * Verify the page is created and shown in the list
-	 * @param title
-	 */
-	public void verifyTitleWikiPage(String title){
-		info("Verify that the wiki page is created and shown in the list");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}",title));
-		info("The wiki page is created successfully");
-	}
 	
-	/**
-	 * Verify the page isnot created and shown in the list
-	 * @param title
-	 */
-	public void verifyNOTTitleWikiPage(String title){
-		info("Verify that the wiki page isnot created and shown in the list");
-		waitForElementNotPresent(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}",title));
-		info("The wiki page isnot created successfully");
-	}
-	/**
-	 * Verify that warning message is shown
-	 * @param mess
-	 */
-	public void verifyWarningMessage(String mess){
-		info("Verify that the warning message is shown");
-		waitForAndGetElement(ELEMENT_MESSAGES_TEXT
-				.replace("$mess",mess));
-		info("Close the warning popup");
-		click(ELEMENT_WARNING_OK_BTN);
-		waitForElementNotPresent(ELEMENT_WARNING_OK_BTN);
-	}
-	/**
-	 * Verify Confirmation message
-	 * @param mess
-	 * @param isConfirm
-	 */
-	public void verifyConfirmationMess(String mess,Boolean isConfirm){
-		info("Verify that the warning message is shown");
-		waitForAndGetElement(ELEMENT_MESSAGES_TEXT
-				.replace("$mess",mess));
-		confirmWaringMessage(isConfirm);
-		Utils.pause(2000);
-	}
 	/**
 	 * Confirm messages
 	 * @param isConfirm
@@ -254,89 +204,6 @@ public class WikiHomePage extends WikiLocators{
 				click(ELEMENT_CONFIRM_POPUP_NO_BTN);
 			}
 			
-		}
-	}
-	/**
-	 * Verify that a table is added to the content of the page
-	 */
-	public void verifyTableInContentPage(int col,int row){
-		info("Verify that the table is shown into the content of the page");
-		waitForAndGetElement(ELEMENT_PAGE_CONTENT_TABLE_MODE);
-		for(int i=1;i<=col;i++){
-			info("A table is shown with the col:"+col);
-			waitForAndGetElement(ELEMETN_PAGE_CONTENT_TABLE_COL_NUM
-					.replace("$col",String.valueOf(col)));
-		}
-		for(int i=1;i<=row;i++){
-			info("A table is shown with the row:"+row);
-			waitForAndGetElement(ELEMETN_PAGE_CONTENT_TABLE_ROW_NUM
-					.replace("$row",String.valueOf(row)));
-		}
-		info("A table isnot shown with the col:"+col+1);
-		waitForElementNotPresent(ELEMETN_PAGE_CONTENT_TABLE_COL_NUM
-				.replace("$col",String.valueOf(col+1)));
-		info("A table isnot shown with the row:"+row+1);
-		waitForElementNotPresent(ELEMETN_PAGE_CONTENT_TABLE_ROW_NUM
-				.replace("$row",String.valueOf(row+1)));
-	}
-	
-	/**
-	 * 
-	 *Define effect types in Source Editor
-	 */
-	public enum effectTypes{
-		Bold,Bullest_List,Number_List,Heading1,Heading3,
-		Heading5,Italic,Link,Strike,Underline;
-	}
-	
-	
-	
-	/**
-	 * Verify effects of Page's content
-	 * @param type
-	 */
-	public void verifyEffectsPageContent(effectTypes type,String content) {
-		switch(type){
-		case Bold:
-			info("Verify Bold effect");
-			waitForAndGetElement(ELEMENT_EFFECT_BOLD.replace("$content",content));
-			break;
-		case Bullest_List:
-			info("Verify Bullest list");
-			waitForAndGetElement(ELEMENT_EFFECT_BULLET_LIST.replace("$content",content));
-			break;
-		case Number_List:
-			info("Verify Number list");
-			waitForAndGetElement(ELEMENT_EFFECT_NUMBER_LIST.replace("$content",content));
-			break;
-		case Heading1:
-			info("Verify Heading1 effect");
-			waitForAndGetElement(ELEMENT_EFFECT_HEADING_1.replace("$content",content));
-			break;
-		case Heading3:
-			info("Verify Heading3 effect");
-			waitForAndGetElement(ELEMENT_EFFECT_HEADING_3.replace("$content",content));
-			break;
-		case Heading5:
-			info("Verify Heading4 effect");
-			waitForAndGetElement(ELEMENT_EFFECT_HEADING_5.replace("$content",content));
-			break;
-		case Italic:
-			info("Verify Italic effect");
-			waitForAndGetElement(ELEMENT_EFFECT_ITALIC.replace("$content",content));
-			break;
-		case Link:
-			info("Verify Link effect");
-			waitForAndGetElement(ELEMENT_EFFECT_LINK.replace("$content",content));
-			break;
-		case Strike:
-			info("Verify Strike effect");
-			waitForAndGetElement(ELEMENT_EFFECT_STRIKE.replace("$content",content));
-			break;
-		case Underline:
-			info("Verify Underline effect");
-			waitForAndGetElement(ELEMENT_EFFECT_UNDERLINE.replace("$content",content));
-			break;
 		}
 	}
 	

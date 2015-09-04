@@ -38,7 +38,8 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePageHasAutoSaveWithoutSave(title, content);
  	}
 
 	/**
@@ -71,12 +72,13 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave("", content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePageHasAutoSaveWithoutSave("", content);
 		
 		info("A page is saved with a generic title within the format: 'Untitled_YearMonthDayTime.''");
 		String title ="Untitled_"+getCurrentDate("yyyyMMddHH");
 		wHome.goToMyDraft();
-		wDraf.verifyTitleDrafPage(title);
+		wValidate.verifyTitleDrafPage(title);
 
  	}
 
@@ -122,7 +124,8 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePageHasAutoSaveWithoutSave(title, content);
 
  	}
 
@@ -152,7 +155,8 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave(title, content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePageHasAutoSaveWithoutSave(title, content);
 
 		/*Step number: 2
 		*Step Name: Step 2: Session work expired
@@ -173,7 +177,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The draft is displayed in the list*/
 		wHome.goToMyDraft();
-		wDraf.verifyTitleDrafPage(title);
+		wValidate.verifyTitleDrafPage(title);
 
 		/*Step number: 4
 		*Step Name: Step 4: Check show draft page
@@ -184,6 +188,6 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The page is displayed in edit mode and the last saved content is displayed*/
 		wDraf.resumeADraft(title);
-		wDraf.verifyResumADraf(title);
+		wValidate.verifyResumADraf(title);
 
  	}}

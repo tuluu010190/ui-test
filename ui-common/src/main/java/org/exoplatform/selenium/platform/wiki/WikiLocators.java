@@ -14,8 +14,6 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_BLANK_PAGE_LINK = By.xpath ("//i[@class='uiIconAddPage']");
 	public final By ELEMENT_WIKI_PAGE_TITLE_RENAME_FIELD = By.xpath(".//*[@id='EdiableInput']");
 	public final String ELEMENT_INFOR_BAR_VERSION=".//*[@id='UIWikiPageInfoArea']//*[contains(@class,'label')]//*[@href][text()='$version']";
-	
-	
 	public final String ELEMENT_WIKI_HOME_PAGE_TITLE = "//*[@id='titleInfo' and text()='${title}']";
 
 	public final String ELEMENT_WIKI_PAGE_LEFTBOX = "//*[@id='iconTreeExplorer']//*[contains(text(),'${title}')]";
@@ -264,6 +262,15 @@ public class WikiLocators extends PlatformBase{
     public final String ELEMENT_INSERTED_IMAGE_ALT_TEXT=".//*[@id='UIViewContentDisplay']//*[contains(@alt,'$alt')]";
     public final String ELEMENT_CHECK_IMAGE = "//img[contains(@alt, '${file}')]";
     public final String ELEMENT_CHECK_ATTACHED_FILE_LINK=".//*[contains(@href,'$file')]";
+    public final String ELEMETN_WIKI_STATUS_VERSION_TEXT=".//*[contains(text(),'$status')]";
+    public final By ELEMENT_WIKI_STATUS_VERSION_VIEW_CHANGES_LINK=By.xpath("//*[@href and contains(text(),'View your Changes')]");
+    public final By ELEMENT_WIKI_STATUS_VERSION_CONTINUE_EDITTING_LINK=By.xpath("//*[@href and contains(text(),'Continue Editing')]");
+    public final By ELEMENT_WIKI_STATUS_VERSION_DELETE_LINK=By.xpath("//*[@href and contains(text(),'Delete')]");
+    public final By ELEMENT_WIKI_STATUS_RESUME_THE_DRAF_LINK=By.xpath("//*[@href and contains(text(),'Resume the Draft')]");
+    public final String ELEMENT_WIKI_STATUS_EDITTING_SAME_PAGE=".//*[contains(text(),'$status')]//b[contains(text(),'$fullName')]";
+    public final String ELEMENT_WIKI_CONTENT_IMAGE_ALT=".//img[@alt='$alt']";
+    public final By ELEMETN_WIKI_DRAFT_CHANGES_PAGE_TITLE=By.xpath(".//*[@id='UIWikiMaskWorkspace']//*[contains(text(),'Draft Changes')]");
+    
     
     //Macro
 	public By ELEMENT_MACRO_LINK = By.xpath("//*[text()='Macro']");
@@ -378,6 +385,7 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_EFFECT_NUMBER_LIST="//ol/li[contains(text(),'$content')]";
 	public final String ELEMENT_EFFECT_HEADING_1="//h1//*[contains(text(),'$content')]";
 	public final String ELEMENT_EFFECT_HEADING_3="//h3//*[contains(text(),'$content')]";
+	public final String ELEMENT_EFFECT_HEADING_2="//h2//*[contains(text(),'$content')]";
 	public final String ELEMENT_EFFECT_HEADING_5="//h5//*[contains(text(),'$content')]";
 	public final String ELEMENT_EFFECT_ITALIC="//em[contains(text(),'$content')]";
 	public final String ELEMENT_EFFECT_LINK="//*[contains(@href,'$content')]";

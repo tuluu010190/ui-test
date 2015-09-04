@@ -3,9 +3,9 @@ package org.exoplatform.selenium.platform.wiki.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.wiki.WikiManagement.alignType;
-import org.exoplatform.selenium.platform.wiki.WikiManagement.attachedFileTabType;
-import org.exoplatform.selenium.platform.wiki.WikiManagement.wikiPageLinkTab;
+import org.exoplatform.selenium.platform.wiki.RichTextEditor.alignType;
+import org.exoplatform.selenium.platform.wiki.RichTextEditor.attachedFileTabType;
+import org.exoplatform.selenium.platform.wiki.RichTextEditor.wikiPageLinkTab;
 import org.testng.annotations.*;
 
 
@@ -51,10 +51,10 @@ import org.testng.annotations.*;
 		String content1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1, content1);
+		richEditor.addSimplePage(title1, content1);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title1);
+		wValidate.verifyTitleWikiPage(title1);
 		arrayPage.add(title1);
 		
 		info("Create a wiki page 2");
@@ -64,11 +64,12 @@ import org.testng.annotations.*;
 		String tooltip = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title2,content2);
-		wikiMg.insertExistWikiPageLink(title1,label,tooltip,wikiPageLinkTab.All_pages);
+		richEditor.addSimplePage(title2,content2);
+		richEditor.goToWikiPageLink();
+		richEditor.insertExistWikiPageLink(title1,label,tooltip,wikiPageLinkTab.All_pages);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title2);
+		wValidate.verifyTitleWikiPage(title2);
 		arrayPage.add(title2);
 
 		/*Step number: 2
@@ -129,11 +130,12 @@ import org.testng.annotations.*;
 		String tooltip = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title2,content2);
-		wikiMg.insertNewWikiPageLink(title1, label, tooltip, wikiPageLinkTab.My_Recent_Changes,true);
+		richEditor.addSimplePage(title2,content2);
+		richEditor.insertNewWikiPageLink(title1, label, tooltip, wikiPageLinkTab.My_Recent_Changes,true);
+		wValidate.verifyInsertedLinkIntoFrame(label, tooltip);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title2);
+		wValidate.verifyTitleWikiPage(title2);
 		arrayPage.add(title2);
 
 		/*Step number: 2
@@ -194,10 +196,10 @@ import org.testng.annotations.*;
 		String content1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1, content1);
+		richEditor.addSimplePage(title1,content1);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title1);
+		wValidate.verifyTitleWikiPage(title1);
 		arrayPage.add(title1);
 		
 		info("Create a wiki page 2");
@@ -207,11 +209,13 @@ import org.testng.annotations.*;
 		String tooltip = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title2,content2);
-		wikiMg.insertExistWikiPageLink(title1,label,tooltip,wikiPageLinkTab.Search);
+		richEditor.addSimplePage(title2,content2);
+		richEditor.goToWikiPageLink();
+		richEditor.insertExistWikiPageLink(title1,label,tooltip,wikiPageLinkTab.Search);
+		wValidate.verifyInsertedLinkIntoFrame(label, tooltip);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title2);
+		wValidate.verifyTitleWikiPage(title2);
 		arrayPage.add(title2);
 
 		/*Step number: 2
@@ -268,11 +272,13 @@ import org.testng.annotations.*;
 		String address = "www.google.com";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title1,content1);
-		wikiMg.insertWebLink(address, label, tooltip,true);
+		richEditor.addSimplePage(title1,content1);
+		richEditor.goToWebPageLink();
+		richEditor.insertWebLink(address, label, tooltip,true);
+		wValidate.verifyInsertedLinkIntoFrame(label, tooltip);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title1);
+		wValidate.verifyTitleWikiPage(title1);
 		arrayPage.add(title1);
 
 		/*Step number: 2
@@ -337,12 +343,14 @@ import org.testng.annotations.*;
 		String attachedFile = attFileData.getAttachFileByArrayTypeRandom(1);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title1,content1);
-		wikiMg.insertAttachedFileLink("TestData/"+attachedFile,true);
-		wikiMg.editAttachedFileLink(attachedFile,"", tooltip);
+		richEditor.addSimplePage(title1,content1);
+		richEditor.insertAttachedFileLink("TestData/"+attachedFile,true);
+		wValidate.verifyInsertedLinkIntoFrame(attachedFile,"");
+		richEditor.editAttachedFileLink(attachedFile,"", tooltip);
+		wValidate.verifyInsertedLinkIntoFrame("", tooltip);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title1);
+		wValidate.verifyTitleWikiPage(title1);
 		arrayPage.add(title1);
 
 		/*Step number: 3
@@ -405,11 +413,12 @@ import org.testng.annotations.*;
 		String address=getRandomString()+"@gmail.com";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title1,content1);
-		wikiMg.insertEmailLink(address, label, tooltip,true);
+		richEditor.addSimplePage(title1,content1);
+		richEditor.insertEmailLink(address, label, tooltip,true);
+		wValidate.verifyInsertedLinkIntoFrame(label, tooltip);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title1);
+		wValidate.verifyTitleWikiPage(title1);
 		arrayPage.add(title1);
 
 		/*Step number: 3
@@ -472,11 +481,12 @@ import org.testng.annotations.*;
 		String attachedFile = attFileData.getAttachFileByArrayTypeRandom(1);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title,content);
-		wikiMg.insertAttachedFileLink("", attachedFile, tooltip, attachedFileTabType.Current_page);
+		richEditor.addSimplePage(title,content);
+		richEditor.insertAttachedFileLink("", attachedFile, tooltip, attachedFileTabType.Current_page);
+		wValidate.verifyInsertedLinkIntoFrame(attachedFile, tooltip);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 
 		/*Step number: 3
@@ -540,15 +550,16 @@ import org.testng.annotations.*;
 		String height="200";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title,content);
-		wikiMg.insertImage("TestData/"+attachedFile,true);
-		wikiMg.editInsertedImage(attachedFile,width,height,altText);
-		wikiMg.selectAlign(alignType.Middle);
-		wikiMg.clickInsertImageBtn();
+		richEditor.addSimplePage(title,content);
+		richEditor.goToAttachedImageLink();
+		richEditor.insertImage("TestData/"+attachedFile,true);
+		richEditor.editInsertedImage(attachedFile,width,height,altText);
+		richEditor.selectAlign(alignType.Middle);
+		richEditor.goToInsertImage();
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("Page is add/edited successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		
 		info("Add attach file is added successfully in content of page");
@@ -604,16 +615,17 @@ import org.testng.annotations.*;
 		String height="200";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title,content);
-		wikiMg.insertImage("TestData/"+attachedFile, width, height, altText);
-		wikiMg.selectAlign(alignType.Middle);
-		wikiMg.clickInsertImageBtn();
+		richEditor.addSimplePage(title,content);
+		richEditor.goToAttachedImageLink();
+		richEditor.insertImage("TestData/"+attachedFile, width, height, altText);
+		richEditor.selectAlign(alignType.Middle);
+		richEditor.goToInsertImage();
 		info("Move focus at the end of the line");
 		pressEndKey(this.driver);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("Page is add/edited successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		
 		info("Add attach file is added successfully in content of page");
@@ -666,16 +678,16 @@ import org.testng.annotations.*;
 		String height="200";
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(title,content);
-		wikiMg.insertExternalImageLink(linkImage, width, height, altText);
-		wikiMg.selectAlign(alignType.Left);
-		wikiMg.clickInsertImageBtn();
+		richEditor.addSimplePage(title,content);
+		richEditor.insertExternalImageLink(linkImage, width, height, altText);
+		richEditor.selectAlign(alignType.Left);
+		richEditor.goToInsertImage();
 		info("Move focus at the end of the line");
 		pressEndKey(this.driver);
 		wikiMg.saveAddPage();
 		Utils.pause(2000);
 		info("Page is add/edited successfully");
-		wHome.verifyTitleWikiPage(title);
+		wValidate.verifyTitleWikiPage(title);
 		arrayPage.add(title);
 		
 		info("Add attach file is added successfully in content of page");

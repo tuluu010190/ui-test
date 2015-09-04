@@ -548,7 +548,9 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		connMag.connectToAUser(username1);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithAutoSaveStatus(name,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePageWithAutoSaveStatus(name,content);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",name));
 
 		magAc.signIn(username1, password1);
@@ -632,7 +634,9 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		connMag.connectToAUser(username1);
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithAutoSaveStatus(name,content);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePageWithAutoSaveStatus(name,content);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",name));
 
 		magAc.signIn(username1, password1);

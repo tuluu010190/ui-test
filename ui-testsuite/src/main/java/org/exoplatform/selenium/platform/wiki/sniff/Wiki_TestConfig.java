@@ -16,6 +16,7 @@ import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
+import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
@@ -37,6 +38,7 @@ public class Wiki_TestConfig extends PlatformBase {
 	WikiDraftPage wDraft;
 	WikiSearchManagement wSearchMg;
 	WikiSettingManagement wSettingMg;
+	SourceTextEditor sourceEditor;
 	
 	RichTextEditor rtMode;
 	SpaceManagement spaMg;
@@ -70,6 +72,7 @@ public class Wiki_TestConfig extends PlatformBase {
 		wDraft = new WikiDraftPage(driver);
 		wSearchMg = new WikiSearchManagement(driver);
 		wSettingMg= new WikiSettingManagement(driver);
+		sourceEditor = new SourceTextEditor(driver);
 		
 		rtMode = new RichTextEditor(driver);
 		spaMg = new SpaceManagement(driver);

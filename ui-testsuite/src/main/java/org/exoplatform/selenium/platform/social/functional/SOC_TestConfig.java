@@ -33,6 +33,7 @@ import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.UserPageBase;
+import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
@@ -116,6 +117,7 @@ public class SOC_TestConfig extends PlatformBase {
 	//Wiki 
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
+	SourceTextEditor sourceEditor;
 
 	//Calendar
 	EventManagement evMg;
@@ -174,6 +176,7 @@ public class SOC_TestConfig extends PlatformBase {
 
 		wikiMg = new WikiManagement(driver);
 		wHome = new WikiHomePage(driver);
+		sourceEditor = new SourceTextEditor(driver);
 
 		SEHome = new SiteExplorerHome(driver);
 		creatDoc = new CreateNewDocument(driver);

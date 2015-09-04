@@ -549,7 +549,9 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(wiki,wiki);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(wiki,wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 
 		String perLink=wikiMg.permalinkAPage();
@@ -592,7 +594,9 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(wiki,wiki);
+		wikiMg.goToSourceEditor();
+		sourceEditor.addSimplePage(wiki,wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 
 		String perLink=wikiMg.permalinkAPage();

@@ -36,7 +36,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 			Page is added successful and listed in navigation tree*/ 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		rtMode.addSimplePage(wiki, wiki);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,1);
 		
@@ -92,7 +92,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithRichText(wiki, wiki);
+		rtMode.addSimplePage(wiki, wiki);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
@@ -140,7 +140,8 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 			After the draft was saved, a notification message will be showed near the title.*/
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithAutoSaveStatus(wiki,wiki);
+		rtMode.addSimplePageWithAutoSaveStatus(wiki, wiki);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		info("Delete the page");
@@ -280,7 +281,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 			A draft version is saved after 30s */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageHasAutoSaveWithoutSave(title,title);
+		rtMode.addSimplePageHasAutoSaveWithoutSave(title,title);
 		
 		
 		/*Step Number: 2
@@ -302,7 +303,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 		info("The draft is displayed in the list");
 		wDraft.resumeADraft(title);
 		info("The page in edit mode is displayed");
-		wikiMg.editSimplePageWithRichText(newTitle, newTitle);
+		rtMode.editSimplePage(newTitle, newTitle);
 		wikiMg.saveAddPage();
 		info("Verify that the new page is added");
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);

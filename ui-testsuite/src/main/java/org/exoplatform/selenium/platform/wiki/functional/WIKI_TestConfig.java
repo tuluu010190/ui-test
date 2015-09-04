@@ -23,10 +23,13 @@ import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
+import org.exoplatform.selenium.platform.wiki.RichTextEditor;
+import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.wiki.WikiPermission;
+import org.exoplatform.selenium.platform.wiki.WikiValidattions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -42,6 +45,9 @@ public class WIKI_TestConfig extends PlatformBase {
 	WikiManagement wikiMg;
 	WikiDraftPage wDraf;
 	WikiPermission wPerm;
+	WikiValidattions wValidate;
+	RichTextEditor richEditor;
+	SourceTextEditor sourceEditor;
 	
 	SpaceHomePage spaHome;
 	SpaceManagement spaMg;
@@ -87,6 +93,9 @@ public class WIKI_TestConfig extends PlatformBase {
 		wikiMg = new WikiManagement(driver);
 		wDraf = new WikiDraftPage(driver);
 		wPerm = new WikiPermission(driver);
+		richEditor = new RichTextEditor(driver);
+		sourceEditor = new SourceTextEditor(driver);
+		wValidate = new WikiValidattions(driver);
 		
 		spaHome = new SpaceHomePage(driver);
 		spaMg = new SpaceManagement(driver);

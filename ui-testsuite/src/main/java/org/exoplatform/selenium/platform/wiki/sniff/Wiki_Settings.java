@@ -120,7 +120,7 @@ public class Wiki_Settings extends Wiki_TestConfig{
 
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		rtMode.addSimplePage(wiki,wiki);
 		wikiMg.saveAddPage();
 
 		/*Step Number: 1
@@ -214,7 +214,7 @@ public class Wiki_Settings extends Wiki_TestConfig{
 		spaMg.addNewSpaceSimple(space, "");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(wiki, wiki);
+		rtMode.addSimplePage(wiki,wiki);
 		wikiMg.saveAddPage();
 		link = wHome.getPermaLink();
 

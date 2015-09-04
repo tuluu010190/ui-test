@@ -1,0 +1,299 @@
+package org.exoplatform.selenium.platform.wiki;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Utils;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+
+public class SourceTextEditor extends WikiLocators{
+	/**
+	 * constructor
+	 * @param dr
+	 */
+	public SourceTextEditor(WebDriver dr){
+		this.driver=dr;
+	}
+
+	/**
+	 * Add a simple wiki page with source editor
+	 * @param title
+	 * @param content
+	 */
+	public void addSimplePage(String title, String content){
+		info("Input a title for the page");
+		String[] text ;
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+		info("Input a content for the page");
+		if(!content.isEmpty()){
+			text = content.split("</br>");
+			for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
+		}
+	}
+
+	/**
+	 * Add a page with checking auto save after 30s
+	 * @param title
+	 * @param content
+	 */
+	public void addSimplePageWithAutoSaveStatus(String title, String content){
+		info("Input a title for the page");
+		String[] text ;
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+		info("Input a content for the page");
+		if(!content.isEmpty()){
+			text = content.split("</br>");
+			for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
+		}
+		info("Waiting 30s before saved all changes");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
+	
+	}
+
+	
+	/**
+	 * Add a new page that has auto save without save
+	 * @param title
+	 * @param content
+	 */
+	public void addSimplePageHasAutoSaveWithoutSave(String title, String content){
+		info("Input a title for the page");
+		String[] text ;
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+		info("Input a content for the page");
+		if(!content.isEmpty()){
+			text = content.split("</br>");
+			for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
+		}
+		info("Waiting 30s before saved all changes");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
+		info("Cancel adding page");
+		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
+		click(ELEMENT_CONFIRMATION_POPUP_YES_BTN);
+		Utils.pause(2000);
+	}
+
+	/**
+		 * Add a page with checking auto save after 30s
+		 * @param title
+		 * @param content
+		 *//*
+		public void addSimplePageWithAutoSaveStatus(String title, String content){
+			info("Input a title for the page");
+			goToSourceEditor();
+			String[] text ;
+			if(!title.isEmpty())
+				type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+			info("Input a content for the page");
+			if(!content.isEmpty()){
+				text = content.split("</br>");
+				for(int i=0; i < text.length; i++){
+					type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+					waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+				}
+			}
+			info("Waiting 30s before saved all changes");
+			waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
+	
+		}*/
+	
+		/**
+		 * Add a new page that has auto save without save
+		 * @param title
+		 * @param content
+		 *//*
+		public void addSimplePageHasAutoSaveWithoutSave(String title, String content){
+			info("Input a title for the page");
+			goToSourceEditor();
+			String[] text ;
+			if(!title.isEmpty())
+				type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+			info("Input a content for the page");
+			if(!content.isEmpty()){
+				text = content.split("</br>");
+				for(int i=0; i < text.length; i++){
+					type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+					waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+				}
+			}
+			info("Waiting 30s before saved all changes");
+			waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
+			info("Cancel adding page");
+			click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
+			click(ELEMENT_CONFIRMATION_POPUP_YES_BTN);
+			Utils.pause(2000);
+		}
+	*/
+	
+		/**
+		 * Edit a simple wiki page with source editor
+		 * @param newTitle
+		 * @param newContent
+		 */
+		public void editSimplePage(String newTitle, String newContent){
+			info("Input a title for the page");
+			String[] text ;
+			if(!newTitle.isEmpty())
+				type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+			info("Input a content for the page");
+			if(!newContent.isEmpty()){
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).clear();
+				text = newContent.split("</br>");
+				for(int i=0; i < text.length; i++){
+					type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+					waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+				}
+			}
+	
+		}
+
+		/**
+			 * Add a page with checking auto save after 30s
+			 * @param title
+			 * @param content
+			 *//*
+			public void addSimplePageWithAutoSaveStatus(String title, String content){
+				info("Input a title for the page");
+				goToSourceEditor();
+				String[] text ;
+				if(!title.isEmpty())
+					type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+				info("Input a content for the page");
+				if(!content.isEmpty()){
+					text = content.split("</br>");
+					for(int i=0; i < text.length; i++){
+						type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+						waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+					}
+				}
+				info("Waiting 30s before saved all changes");
+				waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
+		
+			}*/
+		
+			/**
+			 * Add a new page that has auto save without save
+			 * @param title
+			 * @param content
+			 *//*
+			public void addSimplePageHasAutoSaveWithoutSave(String title, String content){
+				info("Input a title for the page");
+				goToSourceEditor();
+				String[] text ;
+				if(!title.isEmpty())
+					type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+				info("Input a content for the page");
+				if(!content.isEmpty()){
+					text = content.split("</br>");
+					for(int i=0; i < text.length; i++){
+						type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+						waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+					}
+				}
+				info("Waiting 30s before saved all changes");
+				waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,1);
+				info("Cancel adding page");
+				click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
+				click(ELEMENT_CONFIRMATION_POPUP_YES_BTN);
+				Utils.pause(2000);
+			}
+		*/
+		
+			/**
+			 * Edit a simple wiki page with source editor
+			 * @param newTitle
+			 * @param newContent
+			 *//*
+			public void editSimplePageWithSourceEditor(String newTitle, String newContent){
+				info("Input a title for the page");
+				goToSourceEditor();
+				String[] text ;
+				if(!newTitle.isEmpty())
+					type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+				info("Input a content for the page");
+				if(!newContent.isEmpty()){
+					waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).clear();
+					text = newContent.split("</br>");
+					for(int i=0; i < text.length; i++){
+						type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+						waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+					}
+				}
+		
+			}*/
+		
+			/**
+			 * Modify Wiki content with Source editor
+			 * 
+			 * 
+			 * @param title
+			 * 			updated title of the wiki page. Can not be <code>null</code>
+			 * @param content
+			 * 			updated content of the wiki page. Can not be <code>null</code>
+			 * 
+			 */
+			public void inputDataToPage(String title, String content, Boolean isClearTitle, Boolean isClearContent){
+				String[] text ;
+				info("Modify data with source editor");
+				if(title != null){
+					if(isClearTitle)
+						type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+					else
+						type(ELEMENT_TITLE_WIKI_INPUT, title, false);
+				}	
+				if(content != null){
+					if(isClearContent){
+						waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).clear();
+						text = content.split("</br>");
+						for(int i=0; i < text.length; i++){
+							type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+							waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+						}
+					}
+					else{
+						text = content.split("</br>");
+						for(int i=0; i < text.length; i++){
+							type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+							waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+						}
+					}
+				}
+				Utils.pause(2000);
+			}
+
+			/**
+			 * Edit a wiki page with auto save status
+			 * @param newTitle
+			 * @param newContent
+			 */
+			public void editSimplePageWithAutoSave(String newTitle, String newContent){
+				info("Input a title for the page");
+				String[] text ;
+				if(!newTitle.isEmpty())
+					type(ELEMENT_TITLE_WIKI_INPUT, newTitle,true);
+				info("Input a content for the page");
+				if(!newContent.isEmpty()){
+					text = newContent.split("</br>");
+					for(int i=0; i < text.length; i++){
+						type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+						waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+					}
+				}
+				info("Waiting 30s before saved all changes");
+				waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+			}
+	
+	
+}

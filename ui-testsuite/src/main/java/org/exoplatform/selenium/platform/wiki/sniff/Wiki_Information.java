@@ -38,7 +38,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -55,7 +55,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		
 		info("Edit the title of the wiki page");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(newTitle,"");
+		rtMode.editSimplePage(newTitle,"");
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		
@@ -110,26 +110,26 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,content);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 	
 		
 		info("Edit the page first time");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(newTitle,newTitle);
+		rtMode.editSimplePage(newTitle,newTitle);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		
 		info("Edit the page second time");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(newTitle1,newTitle1);
+		rtMode.editSimplePage(newTitle1,newTitle1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle1),2000,0);
 		
 		info("Edit the page third time");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(newTitle2,newTitle2);
+		rtMode.editSimplePage(newTitle2,newTitle2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle2),2000,0);
 		
@@ -193,21 +193,21 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,title);
+		rtMode.addSimplePage(title,title);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 	
 		
 		info("Create child 1 for wiki page");
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(child1,child1);
+		rtMode.addSimplePage(child1,child1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",child1),2000,0);
 		
 		info("Create child 2 for wiki page");
 		wHome.selectAPage(title);
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(child2,child2);
+		rtMode.addSimplePage(child2,child2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",child2),2000,0);
 		
@@ -247,7 +247,6 @@ public class Wiki_Information extends Wiki_TestConfig {
 	public  void test04_VersionCreation() {
 		info("Test 04: Version creation");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String newTitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String link = fData.getAttachFileByArrayTypeRandom(1);
 		
@@ -263,7 +262,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title,content);
+		rtMode.addSimplePage(title,title);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
@@ -284,7 +283,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		
 		info("Edit the page");
 		wHome.goToEditPage();
-		wikiMg.editSimplePageWithSourceEditor(newTitle,newTitle);
+		rtMode.editSimplePage(newTitle,newTitle);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		
@@ -305,7 +304,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Click on attachment icon at information area at the top of page");
 		waitForAndGetElement(wikiMg.ELEMENT_WIKI_PAGE_INFORMATION_AREA_TOTAL_ATTACHEDFILES.replace("${number}","0"),2000,0).click();
 		info("Add new attachment");
-		wikiMg.attachFileInWiki("TestData/"+link);
+		rtMode.attachFile("TestData/"+link);
 		info("Delete attachment");
 		wikiMg.deleteAttachmentFile();
 		
@@ -358,7 +357,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Add new wiki page for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1,title1);
+		rtMode.addSimplePage(title1,title1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
@@ -368,7 +367,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Add new wiki page for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title2,title2);
+		rtMode.addSimplePage(title2,title2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
@@ -480,7 +479,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Add new wiki page for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1,title1);
+		rtMode.addSimplePage(title1,title1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
@@ -490,7 +489,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Add new wiki page for space 2");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title2,title2);
+		rtMode.addSimplePage(title2,title2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
@@ -585,7 +584,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Create a new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1,title1);
+		rtMode.addSimplePage(title1,title1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
@@ -668,14 +667,14 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1,title1);
+		rtMode.addSimplePage(title1,title1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
 		info("Add new wiki page 2 for space 1");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title2,title2);
+		rtMode.addSimplePage(title2,title2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
@@ -778,14 +777,14 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title1,title1);
+		rtMode.addSimplePage(title1,title1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title1),2000,0);
 		
 		info("Add new wiki page 2 for space 1");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addSimplePageWithSourceEditor(title2,title2);
+		rtMode.addSimplePage(title2,title2);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
