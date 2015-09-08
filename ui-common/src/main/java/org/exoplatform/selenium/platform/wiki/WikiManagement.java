@@ -175,13 +175,46 @@ public class WikiManagement extends WikiLocators{
 		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page1),2000);
 		info("The page 1 is moved to page 2");
 	}
+	
+	/**
+	 * Move page 1 to page 2 when user does not have edit permission in destination
+	 * @param page1
+	 * @param page2
+	 */
+	public void movePageWhenUserDoesNotHavePerMissionInDestination(String page1, String page2, boolean destination){
+		info("Open a wiki page 1");
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page1),2000,0).click();
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		if (destination){
+			info("Click on Move page link");
+			if (waitForAndGetElement(ELEMENT_MOVE_PAGE, 5000, 0) == null){
+				mouseOverAndClick(ELEMENT_MOVE_PAGE);
+			}else {
+				click(ELEMENT_MOVE_PAGE);
+			}
+			info("Move page popup is shown. User can see the page");
+			waitForAndGetElement(ELEMENT_WIKI_PAGE_MOVE_POPUP_NODE.replace("${name}", page2),2000,0).click();
+			info("Click on Move button");
+			waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
+			info("A pop up appears");
+			alert.verifyAlertMessage(ELEMENT_MESSAGE_USER_DOES_NOT_HAVE_EDIT_PERMMISSON);
+		}
+		else{
+			info("");
+			waitForElementNotPresent(ELEMENT_MOVE_PAGE, DEFAULT_TIMEOUT, 0);
+		}
+	}
+	
+	
 	/**
 	 * Move a page1 of destination 1 to a page 2 of destination 2
 	 * @param page1
 	 * @param page2
 	 * @param locator
 	 */
-	public void movePageDiffDestination(String page1, String page2, String locator){
+	public void movePageDiffDestination(String page1, String page2, String locator, Boolean ...checkLocation ){
+		boolean check = (checkLocation.length > 0 ? checkLocation[0] : false); 
 		info("Open a wiki page 1");
 		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page1),2000,0).click();
 		info("Click on More link");
@@ -200,8 +233,11 @@ public class WikiManagement extends WikiLocators{
 		info("Select a page in the list");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_TREE_SELECTED_PAGE.replace("$page",page2),2000,0).click();
 		info("Save all changes");
+		if (check){
+			info("Check New Location Home");
+			waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP_NEW_LOCATION_HOME.replace("${spaceName}", locator), 5000);
+		}
 		waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
-
 	}
 	/**
 	 * Open information table
@@ -577,9 +613,5 @@ public class WikiManagement extends WikiLocators{
 		info("Click on Resume the Draf link");
 		click(ELEMENT_WIKI_STATUS_RESUME_THE_DRAF_LINK);
 		Utils.pause(2000);
-		
 	}
-	
-	
-
 }

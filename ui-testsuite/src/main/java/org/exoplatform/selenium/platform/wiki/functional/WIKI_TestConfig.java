@@ -71,6 +71,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	DataTestPathDatabase dataTestForlderPath;
 	ArrayList<String> arrayPage;
 	ArrayList<String> arrayUsers;
+	ArrayList<String> arraySpace;
 	
 	
 	@BeforeMethod
@@ -130,6 +131,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		
 		arrayPage  = new ArrayList<String>();
 		arrayUsers = new ArrayList<String>();
+		arraySpace = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -141,6 +143,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		info("Start afterMethod");
 		deleteAllUsers();
 		deleteAllWikiPages();
+		deleteAllSpaces();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 		info("End afterMethod");
@@ -170,6 +173,23 @@ public class WIKI_TestConfig extends PlatformBase {
 			magAc.signIn(DATA_USER1,DATA_PASS);
 			navTool.goToUsersAndGroupsManagement();
 			userAndGroup.deleteAllUsers(arrayUsers);
+		}
+	}
+	
+	/**
+	 * Delete all Spaces that are created in testing process
+	 */
+	public void deleteAllSpaces(){
+		if(arraySpace.size()>0){
+			magAc.signOut();
+			magAc.signIn(DATA_USER1,DATA_PASS);
+			for(String title:arraySpace){
+				info("Delete the space:"+title);
+				driver.get(baseUrl);
+				hp.goToMySpaces();
+				spaMg.searchSpace(title, "");
+				spaMg.deleteSpace(title, false);
+			}
 		}
 	}
 	

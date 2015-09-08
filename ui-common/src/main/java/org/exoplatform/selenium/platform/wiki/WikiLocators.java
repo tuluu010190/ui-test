@@ -91,6 +91,9 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP=By.xpath(".//*[@class='alert']//*[contains(@title,'Rename the page to move')]");
 	public final String EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP=".//*[@class='alert'][contains(.,'$message')]//*[contains(@title,'Rename the sub-page to move')]";
 	public final String EMENENT_MOVE_ONE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP=".//*[@class='alert'][contains(.,'$message')]//*[contains(@title,'Rename the page to move')]";
+	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME=By.xpath(".//*[@class='alert']/a[text()='Rename']");
+	public final String ELEMENT_MOVE_PAGE_POPUP_NEW_LOCATION_HOME=".//*[@id='newLocation']//*[@class='active']/a[contains(text(),'Wiki Home')]/../..//a[contains(text(),'${spaceName}')]";
+	public final String ELEMENT_MESSAGE_USER_DOES_NOT_HAVE_EDIT_PERMMISSON = "You have no edit permission at the destination page";
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
@@ -98,7 +101,6 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_PAGE_TITLE = ".//*[@id='titleInfo'][text()='${title}']";
 	public final By ELEMENT_PAGE_TITLE_EDIT_TEXTBOX = By.id("EdiableInput");
 	public final By ELEMENT_PAGE_ATTACHFILE = By.xpath("//*[contains(.,'1')]//*[@class='uiIconAttach']");
-	public final String ELEMENT_PAGE_ATTACHFILE_NUMBER = "//*[contains(.,'${number}')]//*[@class='uiIconAttach']";
 	public final By ELEMENT_PAGE_DOWNLOADATTACHFILE = By.xpath("//*[@data-original-title='Download Attachment']");
 	public final By ELEMENT_PAGE_DOWNLOADATTACHFILE_2 = By.xpath(".//*[@id='UIWikiAttachmentUploadListForm']//*[@title='Download Attachment']/..//i");
 	public final By ELEMENT_PAGE_DELETEATTACHFILE = By.xpath("//*[@class='uiIconDelete uiIconLightGray']");
@@ -108,6 +110,9 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE = "//*[@title='Download Attachment' and text()='${fileName}']/../..//*[@class='uiIconDelete uiIconLightGray']";
 	public final String ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE_2 = "//*[@data-original-title='Download Attachment' and text()='${fileName}']/../..//*[@class='uiIconDelete uiIconLightGray']";
 	
+	public final String ELEMENT_PAGE_ATTACHFILE_1 = ".//*[@id='UIWikiAttachmentUploadListForm']//*[@title='Download Attachment' and contains(@href,'${fileName}')]/..//i";
+	public final String ELEMENT_PAGE_ATTACHFILE_2 = ".//*[@id='UIWikiAttachmentUploadListForm']//*[@data-original-title='Download Attachment' and contains(@href,'${fileName}')]/..//i";
+	public final String ELEMENT_PAGE_ATTACHFILE_NUMBER = "//*[contains(.,'${number}')]//*[@class='uiIconAttach']";
 	
 	public final By ELEMENT_SAVE_PERMISSION = By.xpath(".//*[@id='UIWikiPagePermissionForm']//*[contains(text(),'Save')]");
 	public final By ELEMENT_ADD_PERMISSION = By.xpath("//*[@id='uiWikiPermissionOwner']//*[contains(text(),'Add')]");

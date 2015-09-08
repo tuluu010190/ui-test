@@ -89,9 +89,15 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>wiki-func</id>
+			<id>wiki-func-1</id>
 			<properties>
-				<testSuite>wiki-func.xml</testSuite>
+				<testSuite>wiki-func-part1.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>wiki-func-2</id>
+			<properties>
+				<testSuite>wiki-func-part2.xml</testSuite>
 			</properties>
 		</profile>
 		<profile>

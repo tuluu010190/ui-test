@@ -302,27 +302,4 @@ public class WikiHomePage extends WikiLocators{
 			waitForElementNotPresent(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE_2.replace("${fileName}", fileName));
 			}
 	}
-	
-	/**
-	 * Verify that attach file is displayed in a new window
-	 * @param title
-	 *//*
-	public void verifyWhenClickToAttachLinkFile(String file, String number){
-		info("Verify that attach file is displayed in a new window when being clicked");
-		Utils.pause(2000);
-		//driver.navigate().refresh();
-		info("Click files");
-		if (waitForAndGetElement(ELEMENT_PAGE_DOWNLOADATTACHFILE, 5000, 0) != null)
-			click(ELEMENT_PAGE_DOWNLOADATTACHFILE);
-		else {
-			//waitForAndGetElement(ELEMENT_PAGE_DOWNLOADATTACHFILE_2, DEFAULT_TIMEOUT, 1);
-			click(ELEMENT_PAGE_DOWNLOADATTACHFILE_2);
-		}
-		for(String windowHandle  : driver.getWindowHandles()){
-		     driver.switchTo().window(windowHandle);
-		     String windowUrl=driver.getCurrentUrl();
-		     info("driver.title:"+driver.getTitle());
-		     assert windowUrl.contains(file);
-		}
-	}*/
 }

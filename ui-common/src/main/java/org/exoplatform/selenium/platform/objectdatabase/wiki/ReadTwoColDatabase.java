@@ -109,4 +109,13 @@ public class ReadTwoColDatabase {
 		return Content;
 	}
 	
+	/**
+	 * Get file name by index
+	 * @param index
+	 * @return
+	 */
+	public String getDataContentByIndex(int index){
+		return Content.get(index);
+	}
+	
 }

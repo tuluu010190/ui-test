@@ -205,31 +205,12 @@ public class WikiValidattions extends WikiLocators{
 	}
 
 	/**
-	 * Verify the page is created and shown in the list
-	 * @param title
-	 */
-	public void verifyTitleWikiPage(String title){
-		info("Verify that the wiki page is created and shown in the list");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}",title));
-		info("The wiki page is created successfully");
-	}
-	/**
 	 * Verify that Draft changes page is shown
 	 * when click [View Draft changes] link on status
 	 */
 	public void verifyTitleDraftChangesPage(){
 		info("Verify that Draf changes page is shown");
 		waitForAndGetElement(ELEMETN_WIKI_DRAFT_CHANGES_PAGE_TITLE);
-	}
-
-	/**
-	 * Verify alt Text of image is changed
-	 * @param altText
-	 */
-	public void verifyAltTextImageInContentPage(String altText){
-		info("Verify that alt text is changed");
-		waitForAndGetElement(ELEMENT_INSERTED_IMAGE_ALT_TEXT
-				.replace("$alt", altText));
 	}
 
 	/**
@@ -524,4 +505,51 @@ public class WikiValidattions extends WikiLocators{
 			assert true;
 		else assert false;
     }
+
+	/** Verify alt Text of image is changed
+	 * @param altText
+	 */
+	public void verifyAltTextImageInContentPage(String altText){
+		info("Verify that alt text is changed");
+		waitForAndGetElement(ELEMENT_INSERTED_IMAGE_ALT_TEXT
+				.replace("$alt", altText));
+	}
+
+	/**
+	 * Verify attach files are displayed in attach list or not when clicking in attach files number
+	 */
+	public void VerifyAttachFilesAreDisplayedInAttachListOrNot(String fileName, boolean display){
+		info("Verify attach files are displayed in attach list");
+		Utils.pause(2000);
+		if(display){
+			if (waitForAndGetElement(ELEMENT_PAGE_ATTACHFILE_1.replace("${fileName}", fileName), 5000, 0) != null)
+				waitForAndGetElement(ELEMENT_PAGE_ATTACHFILE_2.replace("${fileName}", fileName), 5000, 0);
+			info("Attach files are dilsplayed in attach list");
+		}
+		else{
+			if(waitForElementNotPresent(ELEMENT_PAGE_ATTACHFILE_1.replace("${fileName}", fileName), 5000, 0) != null)
+				waitForElementNotPresent(ELEMENT_PAGE_ATTACHFILE_2.replace("${fileName}", fileName), 5000, 0);
+			info("Attach files are not displayed in attach list");
+		}
+	}
+
+	/**
+	 * Verify the page is created and shown in the list
+	 * @param title
+	 */
+	public void verifyTitleWikiPage(String title){
+		info("Verify that the wiki page is created and shown in the list");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}",title));
+		info("The wiki page is created successfully");
+	}
+
+	/**
+	 * Verify the page is not displayed in Wiki Home
+	 * @param title
+	 */
+	public void verifyWikiPageNotDisplayedInWikiHome(String title){
+		info("Verify the page is not displayed in Wiki Home");
+		waitForElementNotPresent(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}",title));
+		info("The wiki page is not displayed in Wiki Home");
+	}
 }
