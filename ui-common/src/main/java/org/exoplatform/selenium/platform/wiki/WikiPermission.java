@@ -43,7 +43,7 @@ public class WikiPermission extends WikiLocators{
 	 */
 	public void deletePermission(String groupUsers){
 		By bDelete = By.xpath(ELEMENT_DELETE_PERMISSION.replace("$user",groupUsers));
-		if (waitForAndGetElement(bDelete, 10000, 0) != null){
+		if (waitForAndGetElement(bDelete, 20000, 0) != null){
 			info("--Delete permission--");
 			click(bDelete);
 			waitForElementNotPresent(bDelete);

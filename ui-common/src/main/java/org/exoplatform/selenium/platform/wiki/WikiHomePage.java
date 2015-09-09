@@ -186,6 +186,10 @@ public class WikiHomePage extends WikiLocators{
 				info("Click on Yes button");
 				click(ELEMENT_CONFIRM_POPUP_YES_BTN);
 			}
+			if(waitForAndGetElement(ELEMENT_WARNING_OK_BTN,2000,0)!=null){
+				info("Click OK button");
+				click(ELEMENT_WARNING_OK_BTN);
+			}
 		}else{
 			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_CANCEL_BTN,2000,0)!=null){
 				info("Click on Cancel button");

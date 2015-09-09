@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.util.ArrayList;
+
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -412,4 +414,114 @@ public class WikiValidattions extends WikiLocators{
 		info("Verify that cannot click on parent page");
 		waitForAndGetElement(ELEMENT_WIKI_PARENT_PAGE_UN_LINK);
 	}
+	/**
+	 * Verify that the message for many pages have same title in moving page
+	 * @param mess
+	 * @param pages
+	 */
+	public void verifyMessageManyPagesHaveSameTitleInMovingPage(String mess,ArrayList<String> pages){
+		if(!pages.isEmpty()){
+			for(int i=0;i<pages.size();i++){
+				if(i>4){
+					info("i5:"+i+"with:"+pages.get(i));
+					waitForElementNotPresent(EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_LINK
+							.replace("$message",mess)
+							.replace("$page",pages.get(i)),2000,1);
+					waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_AND_MORE);
+				}else {
+					info("i0:"+i+"with:"+pages.get(i));
+					waitForAndGetElement(EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_LINK
+							.replace("$message",mess)
+							.replace("$page",pages.get(i)),2000,1);
+				}
+			}
+		}
+		
+	}
+	/**
+	 * Verify the message for one page has same title in moving page
+	 * @param mess
+	 */
+	public void verifyMessageOnePageHasSameTitleInMovingPage(String mess){
+		if(!mess.isEmpty()){
+			info("Verify that the message is shown");
+			waitForAndGetElement(EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_LINK
+					.replace("$message",mess));
+			info("The message is shown");
+		}
+	}
+	/**
+	 *  Verify breadcrumb path of a page
+	 * @param locator
+	 *               is as Intranet/My Wiki...
+	 * @param pager
+	 */
+	public void verifyBreadCrumbePath(String locator1,String locator2,String page){
+		info("Verify that the page is at the path:"+locator1+"->"+locator2+"->"+page);
+		waitForAndGetElement(ELEMENT_WIKI_HOME_BREADCRUMB_PATH
+				.replace("$locator1",locator1)
+				.replace("$locator2",locator2)
+				.replace("$page",page));
+		info("The page is at correct path");
+	}
+	/**
+	 * Verify that the tooltip of rename in the message is shown for one page has same title in moving page
+	 * @param mess
+	 */
+	public void verifyToolTipMessageOnePageHasSameTitleInMovingPage(String mess){
+		if(!mess.isEmpty()){
+			info("Verify that The tooltip of the message is shown");
+			waitForAndGetElement(EMENENT_MOVE_ONE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP
+					.replace("$message",mess));
+			info("The tooltip is shown");
+		}
+	}
+	/**
+	 * Verify that the tooltip of the message for many pages have same title in moving page
+	 * @param mess
+	 * @param pages
+	 */
+    public void verifyToolTipMessageManyPagesHaveSameTitleInMovingPage(String mess,ArrayList<String> pages){
+    	if(!pages.isEmpty()){
+			for(int i=0;i<pages.size();i++){
+				if(i>4){
+					info("i5:"+i+"with:"+pages.get(i));
+					waitForElementNotPresent(EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP
+							.replace("$message",mess)
+							.replace("$page",pages.get(i)),2000,1);
+					waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_AND_MORE);
+				}else {
+					info("i0:"+i+"with:"+pages.get(i));
+					waitForAndGetElement(EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP
+							.replace("$message",mess)
+							.replace("$page",pages.get(i)),2000,1);
+				}
+			}
+		}
+	}
+    /**
+     * Verify that a page is parent of other page
+     * @param parentNode
+     * @param childNode
+     */
+    public void verifyParentChildNode(String parentNode,String childNode){
+    	info("Verify that page A is under page B or page A is parent of the page B");
+    	waitForAndGetElement(ELEMENT_TREE_WIKI_PARENT_NODE_CHILD_NODE
+    			.replace("$parent",parentNode)
+    			.replace("$child", childNode));
+    	info("The page"+parentNode+" is parent of"+childNode+"");
+    }
+    /**
+     * Verify that edit mode is opening
+     * @param oldTitle
+     */
+    public void verifyEditModeOpenning(String oldTitle){
+    	info("Verify that input tilte field is shown");
+    	waitForAndGetElement(ELEMENT_TITLE_WIKI_INPUT);
+    	info("Verify that the value of input title field has correct value of old title");
+		String currentTitle =this.driver.findElement(ELEMENT_TITLE_WIKI_INPUT).getAttribute("value").toString();
+		if(currentTitle.contains(oldTitle))
+			assert true;
+		else assert false;
+    }
 }

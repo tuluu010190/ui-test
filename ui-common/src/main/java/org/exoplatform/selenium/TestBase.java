@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -1926,6 +1927,21 @@ public class TestBase {
 			sb.append(c);
 		}
 		return sb.toString();
+	}
+	/**
+	 * Create a String list by size
+	 * @param name
+	 *             is the name of array's members
+	 * @param size
+	 * @return value
+	 */
+	public ArrayList<String> getListData(String name,int size){
+		ArrayList<String> array = new ArrayList<String>();
+		for(int i=1;i<size;i++){
+			String item = name+String.valueOf(i);
+			array.add(item);
+		}
+		return array;
 	}
 
 	/**

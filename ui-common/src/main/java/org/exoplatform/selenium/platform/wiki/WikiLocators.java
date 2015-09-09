@@ -15,7 +15,8 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_WIKI_PAGE_TITLE_RENAME_FIELD = By.xpath(".//*[@id='EdiableInput']");
 	public final String ELEMENT_INFOR_BAR_VERSION=".//*[@id='UIWikiPageInfoArea']//*[contains(@class,'label')]//*[@href][text()='$version']";
 	public final String ELEMENT_WIKI_HOME_PAGE_TITLE = "//*[@id='titleInfo' and text()='${title}']";
-
+    public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]/../..//*[contains(text(),'$page')]";
+	
 	public final String ELEMENT_WIKI_PAGE_LEFTBOX = "//*[@id='iconTreeExplorer']//*[contains(text(),'${title}')]";
 	public final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//*[@class='uiIconEditPage uiIconLightGray']");
 	public final By ELEMENT_WIKI_HOME_PAGENOTFOUND = By.xpath("//*[text()='Page Not Found']");
@@ -82,9 +83,14 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_MOVE_RENAMEWIKI = By.xpath("//*[text()='Rename']");
 	public final By ELEMENT_MOVE_RESTRICTED = By.xpath("//*[@class='warningIcon' and contains(text(),'You have no edit permission at the destination page')]");
 	public final String ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR=".//*[@id='UIWikiPopupWindowL1']//*[contains(text(),'Move Page')]/../..//*[contains(text(),'${locator}')]";
+    public final String ELEMENT_MOVE_PAGE_TREE_SELECTED_PAGE=".//*[@id='iconTreeExplorer']//*[contains(text(),'$page')]";
 	public final String ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_SAME_NAME=".//*[@class='alert'][contains(.,'${message}')]";
-	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME=By.xpath(".//*[@class='alert']/a[text()='Rename']");
-
+	public final String EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_LINK=".//*[@class='alert'][contains(.,'$message')]//*[contains(@href,'Rename')]";
+	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_AND_MORE=By.xpath(".//*[@class='alert'][contains(.,'and more')]");
+	public final By EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME=By.xpath(".//*[@class='alert']//*[contains(@href,'Rename')]");
+	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP=By.xpath(".//*[@class='alert']//*[contains(@title,'Rename the page to move')]");
+	public final String EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP=".//*[@class='alert'][contains(.,'$message')]//*[contains(@title,'Rename the sub-page to move')]";
+	public final String EMENENT_MOVE_ONE_PAGE_POPUP_ALERT_MESSAGE_RENAME_TOOLTIP=".//*[@class='alert'][contains(.,'$message')]//*[contains(@title,'Rename the page to move')]";
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
@@ -117,6 +123,7 @@ public class WikiLocators extends PlatformBase{
 	
 	//tree explorer
 	public final String ELEMENT_TREE_WIKI_NAME = ".//*[@id='iconTreeExplorer']//*[contains(text(),'${name}')]";
+	public final String ELEMENT_TREE_WIKI_PARENT_NODE_CHILD_NODE=".//*[@id='iconTreeExplorer']//*[contains(text(),'$parent')]/../../..//*[contains(text(),'$child')]";
 	//Permission
 	public final By ELEMENT_PERMISSION_NAMEORGROUP = By.xpath("//*[@id='PermissionOwner']");
 	public final By ELEMENT_PERMISSION_BTNADD = By.xpath("//*[text()='Add']");

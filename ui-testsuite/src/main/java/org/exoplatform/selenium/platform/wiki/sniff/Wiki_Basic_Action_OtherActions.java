@@ -1228,7 +1228,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 
 		 *Expected Outcome: 
 			Page is changed namesuccessfully*/ 
-		wikiMg.renameNameFromAlertMessage();
+		wikiMg.renameFromAlertMessageOfOnePage();
 		rtMode.editSimplePage(newTitle, "");
 		wikiMg.saveAddPage();
 		waitForAndGetElement((wHome.ELEMENT_WIKI_PAGE_LEFTBOX).replace("${title}",newTitle));

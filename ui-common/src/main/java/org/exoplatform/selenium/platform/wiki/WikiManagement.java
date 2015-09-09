@@ -198,7 +198,7 @@ public class WikiManagement extends WikiLocators{
 		info("Select a location");
 		click(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",locator));
 		info("Select a page in the list");
-		waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",page2),2000,0).click();
+		waitForAndGetElement(ELEMENT_MOVE_PAGE_TREE_SELECTED_PAGE.replace("$page",page2),2000,0).click();
 		info("Save all changes");
 		waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
 
@@ -518,9 +518,17 @@ public class WikiManagement extends WikiLocators{
 	 * @param newTitle
 	 * @param newContent
 	 */
-	public void renameNameFromAlertMessage(){
+	public void renameFromAlertMessageOfOnePage(){
 		info("Click on Rename link on the alert message area");
-		click(ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME);
+		click(EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME);
+		Utils.pause(2000);
+	}
+	
+	public void renameFromAlertMessageOfManyPages(String mess,String page){
+		info("Click on Rename link of the page");
+		click(EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_LINK
+				.replace("$message",mess)
+				.replace("$page",page));
 		Utils.pause(2000);
 	}
 	
