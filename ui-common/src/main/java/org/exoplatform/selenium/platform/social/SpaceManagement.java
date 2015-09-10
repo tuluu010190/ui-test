@@ -44,13 +44,14 @@ public class SpaceManagement extends SpaceLocator {
 	 * 					false: not verify content of confirm msg
 	 */
 	public void deleteSpace(String spaceName, Boolean isVerify){
-		info("Do delete space");
-		click(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName));
-		if(isVerify)
-			alert.verifyAlertMessage(ELEMENT_SPACE_CONFIRM_DELETE);
-		click(ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON);
-		waitForElementNotPresent(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName),60000);
-
+		if(waitForAndGetElement(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName),2000,0)!=null){
+			info("Do delete space");
+			click(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName));
+			if(isVerify)
+				alert.verifyAlertMessage(ELEMENT_SPACE_CONFIRM_DELETE);
+			click(ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON);
+			waitForElementNotPresent(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName),60000);
+		}
 	}
 	/**
 	 * Leave a space

@@ -258,7 +258,17 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_EDIT_TEMPLATE = ".//*[@id='UIWikiTemplateGrid']//*[contains(text(),'{$template}')]/../..//*[@class='uiIconEditTemplate uiIconLightGray']";
 	public final String ELEMENT_DELETE_TEMPLATE = "//*[@id='UIWikiTemplateGrid']//*[contains(text(),'{$template}')]/../..//*[@class='uiIconDeleteTemplate uiIconLightGray']";
 	public final By ELEMENT_TITLE_TEMPLATE = By.id("titleInput");
+	public final By ELEMENT_DESCRIPTION_TEMPLATE = By.id("Description");
+	public final By ELEMENT_CONTENT_TEMPLATE = By.id("Markup");
 	public final By ELEMENT_SAVE_TEMPLATE = By.id("UISubmitToolBarUpper_SaveTemplate_");
+	public final By ELEMENT_CANCEL_TEMPLATE = By.id("UISubmitToolBarUpper_Cancel_");
+	public final By ELEMENT_WIKI_SETTING_TEMPLATE_TAB=By.xpath(".//*[contains(@href,'TemplateSetting')]");
+	public final By ELEMENT_WIKI_SETTING_PERMISSION_TAB=By.xpath(".//*[contains(@href,'PermissionSetting')]");
+	public final By ELEMENT_WIKI_SETTING_ADD_MORE_TEMPALTE=By.xpath(".//*[contains(@onclick,'#AddTemplate')]");
+	public final By ELEMENT_WIKI_SETTING_SEARCH_EMPTY=By.xpath(".//*[@id='UIWikiTemplateGrid']//*[contains(@class,'empty')]");
+	public final By ELEMENT_WIKI_SETTING_PAGE_TOTAL_NUMBER=By.xpath(".//*[contains(@id,'TemplateSetting')]//*[contains(@class,'pagesTotalNumber')]");
+	public final By ELEMENT_WIKI_SETTING_PAGE_NEXT_BUTTON =By.xpath(".//*[contains(@id,'TemplateSetting')]//*[contains(@class,'uiIconNextArrow')]");
+	
 	//*==============================================================WIKI DRAFF PAGE===================================================================*\\
 	//Manage Draft screen
 	public String ELEMENT_DRAFT_OF_NEW_PAGE = "//*[@id='UIWikiDraftGrid']//*[contains(text(),'${title}')]";

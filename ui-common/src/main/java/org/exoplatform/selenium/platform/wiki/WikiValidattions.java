@@ -552,4 +552,56 @@ public class WikiValidattions extends WikiLocators{
 		waitForElementNotPresent(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}",title));
 		info("The wiki page is not displayed in Wiki Home");
 	}
+	/**
+	 * Verify that a template is shown in the list
+	 * @param template
+	 */
+	public void verifyTemplateInList(String template){
+		if(waitForAndGetElement(ELEMENT_WIKI_SETTING_PAGE_TOTAL_NUMBER,2000,0)!=null){
+			String total = waitForAndGetElement(ELEMENT_WIKI_SETTING_PAGE_TOTAL_NUMBER).getText();
+			int totalNum = Integer.parseInt(total);
+			for(int i=0;i<totalNum;i++){
+				if(waitForAndGetElement(ELEMENT_WIKI_SETTINGS_RESULTS
+						.replace("${template}",template),2000,0)==null){
+					info("Click on next button");
+					click(ELEMENT_WIKI_SETTING_PAGE_NEXT_BUTTON);
+				}else{
+					info("Verify that the template is shown in the list");
+					waitForAndGetElement(ELEMENT_WIKI_SETTINGS_RESULTS
+							.replace("${template}",template));
+					info("The template is shown successfully");
+					break;
+				}
+			}
+		}else{
+			info("Verify that the template is shown in the list");
+			waitForAndGetElement(ELEMENT_WIKI_SETTINGS_RESULTS
+					.replace("${template}",template));
+			info("The template is shown successfully");
+		}
+	}
+	/**
+	 * Verify that a template isnot shown in the list
+	 * @param template
+	 */
+	public void verifyNotTemplateInList(String template){
+		if(waitForAndGetElement(ELEMENT_WIKI_SETTING_PAGE_TOTAL_NUMBER,2000,0)!=null){
+			String total = waitForAndGetElement(ELEMENT_WIKI_SETTING_PAGE_TOTAL_NUMBER).getText();
+			int totalNum = Integer.parseInt(total);
+			for(int i=0;i<totalNum;i++){
+				info("Verify that the template is shown in the list");
+				waitForElementNotPresent(ELEMENT_WIKI_SETTINGS_RESULTS
+						.replace("${template}",template));
+				info("The template is shown successfully");	
+			}
+		}
+	}
+	/**
+	 * Verify that searching is empty
+	 */
+	public void verifyTemplateSearchEmpty(){
+		info("Verify that the searching is empty");
+		waitForAndGetElement(ELEMENT_WIKI_SETTING_SEARCH_EMPTY);
+		info("Searching is empty successfully");
+	}
 }

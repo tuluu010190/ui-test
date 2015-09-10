@@ -21,7 +21,7 @@ import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.wiki.WikiSearchManagement;
-import org.exoplatform.selenium.platform.wiki.WikiSettingManagement;
+import org.exoplatform.selenium.platform.wiki.WikiSettingPage;
 import org.testng.annotations.*;
 
 
@@ -37,7 +37,7 @@ public class Wiki_TestConfig extends PlatformBase {
 	WikiHomePage wHome;
 	WikiDraftPage wDraft;
 	WikiSearchManagement wSearchMg;
-	WikiSettingManagement wSettingMg;
+	WikiSettingPage wSettingMg;
 	SourceTextEditor sourceEditor;
 	
 	RichTextEditor rtMode;
@@ -71,7 +71,7 @@ public class Wiki_TestConfig extends PlatformBase {
 		wHome = new WikiHomePage(driver);
 		wDraft = new WikiDraftPage(driver);
 		wSearchMg = new WikiSearchManagement(driver);
-		wSettingMg= new WikiSettingManagement(driver);
+		wSettingMg= new WikiSettingPage(driver);
 		sourceEditor = new SourceTextEditor(driver);
 		
 		rtMode = new RichTextEditor(driver);

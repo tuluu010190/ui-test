@@ -367,37 +367,6 @@ public class WikiManagement extends WikiLocators{
 		info("The relation is deleted");
 	}
 	/**
-	 * Add a simple wiki page by template format
-	 * @param template
-	 */
-	public void addSimpleWikiPageByTemplate(String template,String newTitle){
-		info("Select a template");
-		selectTemplateWikiPage(template);
-		click(ELEMENT_TEMPLATE_SELECT_BTN);
-		if(!newTitle.isEmpty())
-			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
-		Utils.pause(2000);
-		info("Save all changes");
-		saveAddPage();
-	}
-
-	/**
-	 * Add a simple wiki page with template with auto save status
-	 * @param template
-	 */
-	public void addSimplePageByTemplateWithAutoSave(String template,String newTitle){
-		info("Select a template");
-		selectTemplateWikiPage(template);
-		click(ELEMENT_TEMPLATE_SELECT_BTN);
-		Utils.pause(2000);
-		if(!newTitle.isEmpty())
-			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
-		info("Waiting 30s before saved all changes");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
-		info("Save all changes");
-		saveAddPage();
-	}
-	/**
 	 * Preview a template
 	 * @param template
 	 */
@@ -613,5 +582,37 @@ public class WikiManagement extends WikiLocators{
 		info("Click on Resume the Draf link");
 		click(ELEMENT_WIKI_STATUS_RESUME_THE_DRAF_LINK);
 		Utils.pause(2000);
+	}
+
+	/**
+	 * Add a simple wiki page by template format
+	 * @param template
+	 */
+	public void addSimpleWikiPageByTemplate(String template,String newTitle){
+		info("Select a template");
+		selectTemplateWikiPage(template);
+		click(ELEMENT_TEMPLATE_SELECT_BTN);
+		if(!newTitle.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+		Utils.pause(2000);
+		info("Save all changes");
+		saveAddPage();
+	}
+
+	/**
+	 * Add a simple wiki page with template with auto save status
+	 * @param template
+	 */
+	public void addSimplePageByTemplateWithAutoSave(String template,String newTitle){
+		info("Select a template");
+		selectTemplateWikiPage(template);
+		click(ELEMENT_TEMPLATE_SELECT_BTN);
+		Utils.pause(2000);
+		if(!newTitle.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+		info("Waiting 30s before saved all changes");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+		info("Save all changes");
+		saveAddPage();
 	}
 }

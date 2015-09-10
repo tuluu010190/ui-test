@@ -29,6 +29,7 @@ import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.wiki.WikiPermission;
+import org.exoplatform.selenium.platform.wiki.WikiSettingPage;
 import org.exoplatform.selenium.platform.wiki.WikiValidattions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -47,6 +48,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	WikiPermission wPerm;
 	WikiValidattions wValidate;
 	WikiPermission wPermission;
+	WikiSettingPage wSetting;
 	RichTextEditor richEditor;
 	SourceTextEditor sourceEditor;
 	
@@ -72,6 +74,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	ArrayList<String> arrayPage;
 	ArrayList<String> arrayUsers;
 	ArrayList<String> arraySpace;
+	ArrayList<String> arrayTemplate;
 	
 	
 	@BeforeMethod
@@ -99,6 +102,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		sourceEditor = new SourceTextEditor(driver);
 		wValidate = new WikiValidattions(driver);
 		wPermission = new WikiPermission(driver);
+		wSetting = new WikiSettingPage(driver);
 		
 		spaHome = new SpaceHomePage(driver);
 		spaMg = new SpaceManagement(driver);
@@ -132,6 +136,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		arrayPage  = new ArrayList<String>();
 		arrayUsers = new ArrayList<String>();
 		arraySpace = new ArrayList<String>();
+		arrayTemplate = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -143,6 +148,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		info("Start afterMethod");
 		deleteAllUsers();
 		deleteAllWikiPages();
+		deleteAllTemplates();
 		deleteAllSpaces();
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -189,6 +195,23 @@ public class WIKI_TestConfig extends PlatformBase {
 				hp.goToMySpaces();
 				spaMg.searchSpace(title, "");
 				spaMg.deleteSpace(title, false);
+			}
+		}
+	}
+	/**
+	 * Delete all templates
+	 */
+	public void deleteAllTemplates(){
+		if(arrayTemplate.size()>0){
+			magAc.signOut();
+			magAc.signIn(DATA_USER1,DATA_PASS);
+			for(String template:arrayTemplate){
+				info("Delete the template:"+template);
+				driver.get(baseUrl);
+				hp.goToWiki();
+				wHome.goToWikiSettingPage();
+				wSetting.searchTemplate(template);
+				wSetting.deleteTemplate(template);
 			}
 		}
 	}
