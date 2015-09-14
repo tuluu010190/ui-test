@@ -76,7 +76,7 @@ public class Wiki_Search extends Wiki_TestConfig {
 	
 		 *Expected Outcome: 
 			Search results will list pages that matches with keyword and selected space*/ 
-		wSearchMg.advancedSearch("My Wiki");
+		wSearchMg.advancedSearch("","My Wiki");
 		info("Verify that the searched results is listed that matches with keyword and selected location");
 		waitForAndGetElement(wSearchMg.ELEMENT_SEARCH_NORESULT,3000,0);
 		info("Delete the page");

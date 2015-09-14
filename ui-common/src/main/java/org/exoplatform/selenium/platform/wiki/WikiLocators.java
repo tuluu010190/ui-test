@@ -16,7 +16,11 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_INFOR_BAR_VERSION=".//*[@id='UIWikiPageInfoArea']//*[contains(@class,'label')]//*[@href][text()='$version']";
 	public final String ELEMENT_WIKI_HOME_PAGE_TITLE = "//*[@id='titleInfo' and text()='${title}']";
     public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]/../..//*[contains(text(),'$page')]";
-	
+    public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH_HOME=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]";
+    public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//li[contains(@class, 'spaceSearch')]//input[contains(@placeholder, 'Filter Spaces')]");
+	public final String ELEMENT_SPACE_NAME_SELECTED = "//*[contains(@id,'UISpaceSwitcher_/spaces/${space}')]/a";
+    
+    
 	public final String ELEMENT_WIKI_PAGE_LEFTBOX = "//*[@id='iconTreeExplorer']//*[contains(text(),'${title}')]";
 	public final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//*[@class='uiIconEditPage uiIconLightGray']");
 	public final By ELEMENT_WIKI_HOME_PAGENOTFOUND = By.xpath("//*[text()='Page Not Found']");
@@ -125,6 +129,8 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_ATTACHMENT_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[@class='uiIconAttach']");
 	public final By ELEMENT_SEARCH_TEXTBOX = By.xpath("//*[@id='wikiSearchValue']");
 	public final By ELEMENT_SEARCH_BTN = By.xpath(".//*[@id='UIWikiSearchBox']//*[@class='uiIconSearch uiIconLightGray']");
+	public final By ELEMENT_SPACE_DROP_DOWN=By.xpath(".//*[@id='DisplayModesDropDown']//*[contains(@class,'uiIconMiniArrowDown')]");
+	public final String ELEMENT_SPACE_SWITCHER_SELECTED_SPACE=".//*[contains(@id,'UISpaceSwitcher')][contains(@alt,'$space')]";
 	
 	//Browsers
 	public final By ELEMENT_SEARCH_BROWSERS_DROPDOWN = By.xpath("//*[@class='uiActionWithLabel']/..//*[text()='Browse']");
@@ -248,9 +254,18 @@ public class WikiLocators extends PlatformBase{
 	//Search page
 	public final String ELEMENT_SEARCH_RESULT = "//*[@class='uiIconFile']/..//*[contains(text(),'${title}')]";
 	public final By ELEMENT_SEARCH_DROPDOWNSPACE = By.xpath("//*[@id='wikis']/..//*[@id='DisplayModesDropDown']");
+	public final By ELEMENT_ADVANCED_SEARCH_FILTER=By.xpath(".//*[@id='wikis']//input");
+	public final By ELEMENET_ADVANCED_SEARCH_DROP_DOWN=By.xpath(".//*[@id='wikis']//*[@id='DisplayModesDropDown']//*[contains(@class,'uiIconMiniArrowDown ')]");
+	public final String ELEMENT_ADVANCED_SEARCH_SPACE_SWITCHER=".//*[@id='wikis']//*[contains(@alt,'$space')]";
 	public final String ELEMENT_SEARCH_DROPDOWNSPACE_LOCATION = "//*[@title='${location}']";
 	public final By ELEMENT_SEARCH_NORESULT = By.xpath("//*[@class='resultInfo noResult']");
 	public final By ELEMENT_SEARCH_ADVANCED_SEARCH_BTN=By.xpath(".//*[@id='UIWikiAdvanceSearchForm']/button[text()='Search']");
+	public final By ELEMENT_WIKI_SEARCH_FIELD=By.xpath(".//*[@id='wikiSearchValue']");
+	public final String ELEMENT_WIKI_SEARCH_RESULT_PAGE_LINK =".//*[@id='UIWikiAdvanceSearchResult']/ul//*[contains(text(),'$page')]";
+	public final By ELEMENT_WIKI_ADVANCED_SEARCH_SEARCH_FIELD=By.xpath(".//*[@id='text']");
+	public final By ELEMENT_WIKI_SEARCH_EMPTY_RESULTS=By.xpath(".//*[@id='UIWikiAdvanceSearchResult']//*[contains(@class,'noResult')]");
+	public final By ELEMENT_WIKI_QUICK_SEARCH_BTN =By.xpath(".//*[@id='UIWikiSearchBox']//*[contains(@class,'uiIconSearch ')]");
+	
 	//*==============================================================WIKI SETTING MANAGEMENT ========================================================*\\
 	public final By ELEMENT_TEMPLATE_SEARCH_TEXTBOX = By.xpath(".//*[@id='TemplateSeachBox']");
 	public final By ELEMENT_WIKI_SETTINGS_TITLE = By.xpath(".//*[@id='UIWikiSettingContainer']/h4[text()='Wiki Settings']");

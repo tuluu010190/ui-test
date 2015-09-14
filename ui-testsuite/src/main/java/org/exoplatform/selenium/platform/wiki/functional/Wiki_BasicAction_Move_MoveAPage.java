@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor.alignType;
+import org.exoplatform.selenium.platform.wiki.RichTextEditor.attachedFileTabType;
 //import org.exoplatform.selenium.platform.wiki.WikiManagement.alignType;
 import org.testng.annotations.Test;
 
@@ -1069,5 +1070,184 @@ public class Wiki_BasicAction_Move_MoveAPage extends WIKI_TestConfig{
 		info("Check to make sure wiki page 1 exists under wiki page 2");
 		wHome.goToAPage(wiki2);
 		wValidate.verifyTitleWikiPage(wiki1);
+	}
+
+	/**
+	*<li> Case ID:139571.</li>
+	*<li> Test Case Name: Check Redirection after a move to another space.</li>
+	*<li> Pre-Condition: User is member of "Space Move" and "Space Destination 2"
+	Wiki of "Space Move" has:
+	- Page A
+	- Page B
+	
+	
+	Wiki of "Space Destination 2" has:
+	- Page with attachments (with two images in its content)
+	- Page with Sub-Pages
+	--- Sub-Page with attachments 1 (two images in its content)
+	--- Sub-Page with attachments 2 (two files as attachments)</li>
+	*<li> Post-Condition: </li>
+	*/
+	@Test
+	public  void test15_CheckRedirectionAfterAMoveToAnotherSpace() {
+		info("Test 15 Check Redirection after a move to another space");
+		/*Step Number: 1
+		*Step Name: 
+		*Step Description: 
+			- Go to "Space Move" using left side bar navigation
+			- Open wiki application
+			- Open "Page A"
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- "Page A" is displayed
+			- Space navigation of "Space Move" is displayed*/
+		info("Create a space 1: moving space");
+		String space1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToAllSpace();
+		spaMg.addNewSpaceSimple(space1,space1,6000);
+		Utils.pause(2000);
+		
+		info("Create Page on the space");
+		String page=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		info("Create page A");
+		hp.goToSpecificSpace(space1);
+		spaHome.goToWikiTab();
+		wHome.goToAddBlankPage();
+		richEditor.addSimplePage(page,page);
+		wikiMg.saveAddPage();
+		Utils.pause(2000);
+		wValidate.verifyTitleWikiPage(page);
+	
+		info("Create a space 2: destination space");
+		String space2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToAllSpace();
+		spaMg.addNewSpaceSimple(space2,space2,6000);
+		Utils.pause(2000);
+	
+		info("Create pages and sub-pages for space 2");
+		String page1=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String subPage1 =txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String subPage2 =txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String image1 = attFileData.getAttachFileByArrayTypeRandom(26);
+		String image2 = attFileData.getAttachFileByArrayTypeRandom(27);
+		String file1 = attFileData.getAttachFileByArrayTypeRandom(1);
+		String file2 = attFileData.getAttachFileByArrayTypeRandom(2);
+		info("Create page");
+		hp.goToSpecificSpace(space2);
+		spaHome.goToWikiTab();
+		wHome.goToAddBlankPage();
+		richEditor.addSimplePage(page1,"");
+		info("Insert image 1");
+		richEditor.goToAttachedImageLink();
+		richEditor.insertImage("TestData/"+image1,true);
+		wikiMg.saveAddPage();
+		Utils.pause(2000);
+		info("Page is add/edited successfully");
+		wValidate.verifyTitleWikiPage(page1);
+		
+		info("Insert image 2");
+		wHome.goToAPage(page1);
+		wHome.goToEditPage();
+		richEditor.goToAttachedImageLink();
+		richEditor.insertImage("TestData/"+image2,true);
+		wikiMg.saveAddPage();
+		Utils.pause(2000);
+		info("Page is add/edited successfully");
+		wValidate.verifyTitleWikiPage(page1);
+		
+		info("Create sub page1");
+		wHome.goToAPage(page1);
+		wHome.goToAddBlankPage();
+		richEditor.addSimplePage(subPage1,"");
+		info("Insert file 1");
+		richEditor.insertAttachedFileLink("",file1,"", attachedFileTabType.Current_page);
+		wValidate.verifyInsertedLinkIntoFrame(file1,"");
+		wikiMg.saveAddPage();
+		Utils.pause(2000);
+		wValidate.verifyTitleWikiPage(subPage1);
+		
+		info("Insert file 2");
+		wHome.goToAPage(subPage1);
+		wHome.goToEditPage();
+		richEditor.insertAttachedFileLink("",file2,"", attachedFileTabType.Current_page);
+		wValidate.verifyInsertedLinkIntoFrame(file2,"");
+		wikiMg.saveAddPage();
+		Utils.pause(2000);
+		wValidate.verifyTitleWikiPage(subPage1);
+		
+		
+		info("Create sub page2");
+		wHome.goToAPage(page1);
+		wHome.goToAddBlankPage();
+		richEditor.addSimplePage(subPage2,"");
+		info("Insert image 1");
+		richEditor.goToAttachedImageLink();
+		richEditor.insertImage("TestData/"+image1,true);
+		wikiMg.saveAddPage();
+		Utils.pause(2000);
+		wValidate.verifyTitleWikiPage(subPage2);
+		
+		info("Insert image 2");
+		wHome.goToAPage(subPage2);
+		wHome.goToEditPage();
+		richEditor.goToAttachedImageLink();
+		richEditor.insertImage("TestData/"+image2,true);
+		wikiMg.saveAddPage();
+		Utils.pause(2000);
+		wValidate.verifyTitleWikiPage(subPage2);
+	
+		/*Step number: 2
+		*Step Name: 
+		*Step Description: 
+			- Open "More" Menu
+			- Select "Move Page"
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- The popup to move the page is displayed*/
+	
+		/*Step number: 3
+		*Step Name: 
+		*Step Description: 
+			- Open Space switcher 
+			- Select "Space Destination 2"
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- The destination container is displaying "Space Destination 2" tree*/
+	
+		/*Step number: 4
+		*Step Name: 
+		*Step Description: 
+			- In destination container select "Wiki Home"
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- New Location Path is displaying :Space Destination 2 > Wiki Home*/
+	
+		/*Step number: 5
+		*Step Name: 
+		*Step Description: 
+			- Click on Move Button
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- "Page A" is moved in the space "Space Destination" 
+			- "Page A" is automatically displayed in "Space Destination 2" :
+			- Breadcrumb is displaying :Space Destination 2 > Wiki Home > Page A
+			- Space Navigation of "Space Destination 2" is displayed*/ 
+		info("Move page of space 1 to Wiki Home of space 2");
+		hp.goToSpecificSpace(space1);
+		spaMg.goToWikiTab();
+		wikiMg.movePageDiffDestination(page,"Wiki Home",space2);
+		
+		info("[Page] is moved in space2");
+		wValidate.verifyTitleWikiPage(page);
+		info("Breadcrumb is displaying :Space2 > Wiki Home >"+page);
+		wValidate.verifyBreadCrumbePath(space2,"Wiki Home",page);
+		info("Space Navigation is not displayed anymore");
+		waitForElementNotPresent(spaHome.ELEMENT_SPACE_WIKI_TAB);
+	
 	}
 }

@@ -302,4 +302,40 @@ public class WikiHomePage extends WikiLocators{
 			waitForElementNotPresent(ELEMENT_PAGE_DELETEATTACHFILE_VIEW_MODE_2.replace("${fileName}", fileName));
 			}
 	}
+	/**
+	 * Go to Wiki Home of the space
+	 * @param space
+	 */
+	public void goToWikiHomeOfSpaceFromBreadcrumb(String space){
+		goToSpaceSwitcher();
+		if(!space.isEmpty()){
+			info("Select the space");
+			click(ELEMENT_SPACE_SWITCHER_SELECTED_SPACE
+					.replace("$space",space));
+			waitForAndGetElement(ELEMENT_WIKI_HOME_BREADCRUMB_PATH_HOME
+					.replace("$locator1",space)
+					.replace("$locator2","Wiki Home"));
+		}
+	}
+	/**
+	 * Open Space switcher
+	 */
+	public void goToSpaceSwitcher(){
+		info("Click on drop down");
+		click(ELEMENT_SPACE_DROP_DOWN);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Input and search a space in space switcher
+	 * @param text
+	 */
+	public void inputSpaceSwitcher(String text){
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).clear();
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).click();
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).sendKeys(text);
+		Utils.pause(1000);
+		
+	}
+	
 }

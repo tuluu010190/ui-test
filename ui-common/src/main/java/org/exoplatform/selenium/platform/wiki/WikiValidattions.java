@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -604,4 +605,116 @@ public class WikiValidattions extends WikiLocators{
 		waitForAndGetElement(ELEMENT_WIKI_SETTING_SEARCH_EMPTY);
 		info("Searching is empty successfully");
 	}
+	/**
+	 * Verify that the page is shown in searched results list
+	 * @param page
+	 */
+	public void verifySearchResults(String page){
+		info("Verify that the page is shown in results searched");
+		waitForAndGetElement(ELEMENT_WIKI_SEARCH_RESULT_PAGE_LINK.replace("$page",page));
+		info("The page is shown successfully");
+	}
+	/**
+	 * Verify that the page is not shown in searched results list
+	 * @param page
+	 */
+	public void verifyNotSearchResults(String page){
+		info("Verify that the page isnot shown in results searched");
+		waitForElementNotPresent(ELEMENT_WIKI_SEARCH_RESULT_PAGE_LINK.replace("$page",page));
+		info("The page isnot shown successfully");
+	}
+	
+	/**
+	 * Verify that searched results is empty
+	 */
+	public void verifyEmptySearchResults(){
+		info("Verify that searched results is empty");
+		waitForAndGetElement(ELEMENT_WIKI_SEARCH_EMPTY_RESULTS);
+		info("No results is found");
+	}
+	/**
+	 * Verify that user can use scroll down to see more spaces
+	 */
+	public void verifyScrollDownOfSpaceSwitcher(){
+		info("Scroll down");
+		WebElement spaceList = waitForAndGetElement(By.className("spaceList"));
+		String str1 = String.valueOf(((JavascriptExecutor)driver)
+				.executeScript("return arguments[0].clientHeight;", spaceList));
+		String str = String.valueOf(((JavascriptExecutor)driver)
+				.executeScript("return arguments[0].scrollHeight;", spaceList));
+		int clientHeight = Integer.parseInt(str1);
+		int scrollHeight = Integer.parseInt(str);
+		assert clientHeight<scrollHeight;
+	}
+	/**
+	 * Verify that spaces in space switcher lis are shown
+	 * @param spaces
+	 * @param numIndex
+	 */
+	public void verifyPresentSpaceSwitcher(ArrayList<String> spaces,int... numIndex){
+		if(numIndex.length>0){
+			for(int i=0;i<spaces.size()-numIndex[0];i++){
+				info("Verify that all spaces is shown");
+				waitForAndGetElement(ELEMENT_SPACE_NAME_SELECTED
+						.replace("${space}",spaces.get(i).toLowerCase())
+						.replace(" ","_"));
+			}
+		}else{
+			for(int i=0;i<spaces.size();i++){
+				info("Verify that all spaces is shown");
+				waitForAndGetElement(ELEMENT_SPACE_NAME_SELECTED
+						.replace("${space}",spaces.get(i).toLowerCase())
+						.replace(" ","_"));
+			}
+		}
+	}
+	/**
+	 * Verify that spaces in space switcher are not shown
+	 * @param spaces
+	 * @param numIndex
+	 */
+   public void verifyNotPresentSpaceSwitcher(ArrayList<String> spaces,int... numIndex){
+	   if(numIndex.length>0){
+			for(int i=0;i<spaces.size()-numIndex[0];i++){
+				info("Verify that all spaces is shown");
+				waitForElementNotPresent(ELEMENT_SPACE_NAME_SELECTED
+						.replace("${space}",spaces.get(i).toLowerCase())
+						.replace(" ","_"));
+			}
+		}else{
+			for(int i=0;i<spaces.size();i++){
+				info("Verify that all spaces is shown");
+				waitForElementNotPresent(ELEMENT_SPACE_NAME_SELECTED
+						.replace("${space}",spaces.get(i).toLowerCase())
+						.replace(" ","_"));
+			}
+		}
+	}
+   /**
+    * Verify that a space is shown in space switcher
+    * @param space
+    */
+   public void verifyPresentSpaceSwitcher(String space){
+	   if(!space.isEmpty()){
+		   info("Verify that the space is shown");
+		   waitForAndGetElement(ELEMENT_SPACE_NAME_SELECTED
+					.replace("${space}",space.toLowerCase())
+					.replace(" ","_"));
+	   }
+	   
+   }
+   
+   /**
+    * Verify that a space isnot shown in space switcher
+    * @param space
+    */
+   public void verifyNotPresentSpaceSwitcher(String space){
+	   if(!space.isEmpty()){
+		   info("Verify that the space is shown");
+		   waitForElementNotPresent(ELEMENT_SPACE_NAME_SELECTED
+					.replace("${space}",space.toLowerCase())
+					.replace(" ","_"));
+	   }
+	   
+   }
 }

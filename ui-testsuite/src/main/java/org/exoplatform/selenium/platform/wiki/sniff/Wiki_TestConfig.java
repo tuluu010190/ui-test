@@ -20,7 +20,7 @@ import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
-import org.exoplatform.selenium.platform.wiki.WikiSearchManagement;
+import org.exoplatform.selenium.platform.wiki.WikiSearch;
 import org.exoplatform.selenium.platform.wiki.WikiSettingPage;
 import org.testng.annotations.*;
 
@@ -36,7 +36,7 @@ public class Wiki_TestConfig extends PlatformBase {
 	WikiManagement wikiMg;
 	WikiHomePage wHome;
 	WikiDraftPage wDraft;
-	WikiSearchManagement wSearchMg;
+	WikiSearch wSearchMg;
 	WikiSettingPage wSettingMg;
 	SourceTextEditor sourceEditor;
 	
@@ -70,7 +70,7 @@ public class Wiki_TestConfig extends PlatformBase {
 		wikiMg = new WikiManagement(driver);
 		wHome = new WikiHomePage(driver);
 		wDraft = new WikiDraftPage(driver);
-		wSearchMg = new WikiSearchManagement(driver);
+		wSearchMg = new WikiSearch(driver);
 		wSettingMg= new WikiSettingPage(driver);
 		sourceEditor = new SourceTextEditor(driver);
 		
