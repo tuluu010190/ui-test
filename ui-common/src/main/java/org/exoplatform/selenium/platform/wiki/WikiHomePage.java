@@ -337,5 +337,21 @@ public class WikiHomePage extends WikiLocators{
 		Utils.pause(1000);
 		
 	}
+	/**
+	 * Close space switcher
+	 */
+	public void closeSpaceWitcher(){
+		info("Click on Close button");
+		click(ELEMENT_SPACE_SWITCHER_CLOSE_BTN);
+		waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_INPUT);
+	}
+	/**
+	 * Close space switcher by clicking on outside
+	 */
+	public void closeSpaceSwitcherByClickOutSide(){
+		info("Click on outside to close space switcher");
+		click(ELEMENT_SPACE_SWITCHER_OUTSIDE);
+		waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_INPUT);
+	}
 	
 }

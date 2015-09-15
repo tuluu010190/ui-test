@@ -19,6 +19,17 @@ public class WikiLocators extends PlatformBase{
     public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH_HOME=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]";
     public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//li[contains(@class, 'spaceSearch')]//input[contains(@placeholder, 'Filter Spaces')]");
 	public final String ELEMENT_SPACE_NAME_SELECTED = "//*[contains(@id,'UISpaceSwitcher_/spaces/${space}')]/a";
+    public final By ELEMENT_SPACE_SWITCHER_CLOSE_BTN=By.xpath(".//*[@id='uiSpaceSwitcher_BreadCrumb']//*[contains(@class,'uiIconClose')]");
+    public final By ELEMENT_SPACE_SWITCHET_EMPTY_LIST_SPACE=By.id("UISpaceSwitcher_nospace");
+    public final By ELEMENT_SPACE_SWITCHER_SEARCH_FIELD_PLACEHOLDER_TEXT=By.xpath(".//*[@id='uiSpaceSwitcher_BreadCrumb']//*[contains(@placeholder,'Filter Spaces')]");
+    public final String ELEMENT_SPACE_SWITCHER_SPACE_AVATAR=".//*[@id='UISpaceSwitcher_/spaces/$space']//img[contains(@src,'SpaceAvtDefault.png')]";
+    public final By ELEMENT_SPACE_SWITCHER_TITLE=By.xpath(".//*[@id='uiSpaceSwitcher_BreadCrumb']//*[contains(@class,'title')][contains(.,'Select location')]");
+    public final By ELEMENT_SPACE_SWITCHER_OUTSIDE = By.xpath("//div[@id='UIWikiPageControlArea']");
+    public final String ELEMENT_SPACE_SWITCHER_SPACE_POSITION="(//*[contains(@id,'UISpaceSwitcher_/space')])[$num]//*[contains(@alt,'$space')]";
+    public final By ELEMENT_SPACE_SWITCHER_INTRANET_POSITION=By.xpath("(//*[contains(@id,'UISpaceSwitcher')])[1][contains(@id,'portal')]");
+    public final By ELEMENT_SPACE_SWITCHER_INTRANET_ICON=By.xpath(".//*[@id='UISpaceSwitcher_/portal/intranet']//*[contains(@class,'uiIconWikiWiki')]");
+    public final By ELEMENT_SPACE_SWITCHER_MY_WIKI_POSITION=By.xpath("(//*[contains(@id,'UISpaceSwitcher')])[2][contains(@id,'user')]");
+    public final By ELEMENT_SPACE_SWITCHER_MY_WIKI_ICON=By.xpath(".//*[contains(@id,'UISpaceSwitcher_/user')]//*[contains(@class,'uiIconWikiMyWiki')]");
     
     
 	public final String ELEMENT_WIKI_PAGE_LEFTBOX = "//*[@id='iconTreeExplorer']//*[contains(text(),'${title}')]";
@@ -130,7 +141,7 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_SEARCH_TEXTBOX = By.xpath("//*[@id='wikiSearchValue']");
 	public final By ELEMENT_SEARCH_BTN = By.xpath(".//*[@id='UIWikiSearchBox']//*[@class='uiIconSearch uiIconLightGray']");
 	public final By ELEMENT_SPACE_DROP_DOWN=By.xpath(".//*[@id='DisplayModesDropDown']//*[contains(@class,'uiIconMiniArrowDown')]");
-	public final String ELEMENT_SPACE_SWITCHER_SELECTED_SPACE=".//*[contains(@id,'UISpaceSwitcher')][contains(@alt,'$space')]";
+	public final String ELEMENT_SPACE_SWITCHER_SELECTED_SPACE="//*[contains(@class,'spaceChooserPopup')]//*[contains(@alt,'$space')]";
 	
 	//Browsers
 	public final By ELEMENT_SEARCH_BROWSERS_DROPDOWN = By.xpath("//*[@class='uiActionWithLabel']/..//*[text()='Browse']");

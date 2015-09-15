@@ -433,10 +433,10 @@ public class WikiValidattions extends WikiLocators{
 		}
 	}
 	/**
-	 *  Verify breadcrumb path of a page
-	 * @param locator
-	 *               is as Intranet/My Wiki...
-	 * @param pager
+	 * Verify breadcrumb path of a page
+	 * @param locator1
+	 * @param locator2
+	 * @param page
 	 */
 	public void verifyBreadCrumbePath(String locator1,String locator2,String page){
 		info("Verify that the page is at the path:"+locator1+"->"+locator2+"->"+page);
@@ -446,6 +446,20 @@ public class WikiValidattions extends WikiLocators{
 				.replace("$page",page));
 		info("The page is at correct path");
 	}
+	
+	/**
+	 * Verify breadcrumb path of a page
+	 * @param locator1
+	 * @param locator2
+	 */
+	public void verifyBreadCrumbePath(String locator1,String locator2){
+		info("Verify that the page is at the path:"+locator1+"->"+locator2);
+		waitForAndGetElement(ELEMENT_WIKI_HOME_BREADCRUMB_PATH_HOME
+				.replace("$locator1",locator1)
+				.replace("$locator2",locator2));
+		info("The page is at correct path");
+	}
+	
 	/**
 	 * Verify that the tooltip of rename in the message is shown for one page has same title in moving page
 	 * @param mess
@@ -677,16 +691,14 @@ public class WikiValidattions extends WikiLocators{
 	   if(numIndex.length>0){
 			for(int i=0;i<spaces.size()-numIndex[0];i++){
 				info("Verify that all spaces is shown");
-				waitForElementNotPresent(ELEMENT_SPACE_NAME_SELECTED
-						.replace("${space}",spaces.get(i).toLowerCase())
-						.replace(" ","_"));
+				waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_SELECTED_SPACE
+						.replace("$space",spaces.get(i)));
 			}
 		}else{
 			for(int i=0;i<spaces.size();i++){
 				info("Verify that all spaces is shown");
-				waitForElementNotPresent(ELEMENT_SPACE_NAME_SELECTED
-						.replace("${space}",spaces.get(i).toLowerCase())
-						.replace(" ","_"));
+				waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_SELECTED_SPACE
+						.replace("$space",spaces.get(i)));
 			}
 		}
 	}
@@ -697,9 +709,8 @@ public class WikiValidattions extends WikiLocators{
    public void verifyPresentSpaceSwitcher(String space){
 	   if(!space.isEmpty()){
 		   info("Verify that the space is shown");
-		   waitForAndGetElement(ELEMENT_SPACE_NAME_SELECTED
-					.replace("${space}",space.toLowerCase())
-					.replace(" ","_"));
+		   waitForAndGetElement(ELEMENT_SPACE_SWITCHER_SELECTED_SPACE
+					.replace("$space",space));
 	   }
 	   
    }
@@ -711,10 +722,26 @@ public class WikiValidattions extends WikiLocators{
    public void verifyNotPresentSpaceSwitcher(String space){
 	   if(!space.isEmpty()){
 		   info("Verify that the space is shown");
-		   waitForElementNotPresent(ELEMENT_SPACE_NAME_SELECTED
-					.replace("${space}",space.toLowerCase())
-					.replace(" ","_"));
+		   waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_SELECTED_SPACE
+					.replace("$space",space));
 	   }
-	   
+   }
+   /**
+    * Verify that no any spaces is listed in space switcher list
+    */
+   public void verifyNoAnySpaces(){
+	   info("Verify that no any spaces is listed in space switcher list");
+	   waitForAndGetElement(ELEMENT_SPACE_SWITCHET_EMPTY_LIST_SPACE);
+   }
+   /**
+    * Verify that a space has a position in the list
+    * @param i
+    * @param space
+    */
+   public void verifyPositionOfASpaceInList(int i,String space){
+	   info("Verify that the space has:"+i+" position in the list");
+	   waitForAndGetElement(ELEMENT_SPACE_SWITCHER_SPACE_POSITION
+			   .replace("$num",String.valueOf(i))
+			   .replace("$space",space));
    }
 }

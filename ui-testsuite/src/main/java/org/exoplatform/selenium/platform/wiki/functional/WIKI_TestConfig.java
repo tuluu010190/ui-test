@@ -22,6 +22,7 @@ import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadTwoColDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+import org.exoplatform.selenium.platform.social.UserPageBase;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
 import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
@@ -63,6 +64,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	UserAddManagement addUserPage;
 	UserAndGroupManagement userAndGroup;
 	UserProfilePage userProPage;
+	UserPageBase userPageBase;
 	ConnectionsManagement connMag;
 	ActivityCommentDatabase actCommentData;
 	ReadTwoColDatabase imgLinkData;
@@ -91,6 +93,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
 		userProPage = new UserProfilePage(driver);
+		userPageBase = new UserPageBase(driver);
 		
 		
 		hp = new HomePagePlatform(driver);

@@ -1938,7 +1938,7 @@ public class TestBase {
 	public ArrayList<String> getListData(String name,int size){
 		ArrayList<String> array = new ArrayList<String>();
 		for(int i=1;i<size;i++){
-			String item = name+String.valueOf(i);
+			String item = name+" "+String.valueOf(i);
 			array.add(item);
 		}
 		return array;
