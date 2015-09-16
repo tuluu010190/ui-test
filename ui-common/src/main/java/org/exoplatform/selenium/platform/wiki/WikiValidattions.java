@@ -744,4 +744,56 @@ public class WikiValidattions extends WikiLocators{
 			   .replace("$num",String.valueOf(i))
 			   .replace("$space",space));
    }
+   /**
+    * Verify tables in Page information as summary, related, hierachy and recent changes table
+    */
+   public void verifyTablesPageInformation(){
+	   info("Verify sumary table");
+	   waitForAndGetElement(ELEMENT_PAGE_INFO_SUMMARY_TABLE);
+	   info("Verify relate table");
+	   waitForAndGetElement(ELEMENT_PAGE_INFO_RELATED_TABLE);
+	   info("Verify hierachy table");
+	   waitForAndGetElement(ELEMENT_PAGE_INFO_HIERARCHY_TABLE);
+	   info("Verify recent changes table");
+	   waitForAndGetElement(ELEMENT_PAGE_INFO_RECENT_CHANGES_TABLE);
+   }
+   /**
+    * Verify that related page is added in Related table 
+    * @param locator
+    * @param relatedPage
+    */
+   public void verifyRelatedPage(String locator,String relatedPage){
+	   info("Verify that related page is added to the related table");
+	   waitForAndGetElement(ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT
+			   .replace("${col1}",locator)
+			   .replace("${col2}",relatedPage),2000,1);
+   }
+   
+   /**
+    * Verify that a page is not shown in related page list of the related page popup
+    * @param page
+    */
+   public void verifyNotPageInRelatedPageList(String page){
+	   info("Verify that a page is not listed in related page list to select it");
+	   waitForElementNotPresent(ELEMENT_ADD_RELATED_POPUP_CONTENT.replace("${page}",page));
+   }
+   /**
+    * Verify that a page is not shown in left related page list
+    * @param page
+    */
+   public void verifyNotPageInLeftRelatePageList(String page){
+	   info("Verify that a page is not shown in left related page list");
+		waitForElementNotPresent(ELEMENT_PAGE_INFO_RELATED_PAGE_LINK
+				.replace("$page",page));
+   }
+   
+   /**
+    * Verify that a page is shown in left related page list
+    * @param page
+    */
+   public void verifyPageInLeftRelatePageList(String page){
+	   info("Verify that a page is shown in left related page list");
+		waitForAndGetElement(ELEMENT_PAGE_INFO_RELATED_PAGE_LINK
+				.replace("$page",page));
+   }
 }

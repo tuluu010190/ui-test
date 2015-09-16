@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.testng.annotations.*;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.wiki.WikiPermission.permissionType;
 
 public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
     
@@ -1299,7 +1300,11 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		rtMode.addSimplePage(wiki1,wiki1);
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
-		wikiMg.addAUserToPermission(DATA_USER2,"");
+		
+		info("Add permisison");
+		wHome.goToPermissions();
+		wPermission.addPermisisonByType(DATA_USER2);
+		wPermission.savePermisison();
 		
 		info("Add new wiki page 2 for space 2");
 		wHome.goToHomeWikiPage();
@@ -1308,7 +1313,11 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
-		wikiMg.addAUserToPermission(DATA_USER2,wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}",DATA_USER2));
+		info("Add permisison");
+		wHome.goToPermissions();
+		wPermission.addPermisisonByType(DATA_USER2);
+		wPermission.selectPermission(DATA_USER2, permissionType.Edit_Pages);
+		wPermission.savePermisison();
 		
 		/*Step number: 4
 		 *Step Name: Step 4: Go to Move Page

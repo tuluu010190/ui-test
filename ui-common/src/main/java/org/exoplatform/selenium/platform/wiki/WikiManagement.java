@@ -240,22 +240,9 @@ public class WikiManagement extends WikiLocators{
 		waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
 	}
 	/**
-	 * Open information table
-	 * @param page
-	 * @param version
-	 */
-	public void viewInformationTable(String page, String version){
-		info("Open a wiki page 1");
-		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
-		info("Open information table");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFOMATION_VERSION.replace("${version}", version),2000,0).click();
-		info("Verify that the table is shown");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE,2000,0);
-	}
-	/**
 	 * Open page info
 	 * @param page
-	 */
+	 *//*
 	public void viewPageInfo(String page){
 		info("Open a wiki page 1");
 		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
@@ -269,16 +256,7 @@ public class WikiManagement extends WikiLocators{
 		}
 		info("The page info is shown");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE,2000,0);
-	}
-	/**
-	 * Open Page History
-	 */
-	public void openPageHistory(){
-		info("Click on View page info button");
-		waitForAndGetElement(ELEMENT_PAGE_INFO_VIEW_PAGE_INFO_BTN,2000,0).click();
-		info("Page history is shown");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_HISTORY_TITLE,2000,0);
-	}
+	}*/
 	/**
 	 * Compare 2 reversion
 	 * @param reversion1
@@ -305,15 +283,6 @@ public class WikiManagement extends WikiLocators{
 		waitForElementNotPresent(ELEMENT_PAGE_DOWNLOADATTACHFILE);
 	}
 	/**
-	 * Open add related page popup
-	 */
-	public void openAddRelationsPopup(){
-		info("Click on Add more relations");
-		waitForAndGetElement(ELEMENT_PAGE_INFO_ADD_MORE_RELATIONS,2000,0).click();
-		waitForAndGetElement(ELEMENT_ADD_RELATED_PAGE_POPUP_TITLE,200,0);
-		info("Add related page popup is shown");
-	}
-	/**
 	 * Check options in Add Relations drop down list
 	 * @param spaces
 	 */
@@ -336,35 +305,6 @@ public class WikiManagement extends WikiLocators{
 		}
 		waitForAndGetElement(ELEMENT_SPACE_SWITHCHER_DROPDOWN_CLOSE,2000,0).click();
 		info("All options are checked");
-	}
-	/**
-	 * Add a relation to a page
-	 * @param location
-	 * @param page
-	 */
-	public void addRelations(String location,String page){
-		info("Click on Drop down");
-		waitForAndGetElement(ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN,2000,0).click();
-		info("Select a location");
-		click(ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION.replace("${location}",location));
-		info("Select a page in the list");
-		waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_CONTENT.replace("${page}",page),2000,0).click();
-		info("Save all changes");
-		waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_SELECT_BTN,2000,0).click();
-	}
-
-
-	/**
-	 * Delete a relation of a page
-	 * @param relation
-	 */
-	public void deleteRelation(String relation){
-		info("Click on Delete button");
-		waitForAndGetElement(ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN.replace("${name}",relation),2000,0);
-		click(ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN.replace("${name}",relation));
-		alert.acceptAlert();
-		waitForElementNotPresent(ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN.replace("${name}",relation));
-		info("The relation is deleted");
 	}
 	/**
 	 * Preview a template
@@ -491,7 +431,7 @@ public class WikiManagement extends WikiLocators{
 	/**
 	 * Add more permission for a user
 	 * @param namegroup
-	 */
+	 *//*
 	public void addAUserToPermission(String namegroup,Object permission){
 		info("Click on More link");
 		click(ELEMENT_MORE_LINK);
@@ -504,11 +444,11 @@ public class WikiManagement extends WikiLocators{
 			check(permission, 2);
 		info("Click on save button");
 		click(ELEMENT_PERMISSION_BUTTON_SAVE);
-	}
+	}*/
 	/**
 	 * remove a user or a group in permission table of a page
 	 * @param usergroup
-	 */
+	 *//*
 	public void removeAUserGroup(String usergroup){
 		info("Click on More link");
 		click(ELEMENT_MORE_LINK);
@@ -517,7 +457,7 @@ public class WikiManagement extends WikiLocators{
 		click(ELEMENT_PERMISSION_REMOVE_USER_GROUP.replace("${name}",usergroup));
 		info("Click on save button");
 		click(ELEMENT_PERMISSION_BUTTON_SAVE);
-	}
+	}*/
 	/**
 	 * Rename a page from alert message when move a page to a destination that has same name
 	 * @param newTitle

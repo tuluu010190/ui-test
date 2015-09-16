@@ -248,7 +248,7 @@ import org.testng.annotations.*;
 		arrayPage.add(newTitle1);
 		
 		info("A new version of the page is created");
-		wikiMg.viewInformationTable(newTitle1,"V2");
+		wHome.viewInformationTable(newTitle1,"V2");
 		
 		
 
@@ -402,7 +402,7 @@ import org.testng.annotations.*;
 		arrayPage.add(newTitle1);
 		
 		info("A new version of the page is created");
-		wikiMg.viewInformationTable(newTitle1,"V2");
+		wHome.viewInformationTable(newTitle1,"V2");
 
 		/*Step number: 4
 		*Step Name: Step 4: Edit page by User B
@@ -553,7 +553,7 @@ import org.testng.annotations.*;
 		arrayPage.add(newTitle1);
 		
 		info("A new version of the page is created");
-		wikiMg.viewInformationTable(newTitle1,"V2");
+		wHome.viewInformationTable(newTitle1,"V2");
 
 		/*Step number: 4
 		*Step Name: Step 4: Edit page by User B

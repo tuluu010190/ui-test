@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor.alignType;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor.attachedFileTabType;
+import org.exoplatform.selenium.platform.wiki.WikiPermission.permissionType;
 //import org.exoplatform.selenium.platform.wiki.WikiManagement.alignType;
 import org.testng.annotations.Test;
 
@@ -855,7 +856,10 @@ public class Wiki_BasicAction_Move_MoveAPage extends WIKI_TestConfig{
 		arrayPage.add(wiki1);
 		
 		info("add Edit Permission for Mary in wiki page 1");
-		wikiMg.addAUserToPermission(DATA_USER2,wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}",DATA_USER2));
+		wHome.goToPermissions();
+		wPermission.addPermisisonByType(DATA_USER2);
+		wPermission.selectPermission(DATA_USER2, permissionType.Edit_Pages);
+		wPermission.savePermisison();
 		
 		/*Step Number: 1
 		 *Step Name: Step 1: Create a page
@@ -888,7 +892,10 @@ public class Wiki_BasicAction_Move_MoveAPage extends WIKI_TestConfig{
 		 *Expected Outcome: 
 			- Permissions are added to the page*/
 		info("Un check edit permission of any group");
-		wikiMg.unCheckViewAUserOfPage(wHome.ELEMENT_PERMISSION_EDIT_ANY);
+		wHome.goToPermissions();
+		wPermission.addPermisisonByType(DATA_USER2);
+		wPermission.unSelectPermission(DATA_USER2, permissionType.Edit_Pages);
+		wPermission.savePermisison();
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: Open form to move page
@@ -1021,7 +1028,10 @@ public class Wiki_BasicAction_Move_MoveAPage extends WIKI_TestConfig{
 		arrayPage.add(wiki1);
 		
 		info("add Edit Permission for Mary in wiki page 1");
-		wikiMg.addAUserToPermission(DATA_USER2,wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}",DATA_USER2));
+		wHome.goToPermissions();
+		wPermission.addPermisisonByType(DATA_USER2);
+		wPermission.selectPermission(DATA_USER2, permissionType.Edit_Pages);
+		wPermission.savePermisison();
 		
 		info("Create wiki page 2 with full permission");
 		wHome.goToHomeWikiPage();
@@ -1033,7 +1043,10 @@ public class Wiki_BasicAction_Move_MoveAPage extends WIKI_TestConfig{
 		arrayPage.add(wiki2);
 		
 		info("add Edit Permission for Mary in wiki page 2");
-		wikiMg.addAUserToPermission(DATA_USER2,wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}",DATA_USER2));
+		wHome.goToPermissions();
+		wPermission.addPermisisonByType(DATA_USER2);
+		wPermission.selectPermission(DATA_USER2, permissionType.Edit_Pages);
+		wPermission.savePermisison();
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: Open form to move page

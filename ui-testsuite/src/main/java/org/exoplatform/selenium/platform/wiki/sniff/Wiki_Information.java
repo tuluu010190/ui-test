@@ -43,7 +43,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Verify that The total number of revisions (eg V1, V2, V3) and this reversion is clickable to open page history  ");
-		wikiMg.viewInformationTable(title, "V1");
+		wHome.viewInformationTable(title, "V1");
 		info("Show full name of the original creator of the page");
 		waitForAndGetElement(wikiMg.ELEMENT_WIKI_PAGE_INFORMATION_TABLE_CONTENT
 				.replace("${reversion}", "v.1")
@@ -134,10 +134,10 @@ public class Wiki_Information extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle2),2000,0);
 		
 		info("Open Page info");
-		wikiMg.viewPageInfo(newTitle2);
+		wHome.goToPageInformation();
 		
 		info("Open Page history");
-		wikiMg.openPageHistory();
+		wPageInfo.goToPageHistory();
 		
 		info("Open Compare reversion page");
 		wikiMg.compareTwoReversion("v.1","v.4");
@@ -213,7 +213,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		
 		info("Open Page info");
 		String date = getDateByTextFormat("MM dd, yyyy");
-		wikiMg.viewPageInfo(title);
+		wHome.goToPageInformation();
 		
 		info("Summary: Title, author, Last changed by");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFOR_SUMMARY_TITLE.replace("${content}",title),2000,0);
@@ -267,7 +267,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Verify that New wiki page is created with version is V1");
-		wikiMg.viewInformationTable(title, "V1");
+		wHome.viewInformationTable(title, "V1");
 		
 		/*Step Number: 2
 		 *Step Name: Step 2:  Edit title/wiki content by click [Edit] icon
@@ -288,7 +288,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",newTitle),2000,0);
 		
 		info("Verify that New wiki page is created with version is V2");
-		wikiMg.viewInformationTable(newTitle, "V2");
+		wHome.viewInformationTable(newTitle, "V2");
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: upload/delete attachment
@@ -309,7 +309,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		wikiMg.deleteAttachmentFile();
 		
 		info("Verify that New wiki page is created with version still is V2. No version is created");
-		wikiMg.viewInformationTable(newTitle, "V2");
+		wHome.viewInformationTable(newTitle, "V2");
 		
 		info("Delete the page");
 		hp.goToWiki();
@@ -393,7 +393,8 @@ public class Wiki_Information extends Wiki_TestConfig {
 		spaHome.goToSpace(space1);
 		spaHome.goToWikiTab();
 		info("Open page 1 and Go to Page Info");
-		wikiMg.viewPageInfo(title1);
+		wHome.goToAPage(title1);
+		wHome.goToPageInformation();
 		
 		/*Step Number: 5
 		 *Step Name: Step 5: Go to Related page form
@@ -404,7 +405,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		 *Expected Outcome: 
 			The popup to select a related page is displayed*/ 
 		info("Go to Related page form");
-		wikiMg.openAddRelationsPopup();
+		wPageInfo.goToAddRelations();
 		
 		/*Step Number: 6
 		 *Step Name: Step 6: Check when add relations from intranet portal
@@ -425,7 +426,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		String spaces =space1+"/"+space2;
 		wikiMg.checkAddRelationDropDownList(spaces);
 		info("Check when add relations from 2 different spaces");
-		wikiMg.addRelations("Intranet","Wiki Home");
+		wPageInfo.addRelations("Intranet","Wiki Home");
 		info("intranet's portal is added as a related pages on page info layout");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}","portal").replace("${col2}","Wiki Home"),2000,0);
 		
@@ -515,7 +516,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		spaHome.goToSpace(space1);
 		spaHome.goToWikiTab();
 		info("Open page 1 and Go to Page Info");
-		wikiMg.viewPageInfo(title1);
+		wHome.goToAPage(title1);
 		
 		/*Step Number: 5
 		 *Step Name: Step 5: Go to Related page form
@@ -526,7 +527,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		 *Expected Outcome: 
 			The popup to select a related page is displayed*/ 
 		info("Go to Related page form");
-		wikiMg.openAddRelationsPopup();
+		wPageInfo.goToAddRelations();
 		
 		/*Step Number: 6
 		 *Step Name: Step 6: Check when add relations from 2 different spaces
@@ -548,7 +549,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		String spaces =space1+"/"+space2;
 		wikiMg.checkAddRelationDropDownList(spaces);
 		info("Check when add relations from 2 different spaces");
-		wikiMg.addRelations(space2,title2);
+		wPageInfo.addRelations(space2,title2);
 		info("intranet's portal is added as a related pages on page info layout");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}",space2).replace("${col2}",title2),2000,0);
 		
@@ -598,7 +599,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 			- Page infos of Page 1 are displayed*/ 
 		
 		info("Go to Page Info");
-		wikiMg.viewPageInfo(title1);
+		wHome.goToPageInformation();
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: Check relation when have no space
@@ -611,7 +612,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 			 - The popup to select a related page is displayed
 			 - The list of space switcher options is displayed and space list are not displayed in the space switcher list*/ 
 		info("Go to Related page form");
-		wikiMg.openAddRelationsPopup();
+		wPageInfo.goToAddRelations();
 		info("Click on Drop down");
 		waitForAndGetElement(wikiMg.ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN,2000,0).click();
 		info("Verify that Intranet location is shown is the list");
@@ -698,7 +699,8 @@ public class Wiki_Information extends Wiki_TestConfig {
 		
 		info("Open page 1 and Go to Page Info");
 		wHome.goToHomeWikiPage();
-		wikiMg.viewPageInfo(title1);
+		wHome.goToAPage(title1);
+		wHome.goToPageInformation();
 		
 		/*Step Number: 5
 		 *Step Name: Step 5: Go to Related page form
@@ -709,7 +711,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		 *Expected Outcome: 
 			The popup to select a related page is displayed*/ 
 		info("Go to Related page form");
-		wikiMg.openAddRelationsPopup();
+		wPageInfo.goToAddRelations();
 		
 		/*Step Number: 6
 		 *Step Name: Step 6: Check when add relations from same space
@@ -728,7 +730,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 			- "Page 2" is added as a related pages on page info layout*/ 
 		
 		info("Check when add relations from same spaces");
-		wikiMg.addRelations(space1,title2);
+		wPageInfo.addRelations(space1,title2);
 		info("Page 2 is added as a related pages on page info layout");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}",space1).replace("${col2}",title2),2000,0);
 		
@@ -807,9 +809,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 			Page infor of Page 1 are diplayed*/ 
 		
 		info("Open page 1 and Go to Page Info");
-		wHome.goToHomeWikiPage();
-		wikiMg.viewPageInfo(title1);
-		
+        wHome.goToPageInformation();		
 		/*Step Number: 5
 		 *Step Name: Step 5: Go to Related page form
 		 *Step Description: 
@@ -819,7 +819,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		 *Expected Outcome: 
 			The popup to select a related page is displayed*/ 
 		info("Go to Related page form");
-		wikiMg.openAddRelationsPopup();
+		wPageInfo.goToAddRelations();
 		
 		/*Step Number: 6
 		 *Step Name: Step 6: Check when add relations from same space
@@ -838,7 +838,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 			- "Page 2" is added as a related pages on page info layout*/ 
 		
 		info("Check when add relations from same spaces");
-		wikiMg.addRelations(space1,title2);
+		wPageInfo.addRelations(space1,title2);
 		info("Page 2 is added as a related pages on page info layout");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}",space1).replace("${col2}",title2),2000,0);
 		
@@ -853,9 +853,9 @@ public class Wiki_Information extends Wiki_TestConfig {
 			Relation of is added as a related pages on page info layout*/ 
 		
 		info("Go to Related page form");
-		wikiMg.openAddRelationsPopup();
+		wPageInfo.goToAddRelations();
 		info("Add Relations with portal");
-		wikiMg.addRelations("Intranet","Wiki Home");
+		wPageInfo.addRelations("Intranet","Wiki Home");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}","portal").replace("${col2}","Wiki Home"),5000,1);
 		
 		
@@ -871,7 +871,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		 *Expected Outcome: 
 			- The relation is deleted and don't show in Related Page form*/ 
 		info("The relation is deleted and don't show in Related Page form");
-		wikiMg.deleteRelation(title2);
+		wPageInfo.deleteRelation(title2);
 		
 		/*info("Delete data test");
 		hp.goToMySpaces();

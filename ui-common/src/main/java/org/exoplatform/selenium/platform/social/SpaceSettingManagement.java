@@ -194,6 +194,14 @@ public class SpaceSettingManagement extends SpaceLocator{
 		}
 	}
 	/**
+	 * Save all changes for updating information of the space
+	 */
+	public void saveInfoSpace(){
+		info("Click on Save button");
+		click(ELEMENET_SPACE_UPDATE_SAVE_BTN);
+		Utils.pause(2000);
+	}
+	/**
 	 * Open Navigation tab
 	 */
 	public void goToNavigationTab(){

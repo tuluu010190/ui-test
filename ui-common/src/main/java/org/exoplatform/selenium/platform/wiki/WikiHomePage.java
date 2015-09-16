@@ -353,5 +353,28 @@ public class WikiHomePage extends WikiLocators{
 		click(ELEMENT_SPACE_SWITCHER_OUTSIDE);
 		waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_INPUT);
 	}
+	/**
+	 * Open Page information
+	 */
+	public void goToPageInformation(){
+		info("Go to Page Information");
+		mouseOverAndClick(ELEMENT_MORE_LINK);
+		mouseOverAndClick(ELEMENT_PAGE_INFO);
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE);
+		Utils.pause(2000);
+	}
+	/**
+	 * Open information table
+	 * @param page
+	 * @param version
+	 */
+	public void viewInformationTable(String page, String version){
+		info("Open a wiki page 1");
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
+		info("Open information table");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFOMATION_VERSION.replace("${version}", version),2000,0).click();
+		info("Verify that the table is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE,2000,0);
+	}
 	
 }
