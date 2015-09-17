@@ -140,7 +140,9 @@ public class Wiki_Information extends Wiki_TestConfig {
 		wPageInfo.goToPageHistory();
 		
 		info("Open Compare reversion page");
-		wikiMg.compareTwoReversion("v.1","v.4");
+		wPageInfo.compareTwoReversion("v.1","v.4");
+		info("Compare reversion page is shown");
+		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE,2000,1);
 		
 		info("Verify that  Words/lines which are red-highlighted with strike-throughs indicate that they were removed");
 		waitForAndGetElement(

@@ -796,4 +796,58 @@ public class WikiValidattions extends WikiLocators{
 		waitForAndGetElement(ELEMENT_PAGE_INFO_RELATED_PAGE_LINK
 				.replace("$page",page));
    }
+   /**
+    * Verify page's version
+    * @param version
+    */
+   public void verifyVersionPage(String version){
+	   info("Verify that page's version is:"+version);
+	   waitForAndGetElement(ELEMENT_WIKI_PAGE_INFOMATION_VERSION
+			   .replace("${version}", version));
+   }
+   /**
+    * Verify that vesion is listed in recent changes table
+    * @param num
+    */
+   public void verifyVersionsInPage(int num){
+	   info("Verify that the version is list in recent changes table");
+	   waitForAndGetElement(ELEMENT_PAGE_INFO_RECENT_CHANGES_VERSION
+			   .replace("$num",String.valueOf(num)));
+   }
+   /**
+    * Verify that the content of the version is shown
+    * @param content
+    */
+   public void verifyContentOfVersion(String content){
+	   info("Verify that the content of the version is shown");
+	   waitForAndGetElement(ELEMENT_PAGE_INFO_VIEW_CONTENT_OF_VERSION
+			   .replace("$content",content));
+   }
+   /**
+    * Verify compare version page's content
+    * @param oldContent
+    * @param newContent
+    */
+   public void verifyCompareVersionPage(String oldContent,String newContent){
+	   info("Verify that  Words/lines which are red-highlighted with strike-throughs indicate that they were removed");
+		waitForAndGetElement(
+				ELEMENT_PAGE_HISTORY_COMPARE_CONTENT.replace("${text}",
+						oldContent),2000,1).getCssValue("background-color").contains(
+				"rgb(247,217,216)");
+		
+		info("Verify that Words/lines highlighted in green indicate that they were added");
+		waitForAndGetElement(
+				ELEMENT_PAGE_HISTORY_COMPARE_CONTENT.replace("${text}",
+						newContent),2000,0).getCssValue("background-color").contains(
+				"rgb(219,245,209)");
+   }
+   /**
+    * Verify that version is listed in history page
+    * @param version
+    */
+   public void verifyVersionsInHistoryPage(String version){
+	   info("Verify that vesion is listed in history page");
+	   waitForAndGetElement(ELEMENT_PAGE_HISTORY_VERSION
+			   .replace("$version",version));
+   }
 }

@@ -14,6 +14,7 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_BLANK_PAGE_LINK = By.xpath ("//i[@class='uiIconAddPage']");
 	public final By ELEMENT_WIKI_PAGE_TITLE_RENAME_FIELD = By.xpath(".//*[@id='EdiableInput']");
 	public final String ELEMENT_INFOR_BAR_VERSION=".//*[@id='UIWikiPageInfoArea']//*[contains(@class,'label')]//*[@href][text()='$version']";
+	public final By ELEMENT_INFOR_BAR_VIEW_CHANGE_LINK=By.xpath(".//*[@id='UIWikiPageInfoArea']//*[contains(@href,'#CompareRevision_changes')]");
 	public final String ELEMENT_WIKI_HOME_PAGE_TITLE = "//*[@id='titleInfo' and text()='${title}']";
     public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]/../..//*[contains(text(),'$page')]";
     public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH_HOME=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]";
@@ -233,19 +234,34 @@ public class WikiLocators extends PlatformBase{
 
 	public final By ELEMENT_PAGE_INFO_RECENT_CHANGES_TABLE=By.xpath("//*[contains(@class,'uiPageInfoChanges')]");
 	public final String ELEMENT_PAGE_INFO_RELATED_PAGE_LINK=".//*[@id='UIWikiRelatedPages']//*[contains(text(),'$page')]//*[contains(@class,'uiIconFileMini')]";
+	public final String ELEMENT_PAGE_INFO_RECENT_CHANGES_VERSION=".//*[@id='UIWikiPageInfo']//*[contains(@href,'#ViewRevision_$num')]";
+	public final String ELEMENT_PAGE_INFO_VIEW_CONTENT_OF_VERSION=".//*[@id='UIViewContentDisplay']//*[contains(text(),'$content')]";
+	public final By ELEMENT_PAGE_INFOR_VIEW_CONTENT_TITLE =By.xpath("//*[contains(@class,'titleInfo')][contains(text(),'View Version')]");
 	
+	//View content of the version
+	public final By ELEMENT_PAGE_INFO_VIEW_CONTENT_CURRENT_VERSION_LINK=By.xpath(".//*[@id='UIWikiVersionSelect']//*[contains(text(),'current version')]");
 	//Page History
 	public final By ELEMENT_WIKI_PAGE_PAGE_HISTORY_TITLE =By.xpath(".//h4[text()='Page History']");
 	public final String ELEMENT_WIKI_PAGE_PAGE_HISTORY_CHECKBOX = ".//a[contains(text(),'${reversion}')]/../../..//input";
 	public final By ELEMENT_WIKI_PAGE_PAGE_HISTORY_COMPARE_BTN = By.xpath(".//button[text()='Compare the selected versions']");
-
+    public final String ELEMENT_PAGE_HISTORY_VERSION =".//a[contains(text(),'$version')]";
+	
 	//Compare reversion
 	public final By ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE = By.xpath(".//h4[text()='Compare Revisions']");
 	public final String ELEMENT_PAGE_HISTORY_COMPARE_CONTENT =".//*[@id='UIWikiPageVersionsCompare']//*[contains(text(),'${text}')]";
     public final By ELEMENT_COMPARE_VERSION_CURRENT_VERSION=By.xpath(".//*[@id='UIWikiPageVersionsCompare']//*[contains(text(),'Current version')]");
     public final String ELEMENT_COMPARE_VERSION_VERSION_NUMBER=".//*[@id='UIWikiPageVersionsCompare']//*[contains(text(),'Version $num')]";
     public final By ELEMENT_WIKI_PAGE_COMPARE_VERSION_TITLE = By.xpath(".//h4[text()='Compare Versions']");
-
+    public final By ELEMENT_COMPARE_VERISON_BTN_DISABLED=By.xpath(".//*[@id='UIWikiHistorySpaceArea_UIWikiPageVersionsList']//button[contains(@disabled,'disabled')]");
+    public final String ELEMENT_RESTORE_LINK = "//*[contains(text(), 'v.{$version}')]/../../..//*[@class='uiIconRestore uiIconLightGray']";
+    public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfo']//div[@class='actionCenter']");
+    public final String ELEMENT_CHANGES_COMPARE_VERSION = "//*[text()='${1stNumber}']/../b[text()='${2ndNumber}']/../..//a[@class='changes']";
+    public final String ELEMENT_VIEW_CHANGE_VERSION = "//*[@id='UIWikiPageVersionsCompare']//b[text()='${version}']";
+    public final By ELEMENT_VIEW_VERSION_NEXT_BTN=By.xpath(".//*[@id='UIWikiVersionSelect']//*[contains(@href,'#ViewRevision')][contains(text(),'Next')]");
+    public final By ELEMENT_VIEW_VERSION_PREVIOUS_BTN=By.xpath(".//*[@id='UIWikiVersionSelect']//*[contains(@href,'#ViewRevision')][contains(text(),'Prev')]");
+    
+    
+    
 	//Add more relations
 	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_TITLE = By.xpath(".//*[contains(text(),'Add Related Page')]");
 	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN=By.xpath(".//*[contains(text(),'Add Related Page')]/../..//*[@data-toggle='dropdown']");

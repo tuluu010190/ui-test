@@ -364,6 +364,16 @@ public class WikiHomePage extends WikiLocators{
 		Utils.pause(2000);
 	}
 	/**
+	 * Open information version table
+	 * @param version
+	 */
+	public void goToRevisions(String version){
+		info("Click on Version");
+        click(ELEMENT_WIKI_PAGE_INFOMATION_VERSION.replace("${version}", version));
+        info("Verify that the table is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE,2000,1);
+	}
+	/**
 	 * Open information table
 	 * @param page
 	 * @param version
@@ -374,7 +384,16 @@ public class WikiHomePage extends WikiLocators{
 		info("Open information table");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFOMATION_VERSION.replace("${version}", version),2000,0).click();
 		info("Verify that the table is shown");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE,2000,0);
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE,2000,1);
+	}
+	/**
+	 * Open compare version page by clicking on View Changes link
+	 */
+	public void goToViewChange(){
+		info("Click on View change link on the information bar");
+		click(ELEMENT_INFOR_BAR_VIEW_CHANGE_LINK);
+		info("Verify that compare version page is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_COMPARE_VERSION_TITLE);
 	}
 	
 }

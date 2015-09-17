@@ -239,40 +239,7 @@ public class WikiManagement extends WikiLocators{
 		}
 		waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
 	}
-	/**
-	 * Open page info
-	 * @param page
-	 *//*
-	public void viewPageInfo(String page){
-		info("Open a wiki page 1");
-		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
-		info("Click on More link");
-		click(ELEMENT_MORE_LINK);
-		info("Click on Page Info link");
-		if (waitForAndGetElement(ELEMENT_PAGE_INFO, 5000, 0) == null){
-			mouseOverAndClick(ELEMENT_PAGE_INFO);
-		}else {
-			click(ELEMENT_PAGE_INFO);
-		}
-		info("The page info is shown");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE,2000,0);
-	}*/
-	/**
-	 * Compare 2 reversion
-	 * @param reversion1
-	 * @param reversion2
-	 */
-	public void compareTwoReversion(String reversion1, String reversion2){
-		info("Select reversion 1");
-		check(ELEMENT_WIKI_PAGE_PAGE_HISTORY_CHECKBOX.replace("${reversion}",reversion1),2);
-		info("Select reversion 2");
-		check(ELEMENT_WIKI_PAGE_PAGE_HISTORY_CHECKBOX.replace("${reversion}",reversion2),2);
-		info("Click on Compare button");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_HISTORY_COMPARE_BTN,2000,0).click();
-		info("Compare reversion page is shown");
-		waitForAndGetElement(ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE,2000,0);
-
-	}
+	
 	/**
 	 * Delete an attachment file
 	 */
