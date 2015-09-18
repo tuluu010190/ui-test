@@ -27,7 +27,7 @@ public class WikiPermission extends WikiLocators{
 	 * as Users, Membership or Groups
 	 */
 	public enum userGroupTypes{
-		Users,Membership,Groups;
+		Users_UserName,Users_Email,Users_FirstName,Users_LastName,Membership,Groups;
 	}
 	/**
 	 * Define mode to input permission
@@ -145,9 +145,21 @@ public class WikiPermission extends WikiLocators{
 	public void addPermissionBySelect(String groupUsers,String membership,
 			userGroupTypes type){
 		switch(type){
-		case Users:
+		case Users_UserName:
 			goToSelectUser();
 			selectUser(groupUsers,filterOption.userName);
+			break;
+		case Users_FirstName:
+			goToSelectUser();
+			selectUser(groupUsers,filterOption.firstName);
+			break;
+		case Users_LastName:
+			goToSelectUser();
+			selectUser(groupUsers,filterOption.lastName);
+			break;
+		case Users_Email:
+			goToSelectUser();
+			selectUser(groupUsers,filterOption.email);
 			break;
 		case Membership:
 			goToSelectMemberShip();
@@ -160,9 +172,10 @@ public class WikiPermission extends WikiLocators{
 	    }
 		info("Click on Add button");
 		click(ELEMENT_PERMISSION_ADD_BUTTON);
-		waitForAndGetElement(ELEMENT_DELETE_PERMISSION.replace("$user",groupUsers));
+		Utils.pause(2000);
 		info("The group/user/membership is added successfully");
 	}
+	
 	/**
 	 * Click on Save button
 	 */
@@ -171,5 +184,6 @@ public class WikiPermission extends WikiLocators{
 		click(ELEMENT_PERMISSION_BUTTON_SAVE);
 		waitForElementNotPresent(ELEMENT_PERMISSION_BUTTON_SAVE);
 	}
+	
 	
 }

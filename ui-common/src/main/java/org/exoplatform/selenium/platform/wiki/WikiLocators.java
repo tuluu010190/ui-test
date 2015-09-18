@@ -89,6 +89,9 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_PAGE_PERMISSION_POPUP=By.id("UIWikiPagePermissionForm");
 	public final String ELEMENT_PERMISSION_EDIT_USER_CHECKED=".//*[@id='EDITPAGE$userGroup'][@checked='']";
 	public final String ELEMENT_PERMISSION_VIEW_USER_CHECKED=".//*[@id='VIEWPAGE$userGroup'][@checked='']";
+	public final By ELEMENT_PERMISSION_INPUT_SEARCH_USER_NAME = By.id("Quick Search");
+	public final By ELEMENT_PERMISSION_SELECT_SEARCH_OPTION = By.id("filter");
+	public final By ELEMENT_PERMISSION_SEARCH_ICON= By.xpath(".//*[@id='UIUserSelector']//*[contains(@class,'uiIconSearch')]");
 	
 	//move wiki
 	public final By ELEMENT_MOVE_SPACESWITCHER = By.xpath("//*[@id='uiSpaceSwitcher_UIWikiMovePageForm']/..//*[@class='btn dropdown-toggle']");

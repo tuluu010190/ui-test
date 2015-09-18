@@ -502,21 +502,20 @@ public class PlatformBase extends TestBase {
 			type(ELEMENT_SEARCH_USER_INPUT,user,true);
 			switch(op){
 			case userName:
-				select(ELEMENT_SELECT_SEARCH,filterOption.userName.name());
+				selectOption(ELEMENT_SELECT_SEARCH,filterOption.userName.name());
 				break;
 			case firstName:
-				select(ELEMENT_SELECT_SEARCH,filterOption.firstName.name());
+				selectOption(ELEMENT_SELECT_SEARCH,filterOption.firstName.name());
 				break;
 			case lastName:
-				select(ELEMENT_SELECT_SEARCH,filterOption.lastName.name());
+				selectOption(ELEMENT_SELECT_SEARCH,filterOption.lastName.name());
 				break;
 			case email:
-				select(ELEMENT_SELECT_SEARCH,filterOption.email.name());
+				selectOption(ELEMENT_SELECT_SEARCH,filterOption.email.name());
 				break;
 			}
 			click(ELEMENT_QUICK_SEARCH_BUTTON);
-			waitForAndGetElement(ELEMENT_USER_CHECKBOX
-					.replace("$user",user));
+			Utils.pause(2000);
 			info("the user is shown in searched result list");
 		}
 		

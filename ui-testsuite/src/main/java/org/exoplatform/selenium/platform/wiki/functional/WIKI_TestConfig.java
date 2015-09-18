@@ -16,6 +16,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDat
 import org.exoplatform.selenium.platform.objectdatabase.common.DataTestPathDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadThreeColDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadTwoColDatabase;
@@ -74,6 +75,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	ReadThreeColDatabase permisGroups;
 	ReadTwoColDatabase permisMem;
 	ReadThreeColDatabase sourceTextEffect;
+	UserSearchOptionDatabase userSearchOptionData;
 	
 	AttachmentFileDatabase attFileData;
 	DataTestPathDatabase dataTestForlderPath;
@@ -142,6 +144,9 @@ public class WIKI_TestConfig extends PlatformBase {
 		sourceTextEffect = new ReadThreeColDatabase();
 		sourceTextEffect.setData(sourceTextEffectFilePath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		userSearchOptionData = new UserSearchOptionDatabase();
+		userSearchOptionData.setUserSearchOptionData(userSearchOptionFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+
 		arrayPage  = new ArrayList<String>();
 		arrayUsers = new ArrayList<String>();
 		arraySpace = new ArrayList<String>();
