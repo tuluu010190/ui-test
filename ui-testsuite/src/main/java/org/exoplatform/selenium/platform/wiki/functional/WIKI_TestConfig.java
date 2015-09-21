@@ -32,6 +32,7 @@ import org.exoplatform.selenium.platform.wiki.RichTextEditor;
 import org.exoplatform.selenium.platform.wiki.SourceTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
+import org.exoplatform.selenium.platform.wiki.WikiLocators;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.wiki.WikiPageInformation;
 import org.exoplatform.selenium.platform.wiki.WikiPermission;
@@ -63,8 +64,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	SpaceHomePage spaHome;
 	SpaceManagement spaMg;
 	SpaceSettingManagement spSettingMg;
-	NotificationActivity notAct;
-	DownloadFileControl downloadControl;
+	WikiLocators wikiLoc;
 	
 	WikiTemplateDatabase wTempData;
 	TextBoxDatabase txData;
@@ -105,10 +105,8 @@ public class WIKI_TestConfig extends PlatformBase {
 		userAndGroup = new UserAndGroupManagement(driver);
 		userProPage = new UserProfilePage(driver);
 		userPageBase = new UserPageBase(driver);
-		notAct = new NotificationActivity(driver);
-		downloadControl = new DownloadFileControl(driver);
-		
-		
+		wikiLoc = new WikiLocators();
+		 
 		hp = new HomePagePlatform(driver);
 		connMag = new ConnectionsManagement(driver);
 		hpAct = new ActivityStream(driver);

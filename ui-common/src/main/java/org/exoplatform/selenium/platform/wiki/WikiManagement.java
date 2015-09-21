@@ -239,6 +239,24 @@ public class WikiManagement extends WikiLocators{
 		}
 		waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
 	}
+	/**
+	 * Open space switcher in move page popup
+	 */
+	public void goToSpaceSwitcher(){
+		info("Click on Drop down");
+		click(ELEMENT_MOVE_SPACESWITCHER);
+		Utils.pause(2000);
+	}
+	/**
+	 * Select a space destination in move page popup
+	 * @param destination
+	 */
+	public void selectSpaceDestination(String destination){
+		info("Select a space destination in the list");
+		click(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",destination));
+		waitForAndGetElement(ELEMENT_MOVE_PAGE_SPACE_SWITCHER_DROP_DOWN_VALUE_SELECTED
+				.replace("$destination",destination));
+	}
 	
 	/**
 	 * Delete an attachment file
@@ -396,36 +414,6 @@ public class WikiManagement extends WikiLocators{
 	}
 
 	/**
-	 * Add more permission for a user
-	 * @param namegroup
-	 *//*
-	public void addAUserToPermission(String namegroup,Object permission){
-		info("Click on More link");
-		click(ELEMENT_MORE_LINK);
-		info("Click on permission link");
-		click(ELEMENT_PERMISSION_LINK);
-		info("type a name or a group");
-		type(ELEMENT_PERMISSION_NAMEORGROUP, namegroup, true);
-		click(ELEMENT_PERMISSION_BTNADD);
-		if(!permission.toString().isEmpty())
-			check(permission, 2);
-		info("Click on save button");
-		click(ELEMENT_PERMISSION_BUTTON_SAVE);
-	}*/
-	/**
-	 * remove a user or a group in permission table of a page
-	 * @param usergroup
-	 *//*
-	public void removeAUserGroup(String usergroup){
-		info("Click on More link");
-		click(ELEMENT_MORE_LINK);
-		info("Click on permission link");
-		click(ELEMENT_PERMISSION_LINK);
-		click(ELEMENT_PERMISSION_REMOVE_USER_GROUP.replace("${name}",usergroup));
-		info("Click on save button");
-		click(ELEMENT_PERMISSION_BUTTON_SAVE);
-	}*/
-	/**
 	 * Rename a page from alert message when move a page to a destination that has same name
 	 * @param newTitle
 	 * @param newContent
@@ -536,5 +524,4 @@ public class WikiManagement extends WikiLocators{
 		waitForAndGetElement(ELEMENT_PREVIEW_PAGE_CONTENT
 				.replace("${content}", content), DEFAULT_TIMEOUT, 1);
 	}
-
 }

@@ -19,6 +19,7 @@ public class WikiLocators extends PlatformBase{
     public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]/../..//*[contains(text(),'$page')]";
     public final String ELEMENT_WIKI_HOME_BREADCRUMB_PATH_HOME=".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'$locator1')]/../../../..//*[contains(text(),'$locator2')]";
     public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//li[contains(@class, 'spaceSearch')]//input[contains(@placeholder, 'Filter Spaces')]");
+    public final By ELEMENT_SPACE_SWITCHER_INPUT_MOVE_PAGE_POPUP=By.xpath(".//*[@id='uiSpaceSwitcher_UIWikiMovePageForm']//li[contains(@class, 'spaceSearch')]//input[contains(@placeholder, 'Filter Spaces')]");
 	public final String ELEMENT_SPACE_NAME_SELECTED = "//*[contains(@id,'UISpaceSwitcher_/spaces/${space}')]/a";
     public final By ELEMENT_SPACE_SWITCHER_CLOSE_BTN=By.xpath(".//*[@id='uiSpaceSwitcher_BreadCrumb']//*[contains(@class,'uiIconClose')]");
     public final By ELEMENT_SPACE_SWITCHET_EMPTY_LIST_SPACE=By.id("UISpaceSwitcher_nospace");
@@ -103,8 +104,10 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_MOVE_SPACESWITCHER_OTHERPAGE = "//*[@id='UIMoveTree']/../..//*[contains(text(),'${title}')]";
 	public final By ELEMENT_MOVE_RENAMEWIKI = By.xpath("//*[text()='Rename']");
 	public final By ELEMENT_MOVE_RESTRICTED = By.xpath("//*[@class='warningIcon' and contains(text(),'You have no edit permission at the destination page')]");
+	public final By ELEMENT_MOVE_PAGE_POPUP=By.xpath(".//*[@id='UIWikiMovePageForm']");
+	public final String ELEMENT_MOVE_PAGE_SPACE_SWITCHER_DROP_DOWN_VALUE_SELECTED=".//*[@id='uiSpaceSwitcher_UIWikiMovePageForm']//*[@id='DisplayModesDropDown']//*[contains(text(),'$destination')]";
 	public final String ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR=".//*[@id='UIWikiPopupWindowL1']//*[contains(text(),'Move Page')]/../..//*[contains(text(),'${locator}')]";
-    public final String ELEMENT_MOVE_PAGE_TREE_SELECTED_PAGE=".//*[@id='iconTreeExplorer']//*[contains(text(),'$page')]";
+    public final String ELEMENT_MOVE_PAGE_TREE_SELECTED_PAGE=".//*[@id='UIWikiMovePageForm']//*[@id='iconTreeExplorer']//*[contains(text(),'$page')]";
 	public final String ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_SAME_NAME=".//*[@class='alert'][contains(.,'${message}')]";
 	public final String EMENENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME_LINK=".//*[@class='alert'][contains(.,'$message')]//*[contains(@href,'Rename')]";
 	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_AND_MORE=By.xpath(".//*[@class='alert'][contains(.,'and more')]");
@@ -115,6 +118,12 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME=By.xpath(".//*[@class='alert']/a[text()='Rename']");
 	public final String ELEMENT_MOVE_PAGE_POPUP_NEW_LOCATION_HOME=".//*[@id='newLocation']//*[@class='active']/a[contains(text(),'Wiki Home')]/../..//a[contains(text(),'${spaceName}')]";
 	public final String ELEMENT_MESSAGE_USER_DOES_NOT_HAVE_EDIT_PERMMISSON = "You have no edit permission at the destination page";
+	public final By ELEMENT_MOVE_PAGE_SELECT_THE_DESTINATION_LABEL = By.xpath(".//*[@id='UIWikiMovePageForm']//*[@id='uiSpaceSwitcher_UIWikiMovePageForm']/../*[contains(text(),'Select the destination')]");
+	public final By ELEMENT_MOVE_PAGE_DESTINATION_LABEL = By.xpath(".//*[@id='UIWikiMovePageForm']//*[@class='sideContent']/../*[@class='barContent' and contains(text(),'Destination')]");
+	//public final By ELEMENT_MOVE_PAGE_POPUP = By.id("UIWikiPopupWindowL1");
+	public final By ELEMENT_MOVE_PAGE_TITLE = By.xpath(".//*[@id='UIWikiPopupWindowL1']//*[contains(@class,'PopupTitle') and contains(text(),'Move Page')]");
+	public final By ELEMENT_MOVE_PAGE_SPACE_SWITCHER_LIST = By.xpath(".//*[@id='uiSpaceSwitcher_UIWikiMovePageForm']//*[@class='spaceChooserPopup']");
+	public final String ELEMENT_MOVE_PAGE_SELECTED_SPACE = ".//*[@id='UIWikiMovePageForm']//*[contains(text(),'Select the destination')]/..//*[@class='btn dropdown-toggle']//*[text()='${space}']";
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";

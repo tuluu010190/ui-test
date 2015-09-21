@@ -9,7 +9,7 @@ import org.exoplatform.selenium.platform.wiki.WikiPermission.permissionType;
 //import org.exoplatform.selenium.platform.wiki.WikiManagement.alignType;
 import org.testng.annotations.Test;
 
-public class Wiki_BasicAction_Move_MoveAPage extends WIKI_TestConfig{
+public class Wiki_BasicAction_Move_Move_Page extends WIKI_TestConfig{
 	
 	/**
 	 *<li> Case ID:139576.</li>

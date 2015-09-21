@@ -352,12 +352,20 @@ public class WikiHomePage extends WikiLocators{
 		waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_INPUT);
 	}
 	/**
-	 * Close space switcher by clicking on outside
+	 * Close space switcher of the breadcrumb on wiki home page by clicking on outside
 	 */
 	public void closeSpaceSwitcherByClickOutSide(){
 		info("Click on outside to close space switcher");
 		click(ELEMENT_SPACE_SWITCHER_OUTSIDE);
 		waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_INPUT);
+	}
+	/**
+	 * Close space switcher of move page popup by clicking on outside
+	 */
+	public void closeSpaceSwitcherMovePopupByClickOutside(){
+		info("Click on outside to close space switcher");
+		click(ELEMENT_SPACE_SWITCHER_OUTSIDE);
+		waitForElementNotPresent(ELEMENT_SPACE_SWITCHER_INPUT_MOVE_PAGE_POPUP);
 	}
 	/**
 	 * Open Page information
@@ -409,6 +417,23 @@ public class WikiHomePage extends WikiLocators{
 		info("Export a Wiki Page");
 		click(ELEMENT_MORE_LINK);
 		click(ELEMENT_PDF_LINK);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Go to Move page form
+	 */
+	public void goToMovePageForm(){
+		info("Go to Move page form");
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on Move page link");
+		if (waitForAndGetElement(ELEMENT_MOVE_PAGE, 5000, 0) == null){
+			mouseOverAndClick(ELEMENT_MOVE_PAGE);
+		}else {
+			click(ELEMENT_MOVE_PAGE);
+		}
+		waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP, 3000,1);
 		Utils.pause(2000);
 	}
 }
