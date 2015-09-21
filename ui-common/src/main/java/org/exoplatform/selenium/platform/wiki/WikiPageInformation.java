@@ -4,7 +4,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class WikiPageInformation extends WikiLocators{

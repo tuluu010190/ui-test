@@ -62,7 +62,7 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_WATCH_LINK = By.xpath("//*[@class='uiIconWatchPage']");
 	public final By ELEMENT_UNWATCH_LINK = By.xpath("//*[@class='uiIconUnWatchPage']");
 	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='uiIconPagePermission']");
-	public final By ELEMENT_PDF_LINK = By.xpath("//*[@class='uiIconExportAsPDF']");
+	public final String ELEMENT_PDF_LINK = "//*[@class='uiIconExportAsPDF']";
 	
 	//Permalink page
 	public final By ELEMENT_PERMALINK_LINK = By.xpath("//*[@class='uiIconPermalink']");

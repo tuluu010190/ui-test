@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.ArrayList;
 
+import org.exoplatform.selenium.DownloadFileControl;
 import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
@@ -21,6 +22,7 @@ import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDa
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadThreeColDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadTwoColDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
+import org.exoplatform.selenium.platform.social.NotificationActivity;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -61,6 +63,8 @@ public class WIKI_TestConfig extends PlatformBase {
 	SpaceHomePage spaHome;
 	SpaceManagement spaMg;
 	SpaceSettingManagement spSettingMg;
+	NotificationActivity notAct;
+	DownloadFileControl downloadControl;
 	
 	WikiTemplateDatabase wTempData;
 	TextBoxDatabase txData;
@@ -101,6 +105,8 @@ public class WIKI_TestConfig extends PlatformBase {
 		userAndGroup = new UserAndGroupManagement(driver);
 		userProPage = new UserProfilePage(driver);
 		userPageBase = new UserPageBase(driver);
+		notAct = new NotificationActivity(driver);
+		downloadControl = new DownloadFileControl(driver);
 		
 		
 		hp = new HomePagePlatform(driver);

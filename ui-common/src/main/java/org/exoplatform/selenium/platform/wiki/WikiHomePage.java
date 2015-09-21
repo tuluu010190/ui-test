@@ -402,4 +402,13 @@ public class WikiHomePage extends WikiLocators{
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_COMPARE_VERSION_TITLE);
 	}
 	
+	/**
+	 * Export a Wiki Page
+	 */
+	public void exportWikiPage(){
+		info("Export a Wiki Page");
+		click(ELEMENT_MORE_LINK);
+		click(ELEMENT_PDF_LINK);
+		Utils.pause(2000);
+	}
 }
