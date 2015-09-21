@@ -7,6 +7,7 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class WikiPermission extends WikiLocators{
 	
@@ -55,7 +56,7 @@ public class WikiPermission extends WikiLocators{
 	 *as View page or Edit page
 	 */
 	public enum permissionType{
-		View_Pages,Edit_Pages;
+		View_Pages,Edit_Pages,Admin_Pages,Admin_Wiki;
 	}
 	
 	/**
@@ -71,8 +72,18 @@ public class WikiPermission extends WikiLocators{
 					.replace("$userGroup",userGroup),2);
 			break;
 		case Edit_Pages:
-			info("Select View pages permission");
+			info("Select Edit pages permission");
 			check(ELEMENT_PERMISSION_EDIT_CHECKBOX
+					.replace("$userGroup",userGroup),2);
+			break;
+		case Admin_Pages:
+			info("Select Admin pages permission");
+			check(ELEMENT_PERMISSION_ADMIN_PAGE_CHECKBOX
+					.replace("$userGroup",userGroup),2);
+			break;
+		case Admin_Wiki:
+			info("Select Admin wiki permission");
+			check(ELEMENT_PERMISSION_ADMIN_WIKI_CHECKBOX
 					.replace("$userGroup",userGroup),2);
 			break;
 		}
@@ -85,13 +96,23 @@ public class WikiPermission extends WikiLocators{
 	public void unSelectPermission(String userGroup,permissionType type){
 		switch(type){
 		case View_Pages:
-			info("Select View pages permission");
+			info("un Select View pages permission");
 			uncheck(ELEMENT_PERMISSION_VIEW_CHECKBOX
 					.replace("$userGroup",userGroup),2);
 			break;
 		case Edit_Pages:
-			info("Select View pages permission");
+			info("un Select View pages permission");
 			uncheck(ELEMENT_PERMISSION_EDIT_CHECKBOX
+					.replace("$userGroup",userGroup),2);
+			break;
+		case Admin_Pages:
+			info("un Select Admin pages permission");
+			uncheck(ELEMENT_PERMISSION_ADMIN_PAGE_CHECKBOX
+					.replace("$userGroup",userGroup),2);
+			break;
+		case Admin_Wiki:
+			info("un Select Admin wiki permission");
+			uncheck(ELEMENT_PERMISSION_ADMIN_WIKI_CHECKBOX
 					.replace("$userGroup",userGroup),2);
 			break;
 		}
@@ -181,8 +202,10 @@ public class WikiPermission extends WikiLocators{
 	 */
 	public void savePermisison(){
 		info("Click on Save button");
+		WebElement el = waitForAndGetElement(ELEMENT_PERMISSION_BUTTON_SAVE,2000,0);
+		scrollToElement( el , driver);
 		click(ELEMENT_PERMISSION_BUTTON_SAVE);
-		waitForElementNotPresent(ELEMENT_PERMISSION_BUTTON_SAVE);
+		Utils.pause(2000);
 	}
 	
 	

@@ -83,6 +83,8 @@ public class WikiLocators extends PlatformBase{
 	public final String ELEMENT_PERMISSION_VIEW_USER = "//*[@id='VIEWPAGE${user}']";
 	public final String ELEMENT_PERMISSION_EDIT_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'EDITPAGE')]";
 	public final String ELEMENT_PERMISSION_VIEW_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'VIEWPAGE')]";
+	public final String ELEMENT_PERMISSION_ADMIN_PAGE_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'ADMINPAGE')]";
+	public final String ELEMENT_PERMISSION_ADMIN_WIKI_CHECKBOX="//*[contains(text(),'$userGroup')]/../..//*[contains(@name,'ADMINSPACE')]";
 	public final By ELEMENT_PERMISSION_BUTTON_SAVE = By.xpath("//*[text()='Save']");
 	public final By ELEMENT_PERMISSION_VIEW_ANY = By.xpath("//*[@id='VIEWPAGEany']");
 	public final String ELEMENT_PERMISSION_REMOVE_USER_GROUP = ".//*[@id='UIPermissionGrid']//*[contains(text(),'${name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";

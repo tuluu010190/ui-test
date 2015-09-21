@@ -8,7 +8,7 @@ import org.exoplatform.selenium.platform.wiki.WikiPermission.userGroupTypes;
 import org.testng.annotations.*;
 
 
-	public class Wiki_Permission_Page_Permission_Add extends WIKI_TestConfig{
+	public class Wiki_Permission_Page_Permission_Add extends WIKI_TestConfig_2{
 
 	/**
 	*<li> Case ID:139324.</li>
@@ -281,10 +281,10 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- By default, the [Create Wiki page] is displayed in the [Rich Text] mode
 			- New page is created successful*/
-		info("Create 1 new users");
+		info("Create 3 new users");
 		String password="123456";
 		navTool.goToAddUser();
-		arrayUsers = addUserPage.addUsers(1,password);
+		arrayUsers = addUserPage.addUsers(3,password);
 		
 		info("Create new page 1");
 		String page = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -324,6 +324,8 @@ import org.testng.annotations.*;
 			Selected users are listed in permission's list with View Pages permission selected by default*/
 		info(" Select user to add permission");
 		wPermission.addPermissionBySelect(arrayUsers.get(0),"",userGroupTypes.Users_UserName);
+		wPermission.addPermissionBySelect(arrayUsers.get(1),"",userGroupTypes.Users_UserName);
+		wPermission.addPermissionBySelect(arrayUsers.get(2),"",userGroupTypes.Users_UserName);
 
 		/*Step number: 4
 		*Step Name: Step 4: Select permission for user
@@ -335,10 +337,30 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The selected users have permission to view/edit this page*/ 
 		wPermission.selectPermission(arrayUsers.get(0), permissionType.Edit_Pages);
+		wPermission.selectPermission(arrayUsers.get(1), permissionType.Edit_Pages);
+		wPermission.selectPermission(arrayUsers.get(2), permissionType.Edit_Pages);
 		wPermission.savePermisison();
 		info("Mermbers of the selected group has view/edit permission");
 		magAc.signOut();
 		magAc.signIn(arrayUsers.get(0),password);
+		Utils.pause(2000);
+		
+		hp.goToWiki();
+		wHome.goToAPage(page);
+		wHome.goToEditPage();
+		
+		info("Mermbers of the selected group has view/edit permission");
+		magAc.signOut();
+		magAc.signIn(arrayUsers.get(1),password);
+		Utils.pause(2000);
+		
+		hp.goToWiki();
+		wHome.goToAPage(page);
+		wHome.goToEditPage();
+		
+		info("Mermbers of the selected group has view/edit permission");
+		magAc.signOut();
+		magAc.signIn(arrayUsers.get(2),password);
 		Utils.pause(2000);
 		
 		hp.goToWiki();

@@ -7,7 +7,7 @@ import org.exoplatform.selenium.platform.wiki.WikiPermission.permissionType;
 import org.testng.annotations.*;
 
 
-	public class Wiki_Permission_Page_Permission_Delete extends WIKI_TestConfig{
+	public class Wiki_Permission_Page_Permission_Delete extends WIKI_TestConfig_2{
 
 	/**
 	*<li> Case ID:139346.</li>
