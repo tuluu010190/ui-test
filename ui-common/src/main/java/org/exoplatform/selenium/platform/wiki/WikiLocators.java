@@ -389,7 +389,6 @@ public class WikiLocators extends PlatformBase{
 	public String ELEMENT_MACRO_TEXT = "//*[contains(@style,'${color}') and contains(text(),'${text}')]";
 	public String ELEMENT_MACRO_WARNING_MESSAGE = "//*[@class='box warningmessage' and contains(text(),'${macro}')]";
 	public String ELEMENT_MACRO_CHART = "//img[@alt='${title}']";
-	public String ELEMENT_MACRO_FOOTNOTE = "//li[contains(.,'${macro}')]//a[text()='^']";
 	public By ELEMENT_MACRO_RSS_TITLE = By.xpath("//p[@class='rssitemtitle']");
 	public By ELEMENT_MACRO_COLLAPSE_LINK = By.xpath("//div[@class='gwt-MenuItemLabel' and text()='Collapse All']");
 	public By ELEMENT_MACRO_EXPAND_LINK = By.xpath("//div[@class='gwt-MenuItemLabel' and text()='Expand All']");
@@ -479,6 +478,82 @@ public class WikiLocators extends PlatformBase{
 	//Macro: Color
 	public By ELEMENT_COLOR_TEXTBOX = By.id("pd-name-input");
 	public By ELEMENT_COLOR_MESSAGE = By.id("pd-content-input");
+	
+	//Macro: Box
+	public By ELEMENT_MACRO_BOX_CSSCLASS_FIELD=By.id("pd-cssClass-input");
+	public By ELEMENT_MACRO_BOX_IMAGE_FIELD=By.id("pd-image-input");
+	public By ELEMENT_MACRO_BOX_TITLE_FIELD=By.id("pd-title-input");
+	public By ELEMENT_MACRO_BOX_WIDTH_FIELD=By.id("pd-width-input");
+	public By ELEMENT_MACRO_BOX_CONTENT_FIELD=By.id("pd-content-input");
+	
+	//Macro:children
+	public By ELEMENT_MACRO_CHILD_CHILDNUM_FIELD=By.id("pd-childrenNum-input");
+	public By ELEMENT_MACRO_CHILD_DEPTH_FIELD=By.id("pd-depth-input");
+	public By ELEMENT_MACRO_CHILD_DESCENDANT_FIELD=By.id("pd-descendant-input");
+	public By ELEMENT_MACRO_CHILD_EXCERPT_FIELD=By.id("pd-excerpt-input");
+	public By ELEMENT_MACRO_CHILD_PARENT_FIELD=By.id("pd-parent-input");
+	
+	//Macro: Code
+	public By ELEMENT_MACRO_CODE_CSSCLASS_FIELD=By.id("pd-cssClass-input");
+	public By ELEMENT_MACRO_CODE_IMAGE_FIELD=By.id("pd-image-input");
+	public By ELEMENT_MACRO_CODE_LANGUAGE_FIELD=By.id("pd-language-input");
+	public By ELEMENT_MACRO_CODE_TITLE_FIELD=By.id("pd-title-input");
+	public By ELEMENT_MACRO_CODE_WIDTH_FIELD=By.id("pd-width-input");
+	public By ELEMENT_MACRO_CODE_CONTENT_FIELD=By.id("pd-content-input");
+	
+	//Macro: Excerpt
+	public By ELEMENT_MACRO_EXCERPT_DROPBOX=By.id("pd-hidden-input");
+	public By ELEMENT_MACRO_EXCERPT_CONTENT_FIELD=By.id("pd-content-input");
+	
+	//Macro: Message
+    public By ELEMENT_MACRO_MESSAGE_CONTENT_FIELD=By.id("pd-content-input");
+    
+    //Macro: FootNode
+    public By ELEMENT_MACRO_FOOTNODE_CONTENT_FIELD=By.id("pd-content-input");
+    public String ELEMENT_MACRO_FOOTNOTE = "//li[contains(.,'${macro}')]//a[text()='^']";
+	
+	//Macro: Table of content
+	public By ELEMENT_MACRO_TABLE_OF_CONTENT_DEPTH_FIELD=By.id("pd-depth-input");
+	public By ELEMENT_MACRO_TABLE_OF_CONTENT_NUMBERED_FIELD=By.id("pd-numbered-input");
+	public By ELEMENT_MACRO_TABLE_OF_CONTENT_SCOPE_FIELD=By.id("pd-scope-input");
+	public By ELEMENT_MACRO_TABLE_OF_CONTENT_START_FIELD=By.id("pd-start-input");
+	
+	//Macro:IFrame
+	public By ELEMENT_MACRO_IFRAME_HEIGHT_FIELD=By.id("pd-height-input");
+	public By ELEMENT_MACRO_IFRAME_SRC_FIELD=By.id("pd-src-input");
+	public By ELEMENT_MACRO_IFRAME_WIDTH_FIELD=By.id("pd-width-input");
+	public String ELEMENT_MACRO_IFRAME_IN_CONTENT_PAGE="//*[@id='UIViewContentDisplay']/iframe[contains(@src,'$src')]";
+	
+	//Macro:JIRA
+	public By ELEMENT_MACRO_JIRA_URL_FIELD=By.id("pd-URL-input");
+	public By ELEMENT_MACRO_JIRA_FIELD_NAMES_FIELD=By.id("pd-fieldNames-input");
+	public By ELEMENT_MACRO_JIRA_FIELDS_FIELD=By.id("pd-fields-input");
+	public By ELEMENT_MACRO_JIRA_SOURCE_FIELD=By.id("pd-source-input");
+	public By ELEMENT_MACRO_JIRA_STYLE_FIELD=By.id("pd-style-input");
+	public By ELEMENT_MACRO_JIRA_CONTENT_FIELD=By.id("pd-content-input");
+	public String ELEMENT_MARCO_HEADER_TABLE_JIRA=".//*[@id='UIViewContentDisplay']/table//*[contains(text(),'$header')]";
+	
+	//Macro:HTML
+	public By ELEMENT_MACRO_HTML_CLEAN_FIELD=By.id("pd-clean-input");
+	public By ELEMENT_MACRO_HTML_WIKI_NAMES_FIELD=By.id("pd-wiki-input");
+	public By ELEMENT_MACRO_HTML_CONENT_FIELD=By.id("pd-content-input");
+	public String ELEMENT_MACRO_HTML_TABLE_INTO_CONTENT_PAGE=".//*[@id='UIViewContentDisplay']/table//*[contains(text(),'$text')]";
+	
+	
+	//Macro:RSS
+	public By ELEMENT_MACRO_RSS_COUNT_FIELD=By.id("pd-count-input");
+	public By ELEMENT_MACRO_RSS_DECORATION_FIELD=By.id("pd-decoration-input");
+	public By ELEMENT_MACRO_RSS_FEED_FIELD=By.id("pd-feed-input");
+	public By ELEMENT_MACRO_RSS_IMAGE_FIELD=By.id("pd-image-input");
+	public By ELEMENT_MACRO_RSS_WIDTH_FIELD=By.id("pd-width-input");
+	public By ELEMENT_MACRO_RSSS_CONTENT_FIELD=By.id("pd-content-input");
+	public By ELEMENT_MACRO_RSS_IN_CONTENT_PAGE=By.xpath("//div[@class='box rssfeed']");
+	
+	public By ELEMENT_CREATE_MACRO_BUTTON = By.xpath("//button[text()='Insert Macro']");
+	public String ELEMENT_MACRO_CLASS_INSERT_INTO_FRAME=".//*[contains(@class,'$macro')]";
+	
+	
+	
 	//*=============================================================SOURCE EDITOR==========================================================*\\
 	public final String ELEMENT_EFFECT_BOLD="//strong[contains(text(),'$content')]";
 	public final String ELEMENT_EFFECT_BULLET_LIST="//ul/li[contains(text(),'$content')]";

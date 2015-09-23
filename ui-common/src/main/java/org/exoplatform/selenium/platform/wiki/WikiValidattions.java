@@ -62,6 +62,26 @@ public class WikiValidattions extends WikiLocators{
 			waitForAndGetElement(By.xpath("//*[@title='"+tooltip+"']"));
 		switchToParentWindow();
 	}
+	/**
+	 * Verify that a macro is inserted into the content of the page
+	 * @param macroType
+	 */
+	public void verifyMacroIntoFrame(String macroType){
+		WebElement e = waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(e);
+		waitForAndGetElement(ELEMENT_MACRO_CLASS_INSERT_INTO_FRAME
+				.replace("$macro", macroType));
+		switchToParentWindow();
+	}
+	/**
+	 * Verify that macro Iframe is inserted into the content of the page
+	 * @param src
+	 */
+	public void verifyMacroIFrame(String src){
+		info("Verify that IFrame is inserted");
+		waitForAndGetElement(ELEMENT_MACRO_IFRAME_IN_CONTENT_PAGE
+				.replace("$src",src));
+	}
 
 	/**
 	 * Verify the alert message when editing same page
@@ -868,5 +888,49 @@ public void verifyDraftExistsInDraftListOrNot(String title, boolean exist){
 		info("Draft does not exist in Draft list");
 	}
 		
+}
+/**
+ * Verify macro JIRA
+ */
+public void verifyMacroTableHeaderJIRA(){
+	info("Information from a JIRA server and displays them as a table with Type, Key, Summary, Status, Created Date");
+	waitForAndGetElement(ELEMENT_MARCO_HEADER_TABLE_JIRA
+			.replace("$header","Type"));
+	waitForAndGetElement(ELEMENT_MARCO_HEADER_TABLE_JIRA
+			.replace("$header","Key"));
+	waitForAndGetElement(ELEMENT_MARCO_HEADER_TABLE_JIRA
+			.replace("$header","Summary"));
+	waitForAndGetElement(ELEMENT_MARCO_HEADER_TABLE_JIRA
+			.replace("$header","Status"));
+	waitForAndGetElement(ELEMENT_MARCO_HEADER_TABLE_JIRA
+			.replace("$header","Created Date"));
+}
+/**
+ * Verify footNode intoFrame of Rich Text Mode
+ * @param footNode1
+ * @param footNode2
+ * @param contentMacroBox
+ */
+public void verifyMacroFootNodeIntoFrame(String footNode1,String footNode2,String contentMacroBox){
+	driver.switchTo().frame(waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME));
+	waitForAndGetElement(By.linkText("1"));
+	waitForAndGetElement(By.linkText("2"));
+	waitForAndGetElement(ELEMENT_MACRO_FOOTNOTE.replace("${macro}",footNode1));
+	waitForAndGetElement(ELEMENT_MACRO_FOOTNOTE.replace("${macro}",footNode2));
+	waitForAndGetElement(ELEMENT_MACRO_BOX.replace("${macro}", contentMacroBox));
+	switchToParentWindow();
+}
+/**
+ * Verify footNode into the content of the page 
+ * @param footNode1
+ * @param footNode2
+ * @param contentMacroBox
+ */
+public void verifyMacroFootNodeIntoContentPage(String footNode1,String footNode2,String contentMacroBox){
+	waitForAndGetElement(By.linkText("1"));
+	waitForAndGetElement(By.linkText("2"));
+	waitForAndGetElement(ELEMENT_MACRO_FOOTNOTE.replace("${macro}",footNode1));
+	waitForAndGetElement(ELEMENT_MACRO_FOOTNOTE.replace("${macro}",footNode2));
+	waitForAndGetElement(ELEMENT_MACRO_BOX.replace("${macro}", contentMacroBox));
 }
 }

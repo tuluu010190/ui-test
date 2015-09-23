@@ -89,10 +89,13 @@ public class RichTextEditor extends WikiLocators{
 		info("Select a macro: " + macro);
 		mouseOverAndClick(ELEMENT_MACRO_LINK);
 		mouseOverAndClick(ELEMENT_INSERT_MACRO_LINK);
+		if(!cat.isEmpty())
 		select(ELEMENT_MACRO_CATEGORY_SELECT, cat);
-		mouseOverAndClick(ELEMENT_MACRO_TYPE_FILTER);
-		type(ELEMENT_MACRO_TYPE_FILTER,macro,true);
-		Utils.pause(1000);
+		if(!macro.isEmpty()){
+			mouseOverAndClick(ELEMENT_MACRO_TYPE_FILTER);
+			type(ELEMENT_MACRO_TYPE_FILTER,macro,true);
+			Utils.pause(1000);
+		}
 		click(ELEMENT_MACRO_LABEL.replace("${macro}", macro));
 		click(but.ELEMENT_SELECT_BUTTON);
 		Utils.pause(3000);
@@ -169,11 +172,333 @@ public class RichTextEditor extends WikiLocators{
 	 * @param message
 	 * 			message setting of macro
 	 */
-	public void macroColor(String color, String message){
+	public void insertMacroColor(String color, String message){
 		goToMacro("Formatting", "Color");
 		type(ELEMENT_COLOR_TEXTBOX, color, true);
 		type(ELEMENT_COLOR_MESSAGE, message, true);
 		click(but.ELEMENT_CREATE_MACRO_BUTTON);
+	}
+	/**
+	 * InsertMacroBox
+	 * @param cssClass
+	 * @param image
+	 * @param title
+	 * @param width
+	 * @param content
+	 */
+	public void insertMacroBox(String cssClass, String image,
+			String title,String width,String content){
+		if(!cssClass.isEmpty()){
+			info("Input css class");
+			type(ELEMENT_MACRO_BOX_CSSCLASS_FIELD,cssClass, true);
+		}
+		
+        if(!image.isEmpty()){
+        	info("Input image");
+        	type(ELEMENT_MACRO_BOX_IMAGE_FIELD, image, true);
+		}
+        
+        if(!title.isEmpty()){
+        	info("Input title");
+        	type(ELEMENT_MACRO_BOX_TITLE_FIELD, title, true);
+		}
+        
+        if(!width.isEmpty()){
+        	info("Input width");
+        	type(ELEMENT_MACRO_BOX_WIDTH_FIELD, width, true);
+		}
+        
+        if(!content.isEmpty()){
+        	info("Input content");
+        	type(ELEMENT_MACRO_BOX_CONTENT_FIELD,content, true);
+		}
+        clickInsertMacroBtn();
+		
+	}
+	/**
+	 * Click on Insert Macro button
+	 */
+	public void clickInsertMacroBtn(){
+		info("Click on Insert Macro button");
+		click(ELEMENT_CREATE_MACRO_BUTTON);
+		waitForElementNotPresent(ELEMENT_CREATE_MACRO_BUTTON);
+	}
+	
+	public enum acceptType{
+		yes,no;
+	}
+	/**
+	 * Insert Children macro
+	 * @param childNum
+	 * @param depth
+	 * @param descendantType
+	 * @param excerptType
+	 * @param parent
+	 */
+	public void insertChildrenMacro(String childNum,String depth,
+			acceptType descendantType,acceptType excerptType,String parent){
+		if(!childNum.isEmpty()){
+			info("Input child num");
+        	type(ELEMENT_MACRO_CHILD_CHILDNUM_FIELD,childNum, true);
+		}
+		
+		if(!depth.isEmpty()){
+			info("Input depth");
+        	type(ELEMENT_MACRO_CHILD_DEPTH_FIELD,depth, true);
+		}
+		
+		switch(descendantType){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_CHILD_DESCENDANT_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_CHILD_DESCENDANT_FIELD,"false");
+			break;
+		}
+		
+		switch(excerptType){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_CHILD_EXCERPT_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_CHILD_EXCERPT_FIELD,"false");
+			break;
+		}
+		
+		if(!parent.isEmpty()){
+			info("Input parent");
+        	type(ELEMENT_MACRO_CHILD_PARENT_FIELD,parent, true);
+		}
+		
+		 clickInsertMacroBtn();
+	}
+	/**
+	 * Insert macro code
+	 * @param cssClass
+	 * @param image
+	 * @param language
+	 * @param title
+	 * @param width
+	 * @param content
+	 */
+	public void insertMacroCode(String cssClass,String image,String language,
+			String title,String width,String content){
+		if(!cssClass.isEmpty()){
+			info("Input css class");
+			type(ELEMENT_MACRO_CODE_CSSCLASS_FIELD,cssClass, true);
+		}
+		if(!image.isEmpty()){
+			info("Input image");
+			type(ELEMENT_MACRO_CODE_IMAGE_FIELD,image, true);
+		}
+		if(!language.isEmpty()){
+			info("Input language");
+			type(ELEMENT_MACRO_CODE_LANGUAGE_FIELD,language, true);
+		}
+		if(!title.isEmpty()){
+			info("Input title");
+			type(ELEMENT_MACRO_CODE_TITLE_FIELD,title, true);
+		}
+		if(!width.isEmpty()){
+			info("Input width");
+			type(ELEMENT_MACRO_CODE_WIDTH_FIELD,width, true);
+		}
+		if(!content.isEmpty()){
+			info("Input content");
+			type(ELEMENT_MACRO_CODE_CONTENT_FIELD,content, true);
+		}
+		clickInsertMacroBtn();
+	}
+	/**
+	 * Insert Macro excerpt
+	 * @param hideMode
+	 * @param content
+	 */
+	public void insertMacroExcerpt(acceptType hideMode,String content){
+		switch(hideMode){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_EXCERPT_DROPBOX,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_EXCERPT_DROPBOX,"false");
+			break;
+		}
+		
+		if(!content.isEmpty()){
+			info("Input content");
+			type(ELEMENT_MACRO_EXCERPT_CONTENT_FIELD,content, true);
+		}
+		clickInsertMacroBtn();
+	}
+	
+	/**
+	 * Insert Macro Tip message
+	 * @param content
+	 */
+	public void insertMacroMessage(String content){
+		if(!content.isEmpty()){
+			info("Input content");
+			type(ELEMENT_MACRO_MESSAGE_CONTENT_FIELD,content, true);
+		}
+		clickInsertMacroBtn();
+	}
+	
+	/**
+	 * Insert Macro FootNode
+	 * @param content
+	 */
+	public void insertMacroFootNode(String content){
+		if(!content.isEmpty()){
+			info("Input content");
+			type(ELEMENT_MACRO_FOOTNODE_CONTENT_FIELD,content, true);
+		}
+		clickInsertMacroBtn();
+	}
+	
+	public enum scopeMode{
+		PAGE,LOCAL;
+	}
+	/**
+	 * Insert Macro table of content
+	 * @param depth
+	 * @param numberedMode
+	 * @param scope
+	 * @param start
+	 */
+	public void insertMacroTableOfContent(String depth,acceptType numberedMode,
+			scopeMode scope,String start){
+		if(!depth.isEmpty()){
+			info("Input depth");
+			type(ELEMENT_MACRO_TABLE_OF_CONTENT_DEPTH_FIELD,depth, true);
+		}
+		
+		switch(numberedMode){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_TABLE_OF_CONTENT_NUMBERED_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_TABLE_OF_CONTENT_NUMBERED_FIELD,"false");
+			break;
+		}
+		
+		switch(scope){
+		case PAGE:
+			info("Select Page");
+			selectOption(ELEMENT_MACRO_TABLE_OF_CONTENT_SCOPE_FIELD,scopeMode.PAGE.name());
+			break;
+		case LOCAL:
+			info("Select Local");
+			selectOption(ELEMENT_MACRO_TABLE_OF_CONTENT_SCOPE_FIELD,scopeMode.LOCAL.name());
+			break;
+		}
+		
+		if(!start.isEmpty()){
+			info("Input start");
+			type(ELEMENT_MACRO_TABLE_OF_CONTENT_START_FIELD,start, true);
+		}
+		
+		clickInsertMacroBtn();
+	}
+	/**
+	 * Insert Macro IFrame
+	 * @param height
+	 * @param src
+	 * @param width
+	 */
+	public void insertMacroIFrame(String height,String src,String width){
+		if(!height.isEmpty()){
+			info("Input height");
+			type(ELEMENT_MACRO_IFRAME_HEIGHT_FIELD,height, true);
+		}
+		if(!src.isEmpty()){
+			info("Input src");
+			type(ELEMENT_MACRO_IFRAME_SRC_FIELD,src, true);
+		}
+		if(!width.isEmpty()){
+			info("Input width");
+			type(ELEMENT_MACRO_IFRAME_WIDTH_FIELD,width, true);
+		}
+		clickInsertMacroBtn();
+	}
+	/**
+	 * Insert Macro JIRA
+	 * @param url
+	 * @param fieldNames
+	 * @param fields
+	 * @param source
+	 * @param style
+	 * @param content
+	 */
+	public void insertMacroJIRA(String url,String fieldNames,String fields,
+			String source,String style,String content){
+		if(!url.isEmpty()){
+			info("Input url");
+			type(ELEMENT_MACRO_JIRA_URL_FIELD,url, true);
+		}
+		if(!fieldNames.isEmpty()){
+			info("Input field Names");
+			type(ELEMENT_MACRO_JIRA_FIELD_NAMES_FIELD,fieldNames, true);
+		}
+		if(!fields.isEmpty()){
+			info("Input fields");
+			type(ELEMENT_MACRO_JIRA_FIELDS_FIELD,fields, true);
+		}
+		if(!source.isEmpty()){
+			info("Input source");
+			type(ELEMENT_MACRO_JIRA_SOURCE_FIELD,source, true);
+		}
+		if(!style.isEmpty()){
+			info("Input style");
+			type(ELEMENT_MACRO_JIRA_STYLE_FIELD,style, true);
+		}
+		if(!content.isEmpty()){
+			info("Input content");
+			type(ELEMENT_MACRO_JIRA_CONTENT_FIELD,content, true);
+		}
+		clickInsertMacroBtn();
+	}
+	/**
+	 * Insert Macro HTML
+	 * @param cleanMode
+	 * @param wikiMode
+	 * @param content
+	 */
+	public void insertMacroHtml(acceptType cleanMode,acceptType wikiMode,String content){
+		switch(cleanMode){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_HTML_CLEAN_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_HTML_CLEAN_FIELD,"false");
+			break;
+		}
+		
+		switch(wikiMode){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_HTML_WIKI_NAMES_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_HTML_WIKI_NAMES_FIELD,"false");
+			break;
+		}
+		
+		if(!content.isEmpty()){
+			info("Input content");
+			type(ELEMENT_MACRO_HTML_CONENT_FIELD,content, true);
+		}
+		clickInsertMacroBtn();
 	}
 
 	/**
@@ -1149,6 +1474,66 @@ public class RichTextEditor extends WikiLocators{
 		click(elem,2,true);
 		uploadFileUsingRobot(link);
 		waitForAndGetElement(By.linkText(link.substring(link.lastIndexOf(fs)+1)));
+	}
+	/**
+	 * Insert Macro RSS
+	 * @param content
+	 * @param count
+	 * @param decoration
+	 * @param feed
+	 * @param image
+	 * @param width
+	 */
+	public void insertMacroRSS(acceptType content,String count,acceptType decoration,
+			String feed,acceptType image,String width){
+		switch(content){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_RSSS_CONTENT_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_RSSS_CONTENT_FIELD,"false");
+			break;
+		}
+		
+		if(!count.isEmpty()){
+			info("Input count");
+			type(ELEMENT_MACRO_RSS_COUNT_FIELD,count, true);
+		}
+		
+		switch(decoration){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_RSS_DECORATION_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_RSS_DECORATION_FIELD,"false");
+			break;
+		}
+		
+		if(!feed.isEmpty()){
+			info("Input feed");
+			type(ELEMENT_MACRO_RSS_FEED_FIELD,feed, true);
+		}
+		
+		switch(image){
+		case yes:
+			info("Select yes");
+			selectOption(ELEMENT_MACRO_RSS_IMAGE_FIELD,"true");
+			break;
+		case no:
+			info("Select no");
+			selectOption(ELEMENT_MACRO_RSS_IMAGE_FIELD,"false");
+			break;
+		}
+		
+		if(!width.isEmpty()){
+			info("Input width");
+			type(ELEMENT_MACRO_RSS_WIDTH_FIELD,width, true);
+		}
+		clickInsertMacroBtn();
 	}
 }
 

@@ -170,6 +170,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	@AfterMethod
 	public void afterMethod(){
 		info("Start afterMethod");
+		switchToParentWindow();
 		magAc.signOut();
 		magAc.signIn(DATA_USER1,DATA_PASS);
 		deleteAllUsers();
