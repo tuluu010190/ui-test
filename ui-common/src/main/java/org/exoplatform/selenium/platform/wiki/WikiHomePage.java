@@ -51,6 +51,7 @@ public class WikiHomePage extends WikiLocators{
 		click(ELEMENT_EDIT_PAGE_LINK);
 		waitForElementNotPresent(ELEMENT_WIKI_HOME_PAGE_TEXT);
 	}
+	
 
 	/**
 	 * Go to Home Wiki Page
@@ -434,6 +435,22 @@ public class WikiHomePage extends WikiLocators{
 			click(ELEMENT_MOVE_PAGE);
 		}
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP, 3000,1);
+		Utils.pause(2000);
+	}
+	/**
+	 * Go to Export a page
+	 */
+	public void goToExportPage(){
+		info("Go to Export a page");
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on Move page link");
+		if (waitForAndGetElement(ELEMENT_PDF_LINK, 5000, 0) == null){
+			mouseOverAndClick(ELEMENT_PDF_LINK);
+		}else {
+			click(ELEMENT_PDF_LINK);
+		}
+		waitForElementNotPresent(ELEMENT_PDF_LINK, 3000,1);
 		Utils.pause(2000);
 	}
 }

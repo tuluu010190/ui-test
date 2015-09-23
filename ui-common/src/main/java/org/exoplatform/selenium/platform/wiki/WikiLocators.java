@@ -32,7 +32,7 @@ public class WikiLocators extends PlatformBase{
     public final By ELEMENT_SPACE_SWITCHER_INTRANET_ICON=By.xpath(".//*[@id='UISpaceSwitcher_/portal/intranet']//*[contains(@class,'uiIconWikiWiki')]");
     public final By ELEMENT_SPACE_SWITCHER_MY_WIKI_POSITION=By.xpath("(//*[contains(@id,'UISpaceSwitcher')])[2][contains(@id,'user')]");
     public final By ELEMENT_SPACE_SWITCHER_MY_WIKI_ICON=By.xpath(".//*[contains(@id,'UISpaceSwitcher_/user')]//*[contains(@class,'uiIconWikiMyWiki')]");
-    
+    public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
     
 	public final String ELEMENT_WIKI_PAGE_LEFTBOX = "//*[@id='iconTreeExplorer']//*[contains(text(),'${title}')]";
 	public final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//*[@class='uiIconEditPage uiIconLightGray']");
@@ -63,7 +63,7 @@ public class WikiLocators extends PlatformBase{
 	public final By ELEMENT_WATCH_LINK = By.xpath("//*[@class='uiIconWatchPage']");
 	public final By ELEMENT_UNWATCH_LINK = By.xpath("//*[@class='uiIconUnWatchPage']");
 	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='uiIconPagePermission']");
-	public final String ELEMENT_PDF_LINK = "//*[@class='uiIconExportAsPDF']";
+	public final By ELEMENT_PDF_LINK = By.xpath("//*[@class='uiIconExportAsPDF']");
 	
 	//Permalink page
 	public final By ELEMENT_PERMALINK_LINK = By.xpath("//*[@class='uiIconPermalink']");

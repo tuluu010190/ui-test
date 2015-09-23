@@ -4,13 +4,13 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.ArrayList;
 
-import org.exoplatform.selenium.DownloadFileControl;
 import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.administration.ManageLayout;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
@@ -22,7 +22,6 @@ import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDa
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadThreeColDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.ReadTwoColDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
-import org.exoplatform.selenium.platform.social.NotificationActivity;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -49,6 +48,7 @@ public class WIKI_TestConfig extends PlatformBase {
 	NavigationToolbar navTool;
 	HomePagePlatform hp;
 	ActivityStream hpAct;
+	ManageLayout mLayout;
 	
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
@@ -106,6 +106,7 @@ public class WIKI_TestConfig extends PlatformBase {
 		userProPage = new UserProfilePage(driver);
 		userPageBase = new UserPageBase(driver);
 		wikiLoc = new WikiLocators();
+		mLayout = new ManageLayout(driver);
 		 
 		hp = new HomePagePlatform(driver);
 		connMag = new ConnectionsManagement(driver);

@@ -1102,7 +1102,7 @@ public class Wiki_BasicAction_Move_Move_Page extends WIKI_TestConfig{
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test15_CheckRedirectionAfterAMoveToAnotherSpace() {
+	public  void test08_CheckRedirectionAfterAMoveToAnotherSpace() {
 		info("Test 15 Check Redirection after a move to another space");
 		/*Step Number: 1
 		*Step Name: 

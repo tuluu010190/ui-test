@@ -7,9 +7,11 @@
 			</run>
 		</groups>
 		<classes>
-		    <!-- <class name="org.exoplatform.selenium.platform.wiki.functional.WIKI_TestConfig" />
-			<class name="org.exoplatform.selenium.platform.wiki.functional.Wiki_Attachment" /> -->
-			<class name="org.exoplatform.selenium.platform.wiki.functional.Wiki_BasicAction_Move_MoveLayout" />
+		    <class name="org.exoplatform.selenium.platform.wiki.functional.WIKI_TestConfig" />
+			<class name="org.exoplatform.selenium.platform.wiki.functional.Wiki_Attachment" />
+			<class name="org.exoplatform.selenium.platform.wiki.functional.Wiki_Activities" />
+			<class name="org.exoplatform.selenium.platform.wiki.functional.Wiki_Macro_Add" />
+			<class name="org.exoplatform.selenium.platform.wiki.functional.Wiki_Basic_Action_Export_Page" />
 		</classes>
 	</test>
 	<listeners>

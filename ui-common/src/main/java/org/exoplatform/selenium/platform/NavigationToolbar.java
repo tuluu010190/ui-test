@@ -117,6 +117,13 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_EDIT_CONTENT = By.xpath("//*[@class='quickEditUnchecked']");
 	public final By ELEMENT_EDIT_CONTENT_CHECK = By.xpath("//*[@class='quickEditChecked']");
 
+	//Edit->site
+	public final By ELEMENT_MENU_EDIT_SITES = By.xpath("//*[contains(@href,'#')][contains(text(),'Site')]");
+	public final By ELEMENT_MENU_EDIT_SITES_NAV = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Navigation')]");
+	public final By ELEMENT_MENU_EDIT_SITE_LAYOUT = By.xpath(".//*[contains(@href,'#')][contains(text(),'Site')]/..//*[contains(text(),'Layout')]");
+	public final By ELEMENT_MENU_EDIT_ADDSITE = By.linkText("Add Site");
+	public final By ELEMENT_MENU_EDIT_CONTENT_TEXT = By.linkText("Content");
+		
 	//User Menu
 	public final By ELEMENT_MY_PROFILE_LINK = By.xpath("//i[@class='uiIconPLFProfile']/..");
 	public final By ELEMENT_MY_DASHBOARD_LINK = By.xpath("//i[@class='uiIconPLFDashboard']/..");
@@ -702,6 +709,37 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_INTRANET_NOTIFICATION_BELL);
 		waitForAndGetElement(ELEMENT_NOTIFICATION_DROPDOWN);
 		info("The elemnt is shown successfully");
+	}
+	
+	/**
+	 * Go to Edit/Site/Layout
+	 */
+	public void goToEditSiteLayout(){
+		info("Go to Edit layout form");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LINK_EDIT);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_EDIT, true);
+			if (waitForAndGetElement( ELEMENT_MENU_EDIT_SITES, 5000, 0)!= null) {
+				info("-- Click Site menu --");
+				mouseOver( ELEMENT_MENU_EDIT_SITES,true);
+				if (waitForAndGetElement(ELEMENT_MENU_EDIT_SITE_LAYOUT, 5000, 0)!= null){
+					click(ELEMENT_MENU_EDIT_SITE_LAYOUT);
+					break;
+				}
+			}
+			else{
+				String editPageRequest = "ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'EditInline', true))";
+				info("editPageRequest:"+editPageRequest);
+				((JavascriptExecutor)driver).executeScript(editPageRequest);
+				Utils.pause(1000);
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		Utils.pause(1000);
 	}
 
 }
