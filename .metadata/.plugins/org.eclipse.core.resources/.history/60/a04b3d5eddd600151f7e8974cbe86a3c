@@ -1,0 +1,113 @@
+package org.niteco.selenium.platform.rc;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.PlatformBase;
+import org.openqa.selenium.By;
+import org.testng.annotations.*;
+
+public class RCFlow extends PlatformBase{
+
+	ManageLogInOut magAc;
+	RCHomepage rcHome;
+	CandidatesHomePage canHome;
+	CandidateProfile canProf;
+	
+	@BeforeClass
+	public void setUpBeforeTest() throws Exception{
+		initSeleniumTest();
+		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		driver.get(baseUrl);
+		magAc = new ManageLogInOut(driver);
+		rcHome = new RCHomepage(driver);
+		canHome = new CandidatesHomePage(driver);
+		canProf = new CandidateProfile(driver);
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		
+	}
+	
+	/**
+	 * Case ID:116816.
+	 * Test Case Name: Approve/ Disapprove answer.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test01_flowiMis() {
+		String fullName = "tuTest01";
+		String firstName = "tu1";
+		String lastName = "luu1";
+		String email = "tu1@gmail.com";
+		String phone = "123456789";
+		String referSource = "Refer";
+		String automationTestJob = "auto";
+		String file = "TestData\\CV_Tu3.docx";
+		
+		
+		rcHome.goToCandidateTab();
+		/*info("Click candidates btn");
+		waitForAndGetElement(aMang.ELEMENT_RS_CANDIDATES_BTN, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_CANDIDATES_BTN);
+		waitForAndGetElement(aMang.ELEMENT_RS_CANDIDATES_TITLE, DEFAULT_TIMEOUT, 1);
+		
+		info("Click create candidate button");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CANDIDATES_BTN, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CANDIDATES_BTN);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_TITLE, DEFAULT_TIMEOUT, 1);
+		
+		info("Create a candidate");
+		info("Enter full name");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FULL_NAME, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FULL_NAME, fullName, true);
+		info("Enter first name");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FIRST_NAME, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FIRST_NAME, firstName, true);
+		info("Enter last name");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_LAST_NAME, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_LAST_NAME, lastName, true);
+		info("Enter email");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_EMAIL, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_EMAIL, email, true);
+		info("Enter phone");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_PHONE, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_PHONE, phone, true);
+		info("Choose refer source");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_SEARCH, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_SEARCH, referSource, true);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_REFER, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_REFER);
+		info("Choose automation test job");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH, automationTestJob, true);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH_AUTOMATION_TEST, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH_AUTOMATION_TEST);
+		
+		info("Attach CV");
+		info("Click on browse button");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_BROWSE_BTN, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_BROWSE_BTN);
+		info("upload file");
+		uploadFileUsingRobot(file);
+		
+		info("Click create button");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_CREATE_BTN, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_CREATE_BTN);
+		waitForAndGetElement(aMang.ELEMENT_RS_CANDIDATE_PROFILE_TITLE.replace("${name}", fullName), DEFAULT_TIMEOUT, 1);
+		
+		info("Verify data in user profile");
+		info("Varify full Name");
+		waitForAndGetElement(By.xpath(aMang.ELEMENT_RS_CANDIDATE_PROFILE_FULL_NAME.replace("${fullName}", fullName)), DEFAULT_TIMEOUT, 1);
+		info("Verify first name");
+		waitForAndGetElement(By.xpath(aMang.ELEMENT_RS_CANDIDATE_PROFILE_FIRST_NAME.replace("${firstName}", firstName)), DEFAULT_TIMEOUT, 1);
+		info("Veryfi Last Name");
+		waitForAndGetElement(By.xpath(aMang.ELEMENT_RS_CANDIDATE_PROFILE_LAST_NAME.replace("${lastName}", lastName)), DEFAULT_TIMEOUT, 1);
+		info("Verify Phone");
+		waitForAndGetElement(By.xpath(aMang.ELEMENT_RS_CANDIDATE_PROFILE_PHONE.replace("${phone}", phone)), DEFAULT_TIMEOUT, 1);
+		info("Verify email");
+		waitForAndGetElement(By.xpath(aMang.ELEMENT_RS_CANDIDATE_PROFILE_EMAIL.replace("${email}", email)), DEFAULT_TIMEOUT, 1);*/
+}

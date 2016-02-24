@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Platform Sniff Test" verbose="1" preserve-order="true">
+	<test name="gatein-sniff" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.GateIn_TestConfig" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_User_And_Group_Management" />
+		    <class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Portal_Navigation_Edit_LayOut" />
+		    <class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Portal_Navigation_Edit_Navigation" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Group_Navigation_EditLayout" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Group_Navigation_Manage_Navigation" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Group_Navigation_Edit_Navigation" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Global_Settings" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>

@@ -1,0 +1,7 @@
+org.exoplatform.selenium
+org.exoplatform.selenium.platform
+org.exoplatform.selenium.platform.calendar
+org.exoplatform.selenium.platform.ecms
+org.exoplatform.selenium.platform.forum
+org.exoplatform.selenium.platform.social
+org.exoplatform.selenium.platform.wiki

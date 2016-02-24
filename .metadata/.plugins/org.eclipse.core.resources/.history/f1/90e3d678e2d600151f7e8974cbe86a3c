@@ -1,0 +1,62 @@
+package org.niteco.selenium.platform.rc;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class CandidateProfile extends RCLocators{
+	
+	/**
+	 * constructor
+	 * @param dr
+	 */
+	public CandidateProfile(WebDriver dr){
+		this.driver=dr;
+	}
+	
+	/**
+	 * Verify candidate profile
+	 * @param fullName
+	 * @param firstName
+	 * @param lastName
+	 * @param phone
+	 * @param email
+	 */
+	public void verifyBasicCandidateProfile(String fullName, String firstName, String lastName, String phone, String email, String job, String fileName){
+		if(fullName != null && fullName != "") {
+			info("Varify full Name");
+			waitForAndGetElement(By.xpath(ELEMENT_RS_CANDIDATE_PROFILE_FULL_NAME.replace("${fullName}", fullName)), DEFAULT_TIMEOUT, 1);
+		}
+		if(firstName != null && firstName != "") {
+			info("Verify first name");
+			waitForAndGetElement(By.xpath(ELEMENT_RS_CANDIDATE_PROFILE_FIRST_NAME.replace("${firstName}", firstName)), DEFAULT_TIMEOUT, 1);
+		}
+		if(lastName != null && lastName != "") {
+			info("Veryfi Last Name");
+			waitForAndGetElement(By.xpath(ELEMENT_RS_CANDIDATE_PROFILE_LAST_NAME.replace("${lastName}", lastName)), DEFAULT_TIMEOUT, 1);
+		}
+		if(phone != null && phone != "") {
+			info("Verify Phone");
+			waitForAndGetElement(By.xpath(ELEMENT_RS_CANDIDATE_PROFILE_PHONE.replace("${phone}", phone)), DEFAULT_TIMEOUT, 1);
+		}
+		if(email != null && email != "") {
+			info("Verify email");
+			waitForAndGetElement(By.xpath(ELEMENT_RS_CANDIDATE_PROFILE_EMAIL.replace("${email}", email)), DEFAULT_TIMEOUT, 1);
+		}
+		if(job != null && job != "") {
+			info("Verify job");
+			waitForAndGetElement(By.xpath(ELEMENT_RS_CANDIDATE_PROFILE_JOB.replace("${job}", job)), DEFAULT_TIMEOUT, 1);
+		}
+		if(fileName != null && fileName != "") {
+			info("Verify attach file name");
+			waitForAndGetElement(By.xpath(ELEMENT_RS_CANDIDATE_PROFILE_ATTACH_FILE.replace("${fileName}", fileName)), DEFAULT_TIMEOUT, 1);
+		}
+	}
+	
+	public void goToAddInformationFOrCandiDate(){
+		waitForAndGetElement(ELEMENT_RS_CANDIDATE_PROFILE_ADD_INFORMATION_BTN, DEFAULT_TIMEOUT, 1);
+		click(ELEMENT_RS_CANDIDATE_PROFILE_ADD_INFORMATION_BTN);
+	}
+	
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Platform Sniff Test" verbose="1" preserve-order="true">
+	<test name="ecms-sniff" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+		    <class name="org.exoplatform.selenium.platform.ecms.sniff.ECMS_TestConfig_Part1" />
+			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminTemplates" />
+			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminRepository" />
+			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminExplorer" />
+			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminAdvanced" />
+			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_WCM" />
+			 <class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_Document_Preview" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>

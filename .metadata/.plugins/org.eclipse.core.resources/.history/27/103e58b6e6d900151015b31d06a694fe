@@ -1,0 +1,5 @@
+package org.niteco.selenium.platform.objectdatabase.rs;
+
+public class skillInformation {
+
+}

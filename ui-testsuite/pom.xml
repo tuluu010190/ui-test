@@ -5,8 +5,8 @@
 	<parent>
 		<groupId>org.exoplatform.selenium</groupId>
 		<artifactId>ui-test</artifactId>
-		<version>4.2.x-SNAPSHOT</version>
-	</parent>
+		<version>4.3.x-SNAPSHOT</version>
+	</parent> 
 
 	<artifactId>ui-testsuite</artifactId>
 	<packaging>jar</packaging>
@@ -242,6 +242,16 @@
 
 	<build>
 		<plugins>
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<encoding>UTF-8</encoding>
+				</configuration>
+		</plugin> -->
 			<!-- Execute integration tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -1,0 +1,190 @@
+package org.niteco.selenium.platform.objectdatabase.rs;
+
+import java.util.ArrayList;
+
+import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
+
+public class addCandidateForm {
+
+	public ArrayList<Integer> type;
+	public ArrayList<String> source;
+	public ArrayList<String> job;
+	
+	
+	public addCandidateForm(ArrayList<Integer> type, ArrayList<String> source, ArrayList<String> job){
+		this.type = type;
+		this.source = source;
+		this.job = job;
+	}
+	
+	/**
+	 * UserDatabase
+	 */
+	public addCandidateForm(){
+		type  = new ArrayList<Integer>();
+		source  = new ArrayList<String>();
+		job  = new ArrayList<String>();
+	}
+	
+	 /**
+     * Set data
+     * @param userDataFile
+     * @param userSheet
+     * @param opParams
+     * @throws Exception
+     */
+	public void setData(String userDataFile, String userSheet, Object... opParams) throws Exception{
+		System.out.println("file is:" + userDataFile);
+		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
+		for(int i = 0; i<testData.length; i++)
+		{	
+			//type.add(Integer.valueOf(testData[i][0]));
+			source.add(testData[i][1]);
+			job.add(testData[i][2]);
+		}
+	}
+	
+	/**
+	 * Get source by index
+	 * @param index
+	 * @return
+	 */
+	public String getSourceByIndex(int index){
+		return source.get(index);
+	}
+	
+	/**
+	 * Get first name by index
+	 * @param index
+	 * @return
+	 */
+	public String getFirstNameByIndex(int index){
+		return firstName.get(index);
+	}
+	
+	/**
+	 * Get last name by index
+	 * @param index
+	 * @return
+	 */
+	public String getLastNameByIndex(int index){
+		return lastName.get(index);
+	}
+	
+	/**
+	 * Get email by index
+	 * @param index
+	 * @return
+	 */
+	public String getEmailByIndex(int index){
+		return email.get(index);
+	}
+	
+	/**
+	 * Get phone by index
+	 * @param index
+	 * @return
+	 */
+	public String getPhoneByIndex(int index){
+		return phone.get(index);
+	}
+	
+	/**
+	 * Get date of birth by index
+	 * @param index
+	 * @return
+	 */
+	public String getDateOfBirthByIndex(int index){
+		return dateOfBirth.get(index);
+	}
+	
+	/**
+	 * Get gender by index
+	 * @param index
+	 * @return
+	 */
+	public String getGenderByIndex(int index){
+		return gender.get(index);
+	}
+	
+	/**
+	 * Get address by index
+	 * @param index
+	 * @return
+	 */
+	public String getAdressByIndex(int index){
+		return address.get(index);
+	}
+	
+	/**
+	 * Get Nationality by index
+	 * @param index
+	 * @return
+	 */
+	public String getNationalityByIndex(int index){
+		return nationality.get(index);
+	}
+	
+	/**
+	 * Get Region by index
+	 * @param index
+	 * @return
+	 */
+	public String getRegionByIndex(int index){
+		return region.get(index);
+	}
+	
+	/**
+	 * Get Locality by index
+	 * @param index
+	 * @return
+	 */
+	public String getLocalityByIndex(int index){
+		return locality.get(index);
+	}
+	
+	/**
+	 * Get Current Salary by index
+	 * @param index
+	 * @return
+	 */
+	public String getCurrentSalaryCodeByIndex(int index){
+		return currentSalary.get(index);
+	}
+	
+	/**
+	 * Get Expected Salary by index
+	 * @param index
+	 * @return
+	 */
+	public String getExpectedSalaryByIndex(int index){
+		return expectedSalary.get(index);
+	}
+	
+	/**
+	 * Get Planed Start Date by index
+	 * @param index
+	 * @return
+	 */
+	public String getPlanedStartDateByIndex(int index){
+		return planedStartDate.get(index);
+	}
+	
+	/**
+	 * Get Working Location by index
+	 * @param index
+	 * @return
+	 */
+	public String getWorkingLocationByIndex(int index){
+		return workingLocation.get(index);
+	}
+	
+	/**
+	 * Get Postal Code by index
+	 * @param index
+	 * @return
+	 */
+	public String getPostalCodeByIndex(int index){
+		return postalCode.get(index);
+	}
+}

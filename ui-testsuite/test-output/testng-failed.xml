@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)" preserve-order="true">
+    <classes>
+      <class name="org.niteco.selenium.platform.rs.RSFlow">
+        <methods>
+          <include name="setUpBeforeTest"/>
+          <include name="test01_flowiMisRSEx"/>
+        </methods>
+      </class> <!-- org.niteco.selenium.platform.rs.RSFlow -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

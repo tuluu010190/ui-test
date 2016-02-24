@@ -100,6 +100,10 @@ public class TestBase {
 	protected String dataTestFilePath;
 
 	protected String defaultSheet;
+	
+	protected String candidateDataFilePath;
+	protected String addCanFormDataFilePath;
+	protected String skillInfoDataFilePath;
 
 	protected String userDataFilePath;
 	protected String userInfoFilePath;
@@ -185,9 +189,13 @@ public class TestBase {
 	/*========Default System Property=============*/
 	public final String DEFAULT_SSOTYPE="";
 	public final String DEFAULT_NATIVE_EVENT = "true";
-	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
-	public final String DEFAULT_BROWSER="firefox";//iexplorer, firefox, chrome
-	public final String DEFAULT_SERVER="ubuntu"; //win, ubuntu
+	//public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+	//public final String DEFAULT_BASEURL="http://cms-stage.di.se/Util/login.aspx?ReturnUrl=%2fui%2fCMS%2fEdit%2fDefault.aspx";
+	//public final String DEFAULT_BASEURL="http://niteco.efficienttime.com/Account/LogOn?ReturnUrl=%2f";
+	public final String DEFAULT_BASEURL="http://rs.test.imis/Account/Login";
+	//public final String DEFAULT_BASEURL="http://rs.test.imis/Exam/Index/7740?evtId=36202&token=6351651BDCF9A7E2A3C94B5C485ED0331091C69A6378843ABE09588C8D28E998";
+	public final String DEFAULT_BROWSER="chrome";//iexplorer, firefox, chrome
+	public final String DEFAULT_SERVER="win"; //win, ubuntu
 
 	public final  Boolean DEFAULT_ISRANDOM = true;
 	public final  Boolean DEFAULT_ISUSEFILE = true;
@@ -204,6 +212,9 @@ public class TestBase {
 
 	public final String DEFAULT_SHEET="sheet1";
 	public final String DEFAULT_USERFILEURL="DataDriven/" + "user.xls";
+	public final String DEFAULT_CANDIDATEFILEURL="DataDriven/" + "candidateInfo.xls";
+	public final String DEFAULT_ADDCANDIDATEFORMFILEURL="DataDriven/" + "addCandidateInformation.xls";
+	public final String DEFAULT_SKILLINFOFILEURL="DataDriven/" + "skillInformation.xls";
 	public final String DEFAULT_ATTACHMENTFILEURL="DataDriven/" + "attachment_file.xls";
 	public final String DEFAULT_TEXTBOXFILEURL="DataDriven/" + "textbox.xls";
 	public final String DEFAULT_WIKITEMPLATEFILEURL="DataDriven/" + "wiki_template.xls";
@@ -300,11 +311,15 @@ public class TestBase {
 	public final By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
 	public final By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
 	public final By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
-	public final By ELEMENT_INPUT_USERNAME = By.name("username"); 
+	//public final By ELEMENT_INPUT_USERNAME = By.id("ctl00_FullRegion_LoginControl_UserName");
+	//public final By ELEMENT_INPUT_USERNAME = By.id("UserName");
+	public final By ELEMENT_INPUT_USERNAME = By.id("Email");
 	public final By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue' and @class='btn active']");
 	public final By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
 	public final By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
-	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
+	//public final By ELEMENT_INPUT_PASSWORD = By.id("ctl00_FullRegion_LoginControl_Password");
+	//public final By ELEMENT_INPUT_PASSWORD = By.id("PassWord");
+	public final By ELEMENT_INPUT_PASSWORD = By.id("Password");
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a/img");
 	public final By ELEMENT_PLF_INFORMATION = By.id("platformInfoDiv");
 
@@ -360,6 +375,9 @@ public class TestBase {
 		defaultSheet = System.getProperty("defaultSheet");
 
 		userDataFilePath = System.getProperty("userDataFilePath");
+		candidateDataFilePath = System.getProperty("candidateDataFilePath");
+		addCanFormDataFilePath = System.getProperty("addCanFormDataFilePath");
+		skillInfoDataFilePath = System.getProperty("skillInfoDataFilePath");
 		userInfoFilePath = System.getProperty("userInfoFilePath");
 		mailSuffixFilePath = System.getProperty("mailSuffixFilePath");
 		userSearchOptionFilePath = System.getProperty("userSearchOptionFilePath");
@@ -467,6 +485,9 @@ public class TestBase {
 		if (dataTestFilePath==null) dataTestFilePath = DEFAULT_DATATESTPATH;
 
 		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
+		if (candidateDataFilePath==null) candidateDataFilePath = DEFAULT_CANDIDATEFILEURL;
+		if (addCanFormDataFilePath==null) addCanFormDataFilePath = DEFAULT_ADDCANDIDATEFORMFILEURL;
+		if (skillInfoDataFilePath==null) skillInfoDataFilePath = DEFAULT_SKILLINFOFILEURL;
 		if (userInfoFilePath==null) userInfoFilePath = DEFAULT_USERINFOURL;
 		if (mailSuffixFilePath==null) mailSuffixFilePath = DEFAULT_MAILSUFFIXURL;
 		if (userSearchOptionFilePath==null) userSearchOptionFilePath = DEFAULT_USERSEARCHOPTIONURL;
@@ -544,6 +565,9 @@ public class TestBase {
 		if (permisMemFilePath==null) permisMemFilePath=DEFAULT_PERMISSION_MEMBERSHIP_FILE_URL;
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
+		candidateDataFilePath = getAbsoluteFilePath(candidateDataFilePath);
+		addCanFormDataFilePath = getAbsoluteFilePath(addCanFormDataFilePath);
+		skillInfoDataFilePath = getAbsoluteFilePath(skillInfoDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
 		mailSuffixFilePath = getAbsoluteFilePath(mailSuffixFilePath);
 		userSearchOptionFilePath = getAbsoluteFilePath(userSearchOptionFilePath);
@@ -2077,6 +2101,7 @@ public class TestBase {
 	 * Press Enter key
 	 */
 	public void pressEnterKey(){
+		Actions action = new Actions(driver);
 		action.sendKeys(Keys.ENTER).perform();
 		action.release();
 	}

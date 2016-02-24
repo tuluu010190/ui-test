@@ -20,13 +20,17 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 public class PlatformBase extends TestBase {
 
-	public static String DATA_USER1 = "john";
+	//public static String DATA_USER1 = "tu.luu";
+	//public static String DATA_USER1 = "tu.luu@niteco.se";
+	public static String DATA_USER1 = "Administrator";
 	public static String DATA_USER2 = "mary";
 	public static String DATA_USER3 = "james";
 	public static String DATA_USER4 = "demo";
 	public static String USER_ROOT = "root";
 	public static String PASS_ROOT = "gtngtn";
-	public static String DATA_PASS = "gtn";
+	//public static String DATA_PASS = "12345678";
+	//public static String DATA_PASS = "Sorasan@010190";
+	public static String DATA_PASS = "Niteco2016";
 	public static String DATA_NAME_USER1 = "John Smith";
 	public static String DATA_NAME_USER2 = "Mary Williams";
 	public static String DATA_NAME_USER3 = "James Davis";
@@ -118,7 +122,7 @@ public class PlatformBase extends TestBase {
 		info("Get deault user pass from data driven");
 		UserDatabase userData = new UserDatabase();
 		userData.setUserData(userDataFile,userSheet,opParams);
-		DATA_USER1 = userData.userName.get(0);
+		/*DATA_USER1 = userData.userName.get(0);
 		DATA_PASS = userData.password.get(0);
 		DATA_NAME_USER1 =userData.fullName.get(0);
 		DATA_USER2 = userData.userName.get(1);
@@ -128,7 +132,7 @@ public class PlatformBase extends TestBase {
 		DATA_USER3 = userData.userName.get(2);
 		DATA_NAME_USER3 =userData.fullName.get(2);
 		DATA_USER4 = userData.userName.get(3);
-		DATA_NAME_USER4 =userData.fullName.get(3);
+		DATA_NAME_USER4 =userData.fullName.get(3);*/
 	}
 
 	/**

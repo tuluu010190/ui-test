@@ -1,0 +1,83 @@
+package org.niteco.selenium.platform.rc;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.openqa.selenium.WebDriver;
+
+public class CandidatesHomePage extends RCLocators{
+	
+	/**
+	 * constructor
+	 * @param dr
+	 */
+	public CandidatesHomePage(WebDriver dr){
+		this.driver=dr;
+	}
+	
+	/**
+	 * Go to Add Candidates
+	 */
+	public void goToAddCandidates(){
+		info("Click create candidate button");
+		waitForAndGetElement(ELEMENT_RS_ADD_CANDIDATES_BTN, DEFAULT_TIMEOUT, 1);
+		click(ELEMENT_RS_ADD_CANDIDATES_BTN);
+		waitForAndGetElement(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_TITLE, DEFAULT_TIMEOUT, 1);
+	}
+	
+	public void addCandidate(String fullName, String firstName, String lastName, String email){
+		info("Create a candidate");
+		info("Enter full name");
+		if(fullName != null && fullName != ""){
+			waitForAndGetElement(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FULL_NAME, DEFAULT_TIMEOUT, 1);
+			type(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FULL_NAME, fullName, true);
+		}
+		info("Enter first name");
+		if(firstName != null && firstName != ""){
+			waitForAndGetElement(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FIRST_NAME, DEFAULT_TIMEOUT, 1);
+			type(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FIRST_NAME, firstName, true);
+		}
+		info("Enter last name");
+		if(lastName != null && lastName != ""){
+			waitForAndGetElement(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_LAST_NAME, DEFAULT_TIMEOUT, 1);
+			type(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_LAST_NAME, lastName, true);
+		}
+		info("Enter email");
+		if(email != null && email != ""){
+			waitForAndGetElement(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_EMAIL, DEFAULT_TIMEOUT, 1);
+			type(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_EMAIL, email, true);
+		}
+		info("Enter phone");
+		if(phone != null && phone != ""){
+			waitForAndGetElement(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_PHONE, DEFAULT_TIMEOUT, 1);
+			type(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_PHONE, phone, true);
+		}
+
+		info("Choose refer source");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_SEARCH, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_SEARCH, referSource, true);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_REFER, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_REFER);
+		info("Choose automation test job");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH, automationTestJob, true);
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH_AUTOMATION_TEST, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH_AUTOMATION_TEST);
+		
+		info("Attach CV");
+		info("Click on browse button");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_BROWSE_BTN, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_BROWSE_BTN);
+		info("upload file");
+		uploadFileUsingRobot(file);
+		
+		info("Click create button");
+		waitForAndGetElement(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_CREATE_BTN, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_CREATE_BTN);
+		waitForAndGetElement(aMang.ELEMENT_RS_CANDIDATE_PROFILE_TITLE.replace("${name}", fullName), DEFAULT_TIMEOUT, 1);
+	}
+	
+}

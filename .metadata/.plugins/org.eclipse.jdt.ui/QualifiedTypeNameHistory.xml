@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.exoplatform.selenium.Utils"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.Select"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.support.ui.Select"/>
+<fullyQualifiedTypeName name="java.awt.Robot"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.Point"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.internal.Locatable"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.interactions.internal.Coordinates"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.interactions.Action"/>
+</qualifiedTypeNameHistroy>

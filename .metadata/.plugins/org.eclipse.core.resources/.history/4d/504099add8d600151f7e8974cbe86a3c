@@ -1,0 +1,35 @@
+package org.niteco.selenium.platform.rc;
+
+import org.exoplatform.selenium.platform.PlatformBase;
+import org.openqa.selenium.By;
+
+public class RCLocators extends PlatformBase{
+	public final By ELEMENT_RS_CANDIDATES_BTN = By.xpath(".//*[@id='navbar']//*[@class='fa fa-users']");
+	public final By ELEMENT_RS_CANDIDATES_TITLE = By.xpath("//*[text()='Candidates']");
+	public final By ELEMENT_RS_ADD_CANDIDATES_BTN = By.xpath("//*[@class='fa fa-plus fa-fw']");
+	public final String ELEMENT_RS_CANDIDATE = "//*[@class='candidate-info']//a[contains(text(),'${fullName}')]";
+	
+	// Add candidate form
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_TITLE = By.xpath("//*[text()='Create new candidate']");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FULL_NAME = By.id("Profile_FullName");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_FIRST_NAME = By.id("Profile_FirstName");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_LAST_NAME = By.id("Profile_LastName");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_EMAIL = By.id("Profile_Email");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_PHONE = By.id("Profile_Phone");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE = By.id("select2-Source-container");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_SEARCH = By.xpath("//input[@class='select2-search__field']");
+	public final String ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_SOURCE_SELECT = "//input[@class='select2-search__field']/../..//li[contains(text(),'${source}')]";
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB = By.xpath("//*[@title='Select Job']");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH = By.xpath("//*[@class='select2-search__field']");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_JOB_SEARCH_SELECT = By.xpath("//*[@class='select2-search__field']/../..//*[contains(text(),'Test automation developer')]");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_CREATE_BTN = By.xpath("//button[@class='btn btn-default btn-primary' and text()='Create']");
+	public final By ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_BROWSE_BTN = By.id("attachment");
+	
+	// candidate profile
+	public final String ELEMENT_RS_CANDIDATE_PROFILE_TITLE = "//*[@class='candidate-title' and contains(text(),'${name}')]";
+	public final String ELEMENT_RS_CANDIDATE_PROFILE_FULL_NAME = "//table[@class='table table-condense table-bordered candidate-props__view']//th[text()='Full Name']/..//td[text()='${fullName}']"; 
+	public final String ELEMENT_RS_CANDIDATE_PROFILE_FIRST_NAME = "//table[@class='table table-condense table-bordered candidate-props__view']//th[text()='First Name']/..//td[text()='${firstName}']"; 
+	public final String ELEMENT_RS_CANDIDATE_PROFILE_LAST_NAME = "//table[@class='table table-condense table-bordered candidate-props__view']//th[text()='Last Name']/..//td[text()='${lastName}']";
+	public final String ELEMENT_RS_CANDIDATE_PROFILE_PHONE = "//table[@class='table table-condense table-bordered candidate-props__view']//th[text()='Phone']/..//td[text()='${phone}']";
+	public final String ELEMENT_RS_CANDIDATE_PROFILE_EMAIL = "//table[@class='table table-condense table-bordered candidate-props__view']//th[text()='Email']/..//a[text()='${email}']";
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<javadocOptions>
+  <groups>
+    <group>
+      <title>General</title>
+      <packages>org.exoplatform.selenium</packages>
+    </group>
+    <group>
+      <title>Wiki</title>
+      <packages>org.exoplatform.selenium.platform.wiki</packages>
+    </group>
+    <group>
+      <title>Calendar</title>
+      <packages>org.exoplatform.selenium.platform.calendar</packages>
+    </group>
+    <group>
+      <title>Ecms</title>
+      <packages>org.exoplatform.selenium.platform.ecms</packages>
+    </group>
+    <group>
+      <title>Forum</title>
+      <packages>org.exoplatform.selenium.platform.forum</packages>
+    </group>
+    <group>
+      <title>Social</title>
+      <packages>org.exoplatform.selenium.platform.social</packages>
+    </group>
+    <group>
+      <title>Platform</title>
+      <packages>org.exoplatform.selenium.platform</packages>
+    </group>
+  </groups>
+  <docletArtifacts>
+    <docletArtifact />
+  </docletArtifacts>
+  <tagletArtifacts>
+    <tagletArtifact />
+  </tagletArtifacts>
+  <javadocResourcesDirectory>src/main/javadoc</javadocResourcesDirectory>
+</javadocOptions>

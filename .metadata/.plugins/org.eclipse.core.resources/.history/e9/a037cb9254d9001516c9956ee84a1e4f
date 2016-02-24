@@ -1,0 +1,44 @@
+package org.niteco.selenium.platform.objectdatabase.rs;
+
+import java.util.ArrayList;
+
+public class CandidateInformation {
+
+	public ArrayList<Integer> type;
+	public ArrayList<String> fullName;
+	public ArrayList<String> firstName;
+	public ArrayList<String> lastName;
+	public ArrayList<String> email;
+	public ArrayList<String> phone;
+	public ArrayList<String> dateOfBirth;
+	public ArrayList<String> gender;
+	public ArrayList<String> nationality;
+	public ArrayList<String> region;
+	public ArrayList<String> locality;
+	public ArrayList<String> postalCode;
+	public ArrayList<String> currentSalary;
+	public ArrayList<String> expectedSalary;
+	public ArrayList<String> planedStartDate;
+	public ArrayList<String> workingLocation;
+	
+	public CandidateInformation(ArrayList<Integer> type, ArrayList<String> fullName, ArrayList<String> firstName, ArrayList<String> lastName, ArrayList<String> email, ArrayList<String> phone,
+			ArrayList<String> dateOfBirth, ArrayList<String> gender,ArrayList<String> nationality, ArrayList<String> region, ArrayList<String> locality, ArrayList<String> postalCode,
+			ArrayList<String> currentSalary, ArrayList<String> expectedSalary, ArrayList<String> planedStartDate, ArrayList<String> workingLocation){
+		this.type = type;
+		this.fullName = fullName;
+		this.fullName = firstName;
+		this.fullName = lastName;
+		this.fullName = email;
+		this.fullName = phone;
+		this.fullName = dateOfBirth;
+		this.fullName = gender;
+		this.fullName = nationality;
+		this.fullName = region;
+		this.fullName = locality;
+		this.fullName = postalCode;
+		this.fullName = currentSalary;
+		this.fullName = expectedSalary;
+		this.fullName = planedStartDate;
+		this.fullName = workingLocation;
+	}
+}

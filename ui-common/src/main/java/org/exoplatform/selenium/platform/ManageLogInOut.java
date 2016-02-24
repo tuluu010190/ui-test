@@ -10,7 +10,9 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 public class ManageLogInOut extends PlatformBase {
 	
-	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath("//*[@class='loginButton']/*");
+	//public final By ELEMENT_SIGN_IN_BUTTON = By.id("ctl00_FullRegion_LoginControl_Button1");
+	//public final By ELEMENT_SIGN_IN_BUTTON = By.xpath(".//*[@id='aLogin']//*[text()='LOGIN']");
+	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath(".//*[@id='loginModal']//button[text()='Sign In']");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
 	
 	ManageAlert magAlert;

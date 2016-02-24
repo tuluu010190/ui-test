@@ -1,0 +1,62 @@
+package org.niteco.selenium.platform.rc;
+
+import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.PlatformBase;
+
+import org.testng.annotations.*;
+
+public class RCFlow extends PlatformBase{
+
+	ManageLogInOut magAc;
+	RCHomepage rcHome;
+	CandidatesHomePage canHome;
+	CandidateProfile canProf;
+	
+	@BeforeClass
+	public void setUpBeforeTest() throws Exception{
+		initSeleniumTest();
+		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		driver.get(baseUrl);
+		magAc = new ManageLogInOut(driver);
+		rcHome = new RCHomepage(driver);
+		canHome = new CandidatesHomePage(driver);
+		canProf = new CandidateProfile(driver);
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		
+	}
+	
+	/**
+	 * Case ID:116816.
+	 * Test Case Name: Approve/ Disapprove answer.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test01_flowiMis() {
+		String fullName = "tutest6";
+		String firstName = "tu6";
+		String lastName = "luu6";
+		String email = "tu6@gmail.com";
+		String phone = "123456789";
+		String file = "TestData\\CV_Tu3.docx";
+		String source = "Refer";
+		String job = "Test automation developer";
+		String fileName = "CV_Tu3.docx";
+		
+		String exams_group = "HoangHa_Group";
+		String exams_duration = "1";
+		
+		
+		rcHome.goToCandidateTab();
+		canHome.goToSpecificCandidate(fullName);
+		canProf.verifyBasicCandidateProfile(fullName, firstName, lastName, phone, email, job, fileName);
+		canProf.goToAddInformationForCandiDate();
+		canProf.goToAddExam();
+		canProf.createExam(true, exams_group, durations);
+		/*canHome.goToAddCandidates();
+		canHome.addCandidate(fullName, firstName, lastName, email, phone, true, source, true, job, file);
+		canHome.Create();
+		canProf.verifyBasicCandidateProfile(fullName, firstName, lastName, phone, email, job, fileName);*/
+		
+	}
+}

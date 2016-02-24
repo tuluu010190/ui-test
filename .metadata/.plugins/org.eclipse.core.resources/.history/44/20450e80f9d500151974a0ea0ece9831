@@ -1,0 +1,834 @@
+package org.exoplatform.selenium.platform.addons.sniff;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.answer.AnswerHomePage;
+import org.exoplatform.selenium.platform.answer.AnswerManagement;
+import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement;
+import org.exoplatform.selenium.platform.answer.CommentManagement;
+import org.exoplatform.selenium.platform.answer.QuestionManagement;
+import org.exoplatform.selenium.platform.answer.AnswerManagement.actionAnswerOption;
+import org.exoplatform.selenium.platform.answer.CommentManagement.actionCommentOption;
+import org.exoplatform.selenium.platform.gatein.AnswerPage;
+import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
+import org.exoplatform.selenium.platform.gatein.PageEditor;
+import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+import bsh.util.Util;
+
+
+public class Addons_Answers_Answers  extends PlatformBase {
+
+
+	Select oSelect;
+	AnswerPage aPage;
+	HomePagePlatform hp;
+	ManageLogInOut magAc;
+	TextBoxDatabase txData;
+	QuestionManagement qMang;
+	AnswerCategoryManagement cMang;
+	AnswerManagement aMang;
+	AnswerHomePage aHome;
+	CommentManagement comMang;
+	AttachmentFileDatabase fData;
+	ApplicationRegistry cPage;
+	UserDatabase userData;
+	ManageAlert alert;
+	PageEditor pagEditor;
+	Button button;
+	String question1;
+	String content1;
+	String fullName;
+	String question2;
+	String content2;
+
+	@BeforeClass
+	public void setUpBeforeTest() throws Exception{
+		initSeleniumTest();
+		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		driver.get(baseUrl);
+		magAc = new ManageLogInOut(driver);
+		hp = new HomePagePlatform(driver);
+		pagEditor = new PageEditor(driver);
+		qMang = new QuestionManagement(driver);
+		cMang = new AnswerCategoryManagement(driver);
+		comMang = new CommentManagement(driver);
+		aMang = new AnswerManagement(driver);
+		aPage = new AnswerPage(driver);
+		button = new Button(driver);
+		aHome=new AnswerHomePage(driver);
+		alert = new ManageAlert(driver);
+		cPage = new ApplicationRegistry(driver);
+		txData = new TextBoxDatabase();
+		fData = new AttachmentFileDatabase();
+		userData = new UserDatabase();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
+		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		/*question1 = txData.getContentByArrayTypeRandom(1)+"1116814";
+		content1 = txData.getContentByArrayTypeRandom(1)+"1116814";
+		question2 = txData.getContentByArrayTypeRandom(1)+"2116814";
+		content2 = txData.getContentByArrayTypeRandom(1)+"2116814";
+		fullName = userData.fullName.get(0);
+		createDataTest();*/
+	}
+
+	/*@AfterClass
+	public void afterTest(){
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		deleteDataTest();
+		magAc.signOut();
+		driver.manage().deleteAllCookies();
+		driver.quit();
+	}*/
+	/*@AfterMethod
+	public void afterMethod(){
+		magAc.signOut();
+	}*/
+	/*@BeforeMethod
+	public void setUpBeforeMethod() throws Exception{
+		magAc.signIn(DATA_USER1, DATA_PASS);
+	}*/
+
+	public void createDataTest(){
+		info("create data test");
+		if(waitForAndGetElement(hp.ELEMENT_ANSWER_LINK_PLF, 5000,0)==null){
+			aPage.createAnswerPage();
+			aPage.goToEditAnswerPortlet();
+			aPage.doPublicMode(true);
+			click(pagEditor.ELEMENT_PAGE_EDITOR_SAVE_AND_CLOSE_BUTTON);
+			pagEditor.finishEditLayout();
+		}
+		hp.goToAnswer();
+		info("Create question");
+		qMang.goToSubmitQuestion();
+		qMang.inputDataToQuestionForm(question1, content1, null, null);
+		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
+		click(button.ELEMENT_OK_BUTTON_LINK);
+		
+		info("Create question");
+		qMang.goToSubmitQuestion();
+		qMang.inputDataToQuestionForm(question2, content2, null, null);
+		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
+		click(button.ELEMENT_OK_BUTTON_LINK);
+	}
+
+	public void deleteDataTest(){
+		info("Delete data test");
+		info("Create category");
+		hp.goToAnswer();
+		qMang.deleteQuestion(question1);
+		qMang.deleteQuestion(question2);
+	}
+	/**
+	 * Case ID:116814.
+	 * Test Case Name: Rate/Sort answers.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 * @throws AWTException 
+	 */
+	@Test
+	public  void test01_RateSortAnswers() throws AWTException {
+		info("click to article button");
+		/*WebElement frameLeft = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_LEFT_PANEL);
+		driver.switchTo().frame(frameLeft);
+		waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_ARTICLE_BUTTON, DEFAULT_TIMEOUT, 1, 2);
+		clickByJavascript(aMang.ELEMENT_DRAG_DROP_ARTICLE_BUTTON);
+		
+		info("click to specific article");
+		waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_ARTICLE, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_DRAG_DROP_ARTICLE);
+		switchToParentWindow();
+		
+		WebElement frameRight = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_RIGHT_PANEL);
+		driver.switchTo().frame(frameRight);
+		waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_ARTICLE_NAME, DEFAULT_TIMEOUT, 1);
+		Utils.pause(3000);
+		
+		info("click to related tab");
+		click(aMang.ELEMENT_DRAG_DROP_ARTICLE_RELATED_TAB);
+		Utils.pause(3000);
+		
+		info("click to search button");
+		switchToParentWindow();
+		WebElement frameTop = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_PANEL);
+		driver.switchTo().frame(frameTop);
+		waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_BUTTON, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_DRAG_DROP_SEARCH_BUTTON);
+		
+		info("choose a category to search");
+		info("switch to parent window");
+		switchToParentWindow();
+		info("Switch to frame out");
+		WebElement frameSearchOut = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_PANEL_OUT);
+		driver.switchTo().frame(frameSearchOut);
+		info("Switch to frame in");
+		WebElement frameSearchIn = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_PANEL_IN);
+		driver.switchTo().frame(frameSearchIn);
+		info("Switch to frames done");
+		Utils.pause(3000);
+		info("choose a category to search");
+		WebElement elementSearchCategory = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_LIST, DEFAULT_TIMEOUT, 1);
+		oSelect = new Select(elementSearchCategory);
+		oSelect.selectByVisibleText(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGETS);
+		Utils.pause(3000);
+		
+		info("choose a type to search");
+		WebElement elementSearchType = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_TYPE_LIST, DEFAULT_TIMEOUT, 1);
+		oSelect = new Select(elementSearchType);
+		oSelect.selectByVisibleText(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_TYPE_LIST_SLIDESHOW_WIDGET);
+		Utils.pause(3000);
+		
+		info("click clear all filters button");
+		waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CLEAR_ALL_FILTERS_BUTTON, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_DRAG_DROP_SEARCH_CLEAR_ALL_FILTERS_BUTTON);
+		
+		info("click widgets filters button");
+		waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS);*/
+		
+		info("1st way");
+		/*info("drag and drop widgets");
+		info("click and hold widget");
+		WebElement source = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE);
+		Actions builder = new Actions(driver);
+	    builder.clickAndHold(source).build().perform();
+	    Action action2 = builder.build();
+	    action2.perform();
+	    
+		//action.clickAndHold(source);
+		info("switch to parent window");
+		switchToParentWindow();
+		info("switch to middle window");
+		WebElement frameMiddle = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_MIDDLE_PANEL, DEFAULT_TIMEOUT, 1);
+		driver.switchTo().frame(frameMiddle);
+		
+		info("drop to top area");
+		Point coordinates = driver.findElement(aMang.ELEMENT_DRAG_DROP_EDIT_AREA_CORDINATE).getLocation();
+		Robot robot = new Robot();
+		
+		WebElement target = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+		int x = target.getLocation().getX();
+		int y = target.getLocation().getY();
+		System.out.println(x);
+		System.out.println(y);
+		
+		//builder = new Actions(driver);
+		builder.moveByOffset(x,y).perform();
+		builder.build();
+		builder.release();
+		robot.mouseMove(coordinates.getX(),coordinates.getY());
+		builder.release(target).perform();*/
+		
+		info("2nd way");
+		/*WebElement source = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE);
+		Actions builder = new Actions(driver);          
+		Actions action = builder.clickAndHold(source);
+		action.build().perform();   
+		info("switch to parent window");
+		switchToParentWindow();
+		info("switch to middle window");
+		WebElement frameMiddle = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_MIDDLE_PANEL, DEFAULT_TIMEOUT, 1);
+		driver.switchTo().frame(frameMiddle);
+		    
+		WebElement target = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+		builder.moveToElement(target).build().perform();
+		//click the destination 
+		//builder.click(target).build().perform();
+		//back to main page to release the hold mouse
+		//driver.switchTo().defaultContent();
+		builder.release(target).build().perform();   */ 
+		
+		
+		//action.moveToElement(target).release().build().perform();
+		//dragAndDropToObject(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE, aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+		//Utils.pause(3000);
+		
+		info("3rd way");
+		/*WebElement sourceElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE);
+		//WebElement desElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE_EL);
+		//dragAndDropToObject(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE, aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE_EL);
+		Actions builder = new Actions(driver);
+		Action dragAndDrop = builder.clickAndHold(sourceElement).build();
+		dragAndDrop.perform();
+		info("switch to parent window");
+		switchToParentWindow();
+		info("switch to middle window");
+		WebElement frameMiddle = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_MIDDLE_PANEL, DEFAULT_TIMEOUT, 1);
+		driver.switchTo().frame(frameMiddle);
+		WebElement targetElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+		Utils.pause(3000);
+		dragAndDrop = builder.moveToElement(targetElement).release().build();
+		dragAndDrop.perform();*/
+		
+		info("4th way");
+		/*Actions action = new Actions(driver);
+		WebElement sourceElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE);
+		action.clickAndHold(sourceElement).build().perform();      
+		info("switch to parent window");
+		switchToParentWindow();
+		info("switch to middle window");
+		WebElement frameMiddle = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_MIDDLE_PANEL, DEFAULT_TIMEOUT, 1);
+		driver.switchTo().frame(frameMiddle);
+		WebElement targetElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+		action.moveToElement(targetElement).build().perform();
+		action.release(targetElement).build().perform();*/
+		
+		info("5th way");
+		 /*// parent frame
+		WebElement draggable = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE);
+		//child frame
+		info("switch to parent window");
+		switchToParentWindow();
+		info("switch to middle window");
+		WebElement frameMiddle = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_MIDDLE_PANEL, DEFAULT_TIMEOUT, 1);
+		driver.switchTo().frame(frameMiddle);
+		Locatable to = (Locatable) waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+		Coordinates c = to.getCoordinates();
+		Point px = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS).getLocation();
+		// parent frame
+		switchToParentWindow();
+		info("Switch to frame out");
+		driver.switchTo().frame(frameSearchOut);
+		info("Switch to frame in");
+		driver.switchTo().frame(frameSearchIn);
+		info("Switch to frames done");
+		Utils.pause(3000);
+		Actions action = new Actions(driver);			
+		action.dragAndDropBy(draggable, px.x,px.y).build().perform();*/
+		
+		info("6 way");
+		/*Actions builder = new Actions(driver);
+		WebElement sourceElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_SEARCH_CATEGORY_WIDGET_FILTERS_MOBILE);
+        builder.clickAndHold(sourceElement);
+        Action action = builder.build();
+        action.perform();
+
+        //driver.switchTo().frame("<to element frame id>");
+        info("switch to parent window");
+ 		switchToParentWindow();
+ 		info("switch to middle window");
+ 		WebElement frameMiddle = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_MIDDLE_PANEL, DEFAULT_TIMEOUT, 1);
+ 		driver.switchTo().frame(frameMiddle);
+ 		
+ 		WebElement targetElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+        builder.moveToElement(targetElement, targetElement.getLocation().getX(), targetElement.getLocation().getY()).click(targetElement).build().perform();
+        //builder.release(targetElement);
+        action = builder.build();
+        action.perform();*/
+		String code1 = "\"[[{" + "\"PageId\":\"332416\",\"Name\":\"[DI\u00A0Html\u00A0Widget]\u00A0Telefoni-Desktop\",\"Created\":\"2013-06-25 02:49\",\"Changed\":\"2016-02-17 00:58\",\"CreatedBy\":\"olga.nikitina\",\"StatusIconUrl\":\"http:/cms-stage.di.se/EditorUI/Images/PageTypes/Default/green.png\",\"Type\":\"[DI Widget] HTML widget,Widget\",\"TypeOfWidget\":\"[DI] HTML\",\"Views\":\"Bonnier.Widgets.Common.Html.DefaultView.HtmlWidgetDefaultView\",\"ValidationMode\":\"Mixed\",\"IsDeleted\":false,\"Url\":\"/ui/CMS/edit/Default.aspx?id=332416&SelectedEditPanelTab=1\"}";
+		String code2 = code1.replaceAll(" ", "\u00A0");
+		//.replaceAll("/", "ForwardSlash");
+		String code = "<input id=\"ctl00_FullRegion_PC_223_1_EditForm_ArticleTopWidgets_hidValues\" type=\"hidden\" " + "value=" + code2 + "]]\" " + "name=\"ctl00$FullRegion$PC_223_1$EditForm$ArticleTopWidgets$hidValues\"/>"
+				+ "<div class=\"we-control-view\">"
+				+ "<div class=\"we-droppable-list-advanced ui-sortable\"> "
+				+ "<div class=\"we-complex-row-item\"> "
+				+ "<div class=\"we-droppable-row-item we-empty-row-item we-sort-handle we-drop-zone\" selectable=\"false\" onselect=\"return false;\" onselectstart=\"return false;\" data-colindex=\"-1\" data-rowindex=\"0\"/> "
+				+ "<div class=\"we-droppable-row-item\"> "
+				+ "<div class=\"we-droppable-col-item we-row-number we-sort-handle we-drop-zone\" selectable=\"false\" onselect=\"return false;\" onselectstart=\"return false;\" data-colindex=\"0\" data-rowindex=\"0\">1</div> "
+				//+ "<div class=\"we-droppable-col-item we-row-number we-sort-handle we-drop-zone\" selectable=\"false\" onselect=\"return false;\" onselectstart=\"return false;\" data-colindex=\"0\" data-rowindex=\"0\">1</div>"
+				+ "<div class=\"we-item we-droppable-col-item we-items-count1 last we-sort-handle\" selectable=\"false\" onselect=\"return false;\" onselectstart=\"return false;\" data-colindex=\"0\" data-rowindex=\"0\" draggable=\"true\"> "
+				+ "<span class=\"we-item-control-panel\"> "
+				+ "<input class=\"we-item-delete\" type=\"image\" src=\"/WebEditorial/UI/Images/relatedItemDelete.png\" style=\"border-width:0px;\"/> "
+				+ "<a class=\"we-item-edit\" href=\"/ui/CMS/edit/Default.aspx?id=332390&SelectedEditPanelTab=1\"> "
+				+ "<img src=\"/WebEditorial/UI/Images/relatedItemEdit.png\"/> </a> </span> "
+				+ "<span class=\"we-item-container-advanced\"> "
+				+ "<img class=\"we-item-status\" src=\"http://cms-stage.di.se//EditorUI/Images/PageTypes/Default/green.png\"/> "
+				+ "<div class=\"we-item-name\"> "
+				+ "<span>[DI Html Widget] Telefoni-Desktop</span> </div> "
+				+ "<div class=\"we-item-data\"> "
+				+ "<span>2016-02-17 00:58</span> "
+				+ "<span/> "
+				+ "<span class=\"we-item-type\"> "
+				+ "<span>[DI] HTML</span> </span> </div> </span> </div> "
+				+ "<div class=\"we-droppable-col-item we-sort-handle we-drop-zone\" selectable=\"false\" onselect=\"return false;\" onselectstart=\"return false;\" data-colindex=\"1\" data-rowindex=\"0\"/> </div> </div> "
+				+ "<div class=\"we-droppable-row-item we-empty-row-item we-drop-zone\" selectable=\"false\" onselect=\"return false;\" onselectstart=\"return false;\" data-colindex=\"-1\" data-rowindex=\"1\"/>";
+		//String code2 = code.replaceAll(" ", "");
+		info("string code is: " + code);
+		info("7 way");
+		JavascriptExecutor js1 = (JavascriptExecutor) driver;
+		/*info("switch to parent window");
+	 	switchToParentWindow();
+	 	info("switch to middle window");
+	 	WebElement frameMiddle = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_MIDDLE_PANEL, DEFAULT_TIMEOUT, 1);
+	 	driver.switchTo().frame(frameMiddle);*/
+		WebElement targetElement = waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_TOP_AREA_WIDGETS);
+		String htmlOld = targetElement.getAttribute("innerHTML");
+		info("Old HTML is: " + htmlOld);
+		js1.executeScript("arguments[0].innerHTML = '"+ code + "' ;", targetElement);
+		String htmlNew = targetElement.getAttribute("innerHTML");
+		info("HTMLNew is: " + htmlNew);
+		
+		/*info("click View button");
+		waitForAndGetElement(aMang.ELEMENT_DRAG_DROP_View_BUTTON, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_DRAG_DROP_View_BUTTON);*/
+		
+	}
+
+	/**
+	 * Case ID:116815.
+	 * Test Case Name: Activate/Deactivate answer.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test02_ActivateDeactivateAnswer() {
+		String subtask = "Training ET"; 
+		String time = "3.5";
+		String timeMili = "12600000";
+		
+		info("Choose Track Time sheet");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB, DEFAULT_TIMEOUT, 1);
+		mouseOver(aMang.ELEMENT_ET_TIMESHEET_TAB, true);
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_TRACK_TIME, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_ET_TIMESHEET_TAB_TRACK_TIME);
+		
+		info("click add working hour button");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_BUTTON, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_BUTTON);
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM, DEFAULT_TIMEOUT, 1);
+		Utils.pause(3000);
+		
+		info("Choose Project filed");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_PROJECT_FIELD, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_PROJECT_FIELD);
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_PROJECT_FIELD_INTERNAL, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_PROJECT_FIELD_INTERNAL);
+		
+		info("Choose Task Filed");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_TASK_FIELD, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_TASK_FIELD);
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_TASK_FIELD_MANAGEMENT_TRAINING, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_TASK_FIELD_MANAGEMENT_TRAINING);
+		
+		info("Insert to Sub task field");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_SUB_TASK_FIELD, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_SUB_TASK_FIELD, subtask, false);
+		Utils.pause(3000);
+		
+		info("click Add and close button");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_ADD_AND_CLOSE_BTN, DEFAULT_TIMEOUT, 1, 2);
+		click(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM_ADD_AND_CLOSE_BTN);
+		waitForElementNotPresent(aMang.ELEMENT_ET_TIMESHEET_TAB_ADD_WORKING_HOUR_FORM);
+		Utils.pause(3000);
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TIME_MYTIME_SHEET_RECORD, DEFAULT_TIMEOUT, 1);
+		info("Sub task added successfully");
+		
+		info("Enter time");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TIME_MYTIME_SHEET_RECORD_MON, DEFAULT_TIMEOUT, 1);
+		type(aMang.ELEMENT_ET_TIMESHEET_TIME_MYTIME_SHEET_RECORD_MON, time, true);
+		pressEnterKey();
+		//waitForAndGetElement(By.xpath(aMang.ELEMENT_ET_TIMESHEET_TIME_MYTIME_SHEET_RECORD_MON_VALUE), DEFAULT_TIMEOUT, 1);
+		WebElement hidden = driver.findElement(By.xpath(".//*[@id='time-rows']//*[contains(@data-original-title, 'Training ET')]/../../..//td[@class='entry-cell work-day'][1]//input[@name='Duration']"));
+		String value = hidden.getAttribute("value");
+		info("Value is: " + value);
+		Assert.assertEquals(timeMili, value);
+		info("Enter time successfully");
+		
+		info("Delete time sheet");
+		waitForAndGetElement(aMang.ELEMENT_ET_TIMESHEET_TIME_MYTIME_SHEET_RECORD_MON_REMOVE, DEFAULT_TIMEOUT, 1);
+		click(aMang.ELEMENT_ET_TIMESHEET_TIME_MYTIME_SHEET_RECORD_MON_REMOVE);
+		waitForElementNotPresent(aMang.ELEMENT_ET_TIMESHEET_TIME_MYTIME_SHEET_RECORD);
+		info("Delete time sheet successfully");	
+	}
+
+	/**
+	 * Case ID:116816.
+	 * Test Case Name: Approve/ Disapprove answer.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test03_ApproveDisapproveAnswer() {
+		String answer = txData.getContentByArrayTypeRandom(1)+"a116816";
+		info("Test 3: Approve/ Disapprove answer");
+		/*Step Number: 1
+		 *Step Name: Prepare data: Create a question, answer
+		 *Step Description: 
+			- Login as john
+			- Go to Answers
+			- Create a category, with moderate Answer
+			- Create a question in this category
+			- Login as mary
+			- Answer this question
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Category is created successfully.
+			- Question is created successfully
+			- Answer successfully, but this answer is at Disapprove status and invisible with normal users*/
+		hp.goToAnswer();
+		aMang.goToAnswerQuestion(question1);
+		aMang.inputDataToAnswer(answer, false, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+
+		magAc.signOut();
+		magAc.signIn(DATA_USER2, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
+		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+		/*Step number: 2
+		 *Step Name: Approve answer
+		 *Step Description: 
+			- Login as john
+			- Click on icon Approve corresponding to an answer
+			- Login as mary
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Answer is at Approved status, and visible with normal users
+			- See this answer*/
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
+		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
+		aMang.inputDataToAnswer(null, true, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		magAc.signOut();
+		magAc.signIn(DATA_USER2, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
+		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+		/*Step number: 3
+		 *Step Name: Disapprove answer
+		 *Step Description: 
+			- Login as john
+			- Click on icon Disapprove corresponding to an answer
+			- Login as mary
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			Answer will be invisible with normal users
+			- Cannot see this answer*/ 
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
+		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
+		aMang.inputDataToAnswer(null, false, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		magAc.signOut();
+		magAc.signIn(DATA_USER2, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
+		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+
+		info("Clear data");
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
+		aMang.deleteAnswer(answer);
+	}
+
+	/**
+	 * Case ID:116817.
+	 * Test Case Name: Answer a question.
+	 * Case ID:116818.
+	 * Test Case Name: Edit an answer.
+	 * Case ID:116819.
+	 * Test Case Name: Delete an answer.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test04_05_06_AddEditDeleteAnswerAQuestion() {
+		String answer = txData.getContentByArrayTypeRandom(1)+"a116817";
+		String newanswer = txData.getContentByArrayTypeRandom(1)+"n116817";
+
+		info("Test 4: Answer a question");
+		/*Step Number: 1
+		 *Step Name: Prepare data: Create a category, a question,
+		 *Step Description: 
+			- Login as john
+			- Go to Answers
+			- Create a category
+			- Create a question in this category
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Category is created successfully.
+			- Question is created successfully*/
+
+		/*Step number: 2
+		 *Step Name: Answer a question
+		 *Step Description: 
+			- Open that question
+			-Click on Answer,
+			- Put data into editor
+			- Set other fields
+			- Save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Answer a question successfully,
+			- Show the answer below this question*/ 
+		hp.goToAnswer();
+		aMang.goToAnswerQuestion(question1);
+		aMang.inputDataToAnswer(answer, null, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+		info("Test 5: Edit an answer");
+		/*Step number: 3
+		 *Step Name: Edit an answer
+		 *Step Description: 
+			- Open that answer, click More Actions 
+			-
+			-> Edit Answer
+			- Input data into editor
+			- Save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- An "Edit answer" popup is shown.
+			- New content of answer is saved*/
+		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
+		aMang.inputDataToAnswer(newanswer, null, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", newanswer).replace("$fullname", fullName));
+		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+		info("Test 6: Delete an answer");
+		/*Step number: 3
+		 *Step Name: Delete an answer
+		 *Step Description: 
+			- Open that answer
+			- Click More Actions 
+			-
+			-> Delete Answer
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			The answer is deleted successfully*/ 
+		aMang.deleteAnswer(newanswer);
+	}
+
+	/**
+	 * Case ID:116820.
+	 * Test Case Name: Add a comment.
+	 * Case ID:116821.
+	 * Test Case Name: Edit a comment.
+	 * Case ID:116822.
+	 * Test Case Name: Delete a comment.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test07_08_09_AddEditDeleteAComment() {
+		String answer = txData.getContentByArrayTypeRandom(1)+"a116820";
+		String comment = txData.getContentByArrayTypeRandom(1)+"c116820";
+		String newcomment = txData.getContentByArrayTypeRandom(1)+"nc116820";
+		info("Test 7: Add a comment");
+		/*Step Number: 1
+		 *Step Name: Prepare data: Create a question, answer
+		 *Step Description: 
+			- Go to Answers
+			- Create a question
+			- Answer this question
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Question is created successfully
+			- Answer successfully*/
+		hp.goToAnswer();
+		aMang.goToAnswerQuestion(question1);
+		aMang.inputDataToAnswer(answer, null, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+		/*Step number: 2
+		 *Step Name: Comment on a question
+		 *Step Description: 
+			- Open that question
+			- Click on Comment link
+			- Put values
+			- Click on save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Comment successfully*/ 
+		comMang.goToCommentQuestion(question1);
+		comMang.inputDataToComment(comment);
+		click(comMang.ELEMENT_COMMENT_FORM_SAVE_BUTTON);
+		waitForAndGetElement(comMang.ELEMENT_COMMENT_AUTHOR.replace("$comment", comment).replace("$fullname", fullName));
+
+		info("Test 8: Edit a comment");
+		/*Step number: 3
+		 *Step Name: Edit a comment
+		 *Step Description: 
+			- Open a comment
+			- Click More Actions 
+			-
+			-> Edit Comment
+			- Input data into fields
+			- Save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Edit comment successfully
+			- New content of comment is saved*/ 
+		comMang.goToActionOfCommentFromMoreAction(comment,actionCommentOption.EDIT);
+		comMang.inputDataToComment(newcomment);
+		click(comMang.ELEMENT_COMMENT_FORM_SAVE_BUTTON);
+		waitForAndGetElement(comMang.ELEMENT_COMMENT_AUTHOR.replace("$comment", newcomment).replace("$fullname", fullName));
+		waitForElementNotPresent(comMang.ELEMENT_COMMENT_AUTHOR.replace("$comment", comment).replace("$fullname", fullName));
+
+		info("Test 9: Delete a comment");
+		/*Step number: 3
+		 *Step Name: Delete a comment
+		 *Step Description: 
+			- Open a comment
+			- Click More Actions 
+			-
+			-> Delete Comment
+			- Click OK in the confirmation message
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Delete a comment successfully*/ 
+		comMang.deleteComment(newcomment);
+	}
+
+	/**
+	 * Case ID:116823.
+	 * Test Case Name: Promote a comment.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test10_PromoteAComment() {
+		String answer = txData.getContentByArrayTypeRandom(1)+"a116823";
+		String comment = txData.getContentByArrayTypeRandom(1)+"c116823";
+		info("Test 10 Promote a comment");
+		/*Step Number: 1
+		 *Step Name: Prepare data: Create a question, answer
+		 *Step Description: 
+			- Go to Answers
+			- Create a question
+			- Answer this question
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Question is created successfully
+			- Answer successfully*/
+		hp.goToAnswer();
+		aMang.goToAnswerQuestion(question1);
+		aMang.inputDataToAnswer(answer, null, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+		/*Step number: 2
+		 *Step Name: Comment on a question
+		 *Step Description: 
+			- Open that question
+			- Click on Comment link
+			- Put values
+			- Click on save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Comment successfully*/
+		comMang.goToCommentQuestion(question1);
+		comMang.inputDataToComment(comment);
+		click(comMang.ELEMENT_COMMENT_FORM_SAVE_BUTTON);
+		waitForAndGetElement(comMang.ELEMENT_COMMENT_AUTHOR.replace("$comment", comment).replace("$fullname", fullName));
+
+		/*Step number: 3
+		 *Step Name: Promote a comment
+		 *Step Description: 
+			- Open a comment
+			- Click More Actions 
+			-
+			-> Promote as Answer
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			This comment becomes an answer*/ 
+		comMang.goToActionOfCommentFromMoreAction(comment,actionCommentOption.PROMOTE);
+
+		info("Clear data");
+		aMang.deleteAnswer(answer);
+		aMang.deleteAnswer(comment);
+	}
+
+	/**
+	 * Case ID:116832.
+	 * Test Case Name: Answer a question in Manage Question form.
+	 * Pre-Condition: 
+	 * Post-Condition: 
+	 */
+	@Test
+	public  void test11_AnswerAQuestionInManageQuestionForm() {
+		String answer = txData.getContentByArrayTypeRandom(1)+"a116832";
+		info("Test 11 Answer a question in Manage Question form");
+		/*Step Number: 1
+		 *Step Name: Add a question
+		 *Step Description: 
+			- Select 1 category and click on Submit question
+			- Put values
+			- Save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Question is added new and shown in selected category*/
+
+		/*Step number: 2
+		 *Step Name: -Answer a question
+		 *Step Description: 
+			- Click Manage Question in the main menu
+			-Select Open Question tab
+			- Click Answer on question want to answer
+			- Put values
+			- Save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			- Answer is added to selected question
+			- Question is not show at tab "Open Question"*/ 
+		hp.goToAnswer();
+		qMang.goToManageQuestionForm();
+		click(qMang.ELEMENT_MANAGE_QUESTION_FORM_OPEN_QUESTION_TAB);
+		click(qMang.ELEMENT_MANAGE_QUESTION_ANSWER_QUESTION.replace("$question", question2));
+		aMang.inputDataToAnswer(answer, true, true, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		waitForElementNotPresent(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+		waitForAndGetElement(qMang.ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON).click();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question2)));
+		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
+
+		info("Clear data");
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question2)));
+		aMang.deleteAnswer(answer);
+	}
+}

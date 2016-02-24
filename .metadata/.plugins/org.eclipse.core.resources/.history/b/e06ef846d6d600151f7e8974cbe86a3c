@@ -1,0 +1,26 @@
+package org.niteco.selenium.platform.rc;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.openqa.selenium.WebDriver;
+
+public class CandidatesHomePage extends RCLocators{
+	
+	/**
+	 * constructor
+	 * @param dr
+	 */
+	public CandidatesHomePage(WebDriver dr){
+		this.driver=dr;
+	}
+	
+	/**
+	 * Go to Add Candidates
+	 */
+	public void goToAddCandidates(){
+		info("Click create candidate button");
+		waitForAndGetElement(ELEMENT_RS_ADD_CANDIDATES_BTN, DEFAULT_TIMEOUT, 1);
+		click(ELEMENT_RS_ADD_CANDIDATES_BTN);
+		waitForAndGetElement(ELEMENT_RS_ADD_CREATE_NEW_CANDIDATE_TITLE, DEFAULT_TIMEOUT, 1);
+	}
+}
