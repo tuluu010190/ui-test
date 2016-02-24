@@ -52,6 +52,12 @@ public class RSFlow extends PlatformBase{
 		
 	}
 	
+	@AfterClass
+	public void afterTest(){
+		driver.manage().deleteAllCookies();
+		driver.quit();
+	}
+	
 	/**
 	 * Case ID:116816.
 	 * Test Case Name: Approve/ Disapprove answer.
@@ -87,7 +93,8 @@ public class RSFlow extends PlatformBase{
 		String fileName = candidateInfoData.getFileNameByIndex(i); //CV_Tu3.docx
 		String source = candidateInfoData.getSourceByIndex(i);  //Refer
 		String job = candidateInfoData.getJobByIndex(i); //Test automation developer
-		info("job is: " + job);
+		String updateGender = candidateInfoData.getupdateGenderByIndex(i);
+		String updateNationality = candidateInfoData.getupdateNationalityByIndex(i);
 		
 		String[] skill = {candidateInfoData.getSkill1ByIndex(i), candidateInfoData.getSkill2ByIndex(i), candidateInfoData.getSkill3ByIndex(i)}; //C, Pascal, Java
 		String[] level = {candidateInfoData.getLevelSkill1ByIndex(i), candidateInfoData.getLevelSkill2ByIndex(i), candidateInfoData.getLevelSkill2ByIndex(i)}; //1, 2, 3
@@ -96,7 +103,7 @@ public class RSFlow extends PlatformBase{
 		String examsGroup = candidateInfoData.getExamGroupByIndex(i); //HoangHa_Group
 		String examsDuration = candidateInfoData.getExamDurationByIndex(i); //1
 		
-		info("Go to candidate tab");
+		/*info("Go to candidate tab");
 		rcHome.goToCandidateTab();
 		
 		info("Create a new candidate");
@@ -153,7 +160,7 @@ public class RSFlow extends PlatformBase{
 		
 		info("Check data was updated for candidate");
 		driver.get(baseUrl);
-		magAc.signIn(DATA_USER1, DATA_PASS);
+		magAc.signIn(DATA_USER1, DATA_PASS);*/
 		
 		info("Go to candidate tab");
 		rcHome.goToCandidateTab();
@@ -164,6 +171,14 @@ public class RSFlow extends PlatformBase{
 		
 		info("Verify basic profile information");
 		canProf.verifyBasicCandidateProfile(fullName, firstName, lastName, phone, email, job, fileName);
+		
+		info("Verify update profile information from ex");
+		canProf.verifyUpdateCandidateProfileFromExam("", updateGender, updateNationality, updateNationality, region, locality, address, postalCode, currentSalary, expecedSalary, workingLocation, "");
+		
+		canProf.verifyExamsBadgeNumber("2");
+		canProf.goToExamsTabInAS();
+		canProf.goToSpecificExamResultInAS();
+		
 		
 		//}
 	}

@@ -75,7 +75,8 @@ public class RSLocators extends PlatformBase{
 	// candidate profile - add information - activity stream
 	public final String ELEMENT_RS_CANDIDATE_PROFILE_AS_NAV_BAR_EXAMS_BADGE = ".//*[@id='events']//*[contains(text(),'Exams')]/..//*[@class='badge' and text()='${number}']";
 	public final By ELEMENT_RS_CANDIDATE_PROFILE_AS_NAV_BAR_EXAMS = By.xpath(".//*[@id='events']//*[contains(text(),'Exams')]");
-	public final By ELEMENT_RS_CANDIDATE_PROFILE_AS_EXAMS_LOCATION = By.xpath(".//*[@id='events']//*[@class='events__node-header']");
+	public final By ELEMENT_RS_CANDIDATE_PROFILE_AS_EXAMS_LOCATION = By.xpath(".//*[@id='events']//*[contains(text(),'Exam session')]/../..//*[@class='events__node-header']");
+	public final By ELEMENT_RS_CANDIDATE_PROFILE_AS_EXAMS_RESULT = By.xpath(".//*[@id='events']//*[contains(text(),'Exam result')]/../..//*[@class='events__node-header']");
 	public final String ELEMENT_RS_CANDIDATE_PROFILE_AS_EXAMS_TEST_LINK = ".//*[@id='events']//*[@class='events__node-header']/../..//*[@class='test-link']";
 
 	//exam - information - personal

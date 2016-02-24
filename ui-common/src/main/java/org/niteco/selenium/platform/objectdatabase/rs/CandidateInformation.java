@@ -43,6 +43,8 @@ public class CandidateInformation {
 	public ArrayList<String> lastUsedSkill3;
 	public ArrayList<String> examGroup;
 	public ArrayList<String> examDuration;
+	public ArrayList<String> updateGender;
+	public ArrayList<String> updateNationality;
 	
 	
 	public CandidateInformation(ArrayList<Integer> type, ArrayList<String> fullName, ArrayList<String> firstName, ArrayList<String> lastName, ArrayList<String> email, ArrayList<String> phone,
@@ -50,7 +52,7 @@ public class CandidateInformation {
 			ArrayList<String> currentSalary, ArrayList<String> expectedSalary, ArrayList<String> planedStartDate, ArrayList<String> workingLocation, ArrayList<String> address,
 			ArrayList<String> filePath, ArrayList<String> fileName, ArrayList<String> source, ArrayList<String> job, ArrayList<String> skill1, ArrayList<String> levelSkill1,ArrayList<String> lastUsedSkill1,
 			ArrayList<String> skill2, ArrayList<String> levelSkill2, ArrayList<String> lastUsedSkill2, ArrayList<String> skill3, ArrayList<String> levelSkill3, ArrayList<String> lastUsedSkill3,
-			ArrayList<String> examGroup, ArrayList<String> examDuration){
+			ArrayList<String> examGroup, ArrayList<String> examDuration, ArrayList<String> updateGender, ArrayList<String> updateNationality){
 		this.type = type;
 		this.fullName = fullName;
 		this.firstName = firstName;
@@ -87,6 +89,9 @@ public class CandidateInformation {
 		
 		this.examGroup = examGroup;
 		this.examDuration = examDuration;
+		
+		this.examDuration = updateGender;
+		this.examDuration = updateNationality;
 		
 	}
 	
@@ -126,6 +131,8 @@ public class CandidateInformation {
 		lastUsedSkill3 = new ArrayList<String>();
 		examGroup = new ArrayList<String>();
 		examDuration = new ArrayList<String>();
+		updateGender = new ArrayList<String>();
+		updateNationality = new ArrayList<String>();
 	}
 	
 	/* *//**
@@ -229,6 +236,8 @@ public class CandidateInformation {
 				
 				examGroup.add(testData[i][30]);
 				examDuration.add(testData[i][31]);
+				updateGender.add(testData[i][32]);
+				updateNationality.add(testData[i][33]);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -523,6 +532,24 @@ public class CandidateInformation {
 	 */
 	public String getExamDurationByIndex(int index){
 		return examDuration.get(index);
+	}
+	
+	/**
+	 * Get update gender by index
+	 * @param index
+	 * @return
+	 */
+	public String getupdateGenderByIndex(int index){
+		return updateGender.get(index);
+	}
+	
+	/**
+	 * Get Exam Duration by index
+	 * @param index
+	 * @return
+	 */
+	public String getupdateNationalityByIndex(int index){
+		return updateNationality.get(index);
 	}
 	
 }

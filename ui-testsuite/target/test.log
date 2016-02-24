@@ -3153,3 +3153,258 @@
 2016-02-24 09:46:11,769 INFO  [TestBase  ][click] click element
 2016-02-24 09:46:21,688 INFO  [RSFlow    ][test01_flowiMisRSEx] Add exam
 2016-02-24 09:46:21,688 INFO  [CandidateProfile][goToAddExam] Go to add exam
+2016-02-24 10:53:48,284 INFO  [TestBase  ][initChromeDriver] Init chrome driver
+2016-02-24 10:53:50,411 INFO  [TestBase  ][termsAndConditions] Term and conditions
+2016-02-24 10:53:51,401 INFO  [TestBase  ][termsAndConditions] Agreement page
+2016-02-24 10:53:54,466 INFO  [TestBase  ][waitForAndGetElement] cannot find element after 3s.
+2016-02-24 10:53:57,477 INFO  [TestBase  ][waitForAndGetElement] cannot find element after 3s.
+2016-02-24 10:54:00,491 INFO  [TestBase  ][termsAndConditions] End of term and conditions
+2016-02-24 10:54:00,492 INFO  [PlatformBase][getDefaultUserPass] Get deault user pass from data driven
+2016-02-24 10:54:05,829 INFO  [TestBase  ][waitForAndGetElement] cannot find element after 5s.
+2016-02-24 10:54:05,830 INFO  [ManageLogInOut][signIn] login normally if not use SSO with user Administrator and pass Niteco2016
+2016-02-24 10:54:06,110 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:06,168 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:11,765 INFO  [RSFlow    ][test01_flowiMisRSEx] DOB: 32933
+2016-02-24 10:54:11,765 INFO  [RSFlow    ][test01_flowiMisRSEx] Planned start date: 42434
+2016-02-24 10:54:11,766 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to candidate tab
+2016-02-24 10:54:11,766 INFO  [RSHomepage][goToCandidateTab] Go to candidate tab
+2016-02-24 10:54:11,766 INFO  [RSHomepage][goToCandidateTab] Click candidates tab
+2016-02-24 10:54:11,816 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:11,859 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:13,536 INFO  [RSFlow    ][test01_flowiMisRSEx] Create a new candidate
+2016-02-24 10:54:13,543 INFO  [CandidatesHomePage][goToAddCandidates] Click create candidate button
+2016-02-24 10:54:13,575 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:13,618 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:14,942 INFO  [CandidatesHomePage][addCandidate] Create a candidate
+2016-02-24 10:54:14,942 INFO  [CandidatesHomePage][addCandidate] Enter full name
+2016-02-24 10:54:15,087 INFO  [CandidatesHomePage][addCandidate] Enter first name
+2016-02-24 10:54:15,240 INFO  [CandidatesHomePage][addCandidate] Enter last name
+2016-02-24 10:54:15,400 INFO  [CandidatesHomePage][addCandidate] Enter email
+2016-02-24 10:54:15,566 INFO  [CandidatesHomePage][addCandidate] Enter phone
+2016-02-24 10:54:15,723 INFO  [CandidatesHomePage][addCandidate] Choose refer source
+2016-02-24 10:54:15,765 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:15,803 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:17,151 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:17,189 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:18,226 INFO  [CandidatesHomePage][addCandidate] Choose automation test job
+2016-02-24 10:54:18,290 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:18,321 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:19,662 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:19,679 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:20,724 INFO  [CandidatesHomePage][addCandidate] Attach CV
+2016-02-24 10:54:20,726 INFO  [CandidatesHomePage][addCandidate] Click on browse button
+2016-02-24 10:54:20,805 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:20,858 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:21,907 INFO  [CandidatesHomePage][addCandidate] upload file
+2016-02-24 10:54:21,909 INFO  [TestBase  ][uploadFileUsingRobot] Upload file using Robot
+2016-02-24 10:54:21,910 INFO  [TestBase  ][uploadFileUsingRobot] path in uploadRobot:E:\ui-test\ui-test\ui-testsuite\src\main\resources\TestData\CV_Tu3.docx
+2016-02-24 10:54:24,982 INFO  [CandidatesHomePage][Create] Click create button
+2016-02-24 10:54:25,077 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:25,108 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:26,962 INFO  [CandidateProfile][verifyBasicCandidateProfile] Varify full Name
+2016-02-24 10:54:27,059 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify first name
+2016-02-24 10:54:27,090 INFO  [CandidateProfile][verifyBasicCandidateProfile] Veryfi Last Name
+2016-02-24 10:54:27,137 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify Phone
+2016-02-24 10:54:27,168 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify email
+2016-02-24 10:54:27,215 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify job
+2016-02-24 10:54:27,246 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify attach file name
+2016-02-24 10:54:27,293 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to a specific candidate by search candidate
+2016-02-24 10:54:27,293 INFO  [RSHomepage][goToCandidateTab] Go to candidate tab
+2016-02-24 10:54:27,293 INFO  [RSHomepage][goToCandidateTab] Click candidates tab
+2016-02-24 10:54:27,324 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:27,368 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:28,857 INFO  [CandidatesHomePage][searchACandidate] Search a candidate
+2016-02-24 10:54:29,111 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:29,150 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:30,544 INFO  [CandidatesHomePage][goToSpecificCandidate] Go to specific Candidate
+2016-02-24 10:54:30,562 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:30,593 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:31,752 INFO  [RSFlow    ][test01_flowiMisRSEx] Add information for candidate
+2016-02-24 10:54:31,753 INFO  [CandidateProfile][goToAddInformationForCandiDate] go to add information for candidate
+2016-02-24 10:54:31,826 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:31,862 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:42,150 INFO  [RSFlow    ][test01_flowiMisRSEx] Add exam
+2016-02-24 10:54:42,151 INFO  [CandidateProfile][goToAddExam] Go to add exam
+2016-02-24 10:54:42,183 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:42,230 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:43,321 INFO  [CandidateProfile][createExam] create exam for candidate
+2016-02-24 10:54:43,321 INFO  [CandidateProfile][createExam] Choose exam group
+2016-02-24 10:54:43,360 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:43,390 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:44,626 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:44,662 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:47,716 INFO  [CandidateProfile][createExam] enter duration
+2016-02-24 10:54:49,911 INFO  [CandidateProfile][createExam] Click create button
+2016-02-24 10:54:49,952 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:49,988 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:51,310 INFO  [CandidateProfile][verifyExamsBadgeNumber] verify number of exam in badge
+2016-02-24 10:54:54,352 INFO  [CandidateProfile][goToExamsTabInAS] Go to exam tab in as
+2016-02-24 10:54:54,393 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:54,427 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:55,503 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to copy test link name and paste in another browser
+2016-02-24 10:54:55,503 INFO  [CandidateProfile][goToSpecificExamInAS] Go to specific exam in as
+2016-02-24 10:54:55,530 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:54:55,564 INFO  [TestBase  ][click] click element
+2016-02-24 10:54:58,718 INFO  [RSFlow    ][test01_flowiMisRSEx] Open new window
+2016-02-24 10:54:59,072 INFO  [RSFlow    ][test01_flowiMisRSEx] Enter candidate information in exam
+2016-02-24 10:54:59,072 INFO  [ExamPage  ][enterPersonalInformationInExam] Enter personal information in exam
+2016-02-24 10:55:00,079 INFO  [ExamPage  ][enterPersonalInformationInExam] Enter full name
+2016-02-24 10:55:01,244 INFO  [ExamPage  ][enterPersonalInformationInExam] Enter first name
+2016-02-24 10:55:02,395 INFO  [ExamPage  ][enterPersonalInformationInExam] Enter last name
+2016-02-24 10:55:03,546 INFO  [ExamPage  ][enterPersonalInformationInExam] Enter date of birth
+2016-02-24 10:55:04,743 INFO  [ExamPage  ][enterPersonalInformationInExam] Choose gender
+2016-02-24 10:55:04,785 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:04,807 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:05,902 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:05,923 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:10,974 INFO  [ExamPage  ][enterPersonalInformationInExam] Type Nationality
+2016-02-24 10:55:11,007 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:11,022 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:15,293 INFO  [ExamPage  ][enterContactInformationInExam] Enter contact information in exam
+2016-02-24 10:55:16,296 INFO  [ExamPage  ][enterContactInformationInExam] Enter phone 
+2016-02-24 10:55:17,466 INFO  [ExamPage  ][enterContactInformationInExam] Enter email 
+2016-02-24 10:55:18,665 INFO  [ExamPage  ][enterContactInformationInExam] Enter country
+2016-02-24 10:55:18,698 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:18,714 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:20,981 INFO  [ExamPage  ][enterContactInformationInExam] Enter region
+2016-02-24 10:55:21,008 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:21,039 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:23,259 INFO  [ExamPage  ][enterContactInformationInExam] Enter locality
+2016-02-24 10:55:23,292 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:23,308 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:25,552 INFO  [ExamPage  ][enterContactInformationInExam] Enter address
+2016-02-24 10:55:26,736 INFO  [ExamPage  ][enterContactInformationInExam] Enter posalCode
+2016-02-24 10:55:26,888 INFO  [ExamPage  ][enterRecruitmenttInformationInExam] Enter recruitment information in exam
+2016-02-24 10:55:27,904 INFO  [ExamPage  ][enterRecruitmenttInformationInExam] Enter current salary 
+2016-02-24 10:55:29,070 INFO  [ExamPage  ][enterRecruitmenttInformationInExam] Enter expeced salary 
+2016-02-24 10:55:30,224 INFO  [ExamPage  ][enterRecruitmenttInformationInExam] Enter planned start date
+2016-02-24 10:55:32,408 INFO  [ExamPage  ][enterRecruitmenttInformationInExam] Enter working location
+2016-02-24 10:55:32,441 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:32,469 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:34,662 INFO  [ExamPage  ][enterSkillsInformationInExam] Enter skills information in exam
+2016-02-24 10:55:35,664 INFO  [ExamPage  ][enterSkillsInformationInExam] type skills
+2016-02-24 10:55:35,696 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:35,728 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:37,079 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:37,118 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:39,183 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:39,224 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:40,266 INFO  [ExamPage  ][enterSkillsInformationInExam] Choose level
+2016-02-24 10:55:40,303 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:40,334 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:41,383 INFO  [ExamPage  ][enterSkillsInformationInExam] Choose last Used
+2016-02-24 10:55:42,606 INFO  [ExamPage  ][enterSkillsInformationInExam] type skills
+2016-02-24 10:55:42,638 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:42,670 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:44,898 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:44,937 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:45,965 INFO  [ExamPage  ][enterSkillsInformationInExam] Choose level
+2016-02-24 10:55:45,999 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:46,030 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:47,077 INFO  [ExamPage  ][enterSkillsInformationInExam] Choose last Used
+2016-02-24 10:55:48,275 INFO  [ExamPage  ][enterSkillsInformationInExam] type skills
+2016-02-24 10:55:48,308 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:48,339 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:50,548 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:50,572 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:51,614 INFO  [ExamPage  ][enterSkillsInformationInExam] Choose level
+2016-02-24 10:55:51,650 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:51,681 INFO  [TestBase  ][click] click element
+2016-02-24 10:55:52,730 INFO  [ExamPage  ][enterSkillsInformationInExam] Choose last Used
+2016-02-24 10:55:52,961 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to continue exam
+2016-02-24 10:55:53,974 INFO  [ExamPage  ][continueToExam] go to continue the exam
+2016-02-24 10:55:54,007 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:55:54,060 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:00,919 INFO  [RSFlow    ][test01_flowiMisRSEx] Start exam
+2016-02-24 10:56:01,929 INFO  [ExamPage  ][startExam] Start the exam
+2016-02-24 10:56:01,994 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:02,041 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:06,117 INFO  [RSFlow    ][test01_flowiMisRSEx] Answer quetion 1
+2016-02-24 10:56:06,244 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:08,304 INFO  [ExamPage  ][nextQuestion] go To next Question
+2016-02-24 10:56:08,352 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:08,384 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:10,459 INFO  [RSFlow    ][test01_flowiMisRSEx] Answer quetion 2
+2016-02-24 10:56:10,523 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:12,602 INFO  [ExamPage  ][nextQuestion] go To next Question
+2016-02-24 10:56:12,649 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:12,712 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:14,774 INFO  [RSFlow    ][test01_flowiMisRSEx] Answer quetion 3
+2016-02-24 10:56:14,855 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:16,901 INFO  [ExamPage  ][endExam] Start the exam
+2016-02-24 10:56:16,981 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:17,044 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:18,188 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:18,224 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:20,385 INFO  [RSFlow    ][test01_flowiMisRSEx] Check data was updated for candidate
+2016-02-24 10:56:25,597 INFO  [TestBase  ][waitForAndGetElement] cannot find element after 5s.
+2016-02-24 10:56:25,597 INFO  [ManageLogInOut][signIn] login normally if not use SSO with user Administrator and pass Niteco2016
+2016-02-24 10:56:25,892 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:25,945 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:30,373 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to candidate tab
+2016-02-24 10:56:30,373 INFO  [RSHomepage][goToCandidateTab] Go to candidate tab
+2016-02-24 10:56:30,374 INFO  [RSHomepage][goToCandidateTab] Click candidates tab
+2016-02-24 10:56:30,426 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:30,472 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:31,961 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to a specific candidate by search candidate
+2016-02-24 10:56:31,961 INFO  [CandidatesHomePage][searchACandidate] Search a candidate
+2016-02-24 10:56:32,211 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:32,250 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:33,659 INFO  [CandidatesHomePage][goToSpecificCandidate] Go to specific Candidate
+2016-02-24 10:56:33,690 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:56:33,721 INFO  [TestBase  ][click] click element
+2016-02-24 10:56:36,282 INFO  [RSFlow    ][test01_flowiMisRSEx] Verify basic profile information
+2016-02-24 10:56:36,284 INFO  [CandidateProfile][verifyBasicCandidateProfile] Varify full Name
+2016-02-24 10:56:36,363 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify first name
+2016-02-24 10:56:36,410 INFO  [CandidateProfile][verifyBasicCandidateProfile] Veryfi Last Name
+2016-02-24 10:56:36,441 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify Phone
+2016-02-24 10:56:36,472 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify email
+2016-02-24 10:56:36,519 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify job
+2016-02-24 10:56:36,551 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify attach file name
+2016-02-24 10:56:36,597 INFO  [RSFlow    ][test01_flowiMisRSEx] Verify update profile information from ex
+2016-02-24 10:56:36,597 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify date of birth
+2016-02-24 10:59:10,378 INFO  [TestBase  ][initChromeDriver] Init chrome driver
+2016-02-24 10:59:12,560 INFO  [TestBase  ][termsAndConditions] Term and conditions
+2016-02-24 10:59:13,307 INFO  [TestBase  ][termsAndConditions] Agreement page
+2016-02-24 10:59:16,388 INFO  [TestBase  ][waitForAndGetElement] cannot find element after 3s.
+2016-02-24 10:59:19,416 INFO  [TestBase  ][waitForAndGetElement] cannot find element after 3s.
+2016-02-24 10:59:22,427 INFO  [TestBase  ][termsAndConditions] End of term and conditions
+2016-02-24 10:59:22,428 INFO  [PlatformBase][getDefaultUserPass] Get deault user pass from data driven
+2016-02-24 10:59:27,720 INFO  [TestBase  ][waitForAndGetElement] cannot find element after 5s.
+2016-02-24 10:59:27,720 INFO  [ManageLogInOut][signIn] login normally if not use SSO with user Administrator and pass Niteco2016
+2016-02-24 10:59:27,990 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:59:28,045 INFO  [TestBase  ][click] click element
+2016-02-24 10:59:32,850 INFO  [RSFlow    ][test01_flowiMisRSEx] DOB: 32933
+2016-02-24 10:59:32,851 INFO  [RSFlow    ][test01_flowiMisRSEx] Planned start date: 42434
+2016-02-24 10:59:32,851 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to candidate tab
+2016-02-24 10:59:32,851 INFO  [RSHomepage][goToCandidateTab] Go to candidate tab
+2016-02-24 10:59:32,851 INFO  [RSHomepage][goToCandidateTab] Click candidates tab
+2016-02-24 10:59:32,901 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:59:32,936 INFO  [TestBase  ][click] click element
+2016-02-24 10:59:34,463 INFO  [RSFlow    ][test01_flowiMisRSEx] Go to a specific candidate by search candidate
+2016-02-24 10:59:34,478 INFO  [CandidatesHomePage][searchACandidate] Search a candidate
+2016-02-24 10:59:34,720 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:59:34,763 INFO  [TestBase  ][click] click element
+2016-02-24 10:59:36,163 INFO  [CandidatesHomePage][goToSpecificCandidate] Go to specific Candidate
+2016-02-24 10:59:36,193 INFO  [TestBase  ][click] wait and get elements
+2016-02-24 10:59:36,224 INFO  [TestBase  ][click] click element
+2016-02-24 10:59:37,634 INFO  [RSFlow    ][test01_flowiMisRSEx] Verify basic profile information
+2016-02-24 10:59:37,634 INFO  [CandidateProfile][verifyBasicCandidateProfile] Varify full Name
+2016-02-24 10:59:37,667 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify first name
+2016-02-24 10:59:37,714 INFO  [CandidateProfile][verifyBasicCandidateProfile] Veryfi Last Name
+2016-02-24 10:59:37,745 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify Phone
+2016-02-24 10:59:37,792 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify email
+2016-02-24 10:59:37,823 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify job
+2016-02-24 10:59:37,855 INFO  [CandidateProfile][verifyBasicCandidateProfile] Verify attach file name
+2016-02-24 10:59:37,901 INFO  [RSFlow    ][test01_flowiMisRSEx] Verify update profile information from ex
+2016-02-24 10:59:37,901 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify gender
+2016-02-24 10:59:37,933 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify nationality
+2016-02-24 10:59:37,980 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify country
+2016-02-24 10:59:38,011 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify region
+2016-02-24 10:59:38,058 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify locality
+2016-02-24 10:59:38,105 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify address
+2016-02-24 10:59:38,136 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify postalCode
+2016-02-24 10:59:38,183 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify current Salary
+2016-02-24 10:59:38,214 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify expeced Salary
+2016-02-24 10:59:38,261 INFO  [CandidateProfile][verifyUpdateCandidateProfileFromExam] Verify working Location
+2016-02-24 10:59:38,292 INFO  [CandidateProfile][verifyExamsBadgeNumber] verify number of exam in badge

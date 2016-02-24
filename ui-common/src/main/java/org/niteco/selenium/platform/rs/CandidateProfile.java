@@ -207,4 +207,14 @@ public class CandidateProfile extends RSLocators{
 		waitForAndGetElement(ELEMENT_RS_CANDIDATE_PROFILE_AS_EXAMS_TEST_LINK, DEFAULT_TIMEOUT, 1);
 	}
 	
+	/**
+	 * Go to specific exam result in as
+	 */
+	public void goToSpecificExamResultInAS(){
+		info("Go to specific exam result in as");
+		waitForAndGetElement(ELEMENT_RS_CANDIDATE_PROFILE_AS_EXAMS_RESULT, DEFAULT_TIMEOUT, 1);
+		click(ELEMENT_RS_CANDIDATE_PROFILE_AS_EXAMS_RESULT);
+		Utils.pause(2000);
+	}
+	
 }

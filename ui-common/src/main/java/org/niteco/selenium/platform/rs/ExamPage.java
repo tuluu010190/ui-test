@@ -52,7 +52,6 @@ public class ExamPage extends RSLocators{
 			waitForAndGetElement(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_DOB, DEFAULT_TIMEOUT, 1);
 			type(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_DOB, dateOfBirth, true);
 			pressEnterKey();
-			
 		}
 		if (gender != null && gender != ""){
 			Utils.pause(1000);
@@ -61,8 +60,6 @@ public class ExamPage extends RSLocators{
 			click(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_GENDER, 2);
 			waitForAndGetElement(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_GENDER_SELECT.replace("${gender}", gender), DEFAULT_TIMEOUT, 1);
 			click(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_GENDER_SELECT.replace("${gender}", gender), 2);
-			//pressEnterKey();
-			Utils.pause(3000);
 		}
 		if (nationality != null && nationality != ""){
 			Utils.pause(1000);
@@ -71,8 +68,6 @@ public class ExamPage extends RSLocators{
 			click(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_NATIONALITY, 2);
 			waitForAndGetElement(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_NATIONALITY_SEARCH, DEFAULT_TIMEOUT, 1);
 			type(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_NATIONALITY_SEARCH, nationality, true);
-			pressEnterKey();
-			Utils.pause(3000);
 		}
 	}
 	
