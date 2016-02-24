@@ -1,6 +1,6 @@
 package org.niteco.selenium.platform.rs;
 
-import org.exoplatform.selenium.platform.PlatformBase;
+import org.niteco.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 
 public class RSLocators extends PlatformBase{

@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
+import org.niteco.selenium.platform.objectdatabase.common.DatabaseResource;
 
 
 

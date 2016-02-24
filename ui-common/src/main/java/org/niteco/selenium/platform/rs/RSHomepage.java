@@ -1,6 +1,6 @@
 package org.niteco.selenium.platform.rs;
 
-import static org.exoplatform.selenium.TestLogger.info;
+import static org.niteco.selenium.TestLogger.info;
 
 import org.openqa.selenium.WebDriver;
 

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.exoplatform.selenium</groupId>
+		<groupId>org.niteco.selenium</groupId>
 		<artifactId>ui-test</artifactId>
 		<version>4.3.x-SNAPSHOT</version>
 	</parent>
@@ -40,7 +40,7 @@
 						<configuration>
 							<skip>${javadoc.skip}</skip>
 							<sourcepath>${source.folder}</sourcepath>
-							<doctitle>eXo Platform - Java Selenium Test Framework
+							<doctitle>Niteco - Java Selenium Test Framework
 								Documentation</doctitle>
 							<sourceFileIncludes>
 							

@@ -6,6 +6,7 @@
       <class name="org.niteco.selenium.platform.rs.RSFlow">
         <methods>
           <include name="setUpBeforeTest"/>
+          <include name="afterTest"/>
           <include name="test01_flowiMisRSEx"/>
         </methods>
       </class> <!-- org.niteco.selenium.platform.rs.RSFlow -->

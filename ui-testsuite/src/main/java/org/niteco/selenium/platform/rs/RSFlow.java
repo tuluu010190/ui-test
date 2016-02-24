@@ -1,11 +1,11 @@
 package org.niteco.selenium.platform.rs;
 
-import static org.exoplatform.selenium.TestLogger.info;
+import static org.niteco.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
+import org.niteco.selenium.Utils;
+import org.niteco.selenium.platform.ManageLogInOut;
+import org.niteco.selenium.platform.PlatformBase;
+import org.niteco.selenium.platform.objectdatabase.common.DatabaseResource;
 import org.niteco.selenium.platform.objectdatabase.rs.CandidateInformation;
 import org.niteco.selenium.platform.objectdatabase.rs.addCandidateForm;
 import org.niteco.selenium.platform.objectdatabase.rs.skillInformation;
@@ -103,7 +103,7 @@ public class RSFlow extends PlatformBase{
 		String examsGroup = candidateInfoData.getExamGroupByIndex(i); //HoangHa_Group
 		String examsDuration = candidateInfoData.getExamDurationByIndex(i); //1
 		
-		/*info("Go to candidate tab");
+		info("Go to candidate tab");
 		rcHome.goToCandidateTab();
 		
 		info("Create a new candidate");
@@ -160,7 +160,7 @@ public class RSFlow extends PlatformBase{
 		
 		info("Check data was updated for candidate");
 		driver.get(baseUrl);
-		magAc.signIn(DATA_USER1, DATA_PASS);*/
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		
 		info("Go to candidate tab");
 		rcHome.goToCandidateTab();

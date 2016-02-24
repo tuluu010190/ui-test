@@ -2,7 +2,7 @@ package org.niteco.selenium.platform.objectdatabase.rs;
 
 import java.util.ArrayList;
 
-import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
+import org.niteco.selenium.platform.objectdatabase.common.DatabaseResource;
 
 public class addCandidateForm {
 

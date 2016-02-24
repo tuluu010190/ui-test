@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.exoplatform.selenium</groupId>
+		<groupId>org.niteco.selenium</groupId>
 		<artifactId>ui-test</artifactId>
 		<version>4.3.x-SNAPSHOT</version>
 	</parent> 
@@ -21,7 +21,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.exoplatform.selenium</groupId>
+			<groupId>org.niteco.selenium</groupId>
 			<artifactId>ui-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -270,7 +270,8 @@
 						<configuration>
 							<skip>${maven.test.skip}</skip>
 							<systemPropertyVariables>
-								<webdriver.ie.driver>D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe</webdriver.ie.driver>
+								<!--<webdriver.ie.driver>D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe</webdriver.ie.driver>-->
+								<webdriver.ie.driver>D:\\java\\nitecoProjects\\IEDriverServer\\IEDriverServer.exe</webdriver.ie.driver>
 							</systemPropertyVariables>
 							<suiteXmlFiles>
 								<suiteXmlFile>${project.build.OutputDirectory}/suites/${testSuite}</suiteXmlFile>

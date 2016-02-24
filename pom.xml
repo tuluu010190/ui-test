@@ -9,7 +9,7 @@
 		<relativePath></relativePath>
 	</parent>-->
 
-	<groupId>org.exoplatform.selenium</groupId>
+	<groupId>org.niteco.selenium</groupId>
 	<artifactId>ui-test</artifactId>
 	<version>4.3.x-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -21,7 +21,7 @@
 		<testng.version>6.5.1</testng.version>
 		<cargo-maven2-plugin.version>1.1.1</cargo-maven2-plugin.version>
 		<maven-dependency-plugin.version>2.1</maven-dependency-plugin.version>
-		<org.exoplatform.platform.version>LATEST</org.exoplatform.platform.version>
+		<org.niteco.platform.version>LATEST</org.niteco.platform.version>
 	</properties>
 
 	<dependencies>
@@ -122,7 +122,7 @@
 		</dependency>
 
 		<!-- <dependency> <groupId>org.exoplatform.platform</groupId> <artifactId>exo.platform.packaging.tomcat</artifactId> 
-			<version>${org.exoplatform.platform.version}</version> <type>zip</type> </dependency> -->
+			<version>${org.niteco.platform.version}</version> <type>zip</type> </dependency> -->
 		<dependency>
 			<groupId>com.holmos</groupId>
 			<artifactId>holmos-webtest</artifactId>

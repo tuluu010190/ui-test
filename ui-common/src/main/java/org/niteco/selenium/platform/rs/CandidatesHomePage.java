@@ -1,8 +1,8 @@
 package org.niteco.selenium.platform.rs;
 
-import static org.exoplatform.selenium.TestLogger.info;
+import static org.niteco.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Utils;
+import org.niteco.selenium.Utils;
 import org.openqa.selenium.WebDriver;
 
 public class CandidatesHomePage extends RSLocators{

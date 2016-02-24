@@ -1,7 +1,8 @@
 package org.niteco.selenium.platform.rs;
 
-import static org.exoplatform.selenium.TestLogger.info;
-import org.exoplatform.selenium.Utils;
+import static org.niteco.selenium.TestLogger.info;
+
+import org.niteco.selenium.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Action;
 
@@ -68,6 +69,7 @@ public class ExamPage extends RSLocators{
 			click(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_NATIONALITY, 2);
 			waitForAndGetElement(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_NATIONALITY_SEARCH, DEFAULT_TIMEOUT, 1);
 			type(ELEMENT_RS_EXAM_PAGE_CANDIDATE_INFO_NATIONALITY_SEARCH, nationality, true);
+			pressEnterKey();
 		}
 	}
 	

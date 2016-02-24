@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="32548" started-at="2016-02-24T10:59:10Z" finished-at="2016-02-24T10:59:42Z">
+  <suite name="Default suite" duration-ms="165009" started-at="2016-02-24T12:04:26Z" finished-at="2016-02-24T12:07:11Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="32548" started-at="2016-02-24T10:59:10Z" finished-at="2016-02-24T10:59:42Z">
+    <test name="Default test" duration-ms="165009" started-at="2016-02-24T12:04:26Z" finished-at="2016-02-24T12:07:11Z">
       <class name="org.niteco.selenium.platform.rs.RSFlow">
-        <test-method status="PASS" signature="setUpBeforeTest()[pri:0, instance:org.niteco.selenium.platform.rs.RSFlow@1a91dd8c]" name="setUpBeforeTest" is-config="true" duration-ms="22686" started-at="2016-02-24T10:59:10Z" finished-at="2016-02-24T10:59:32Z">
+        <test-method status="PASS" signature="setUpBeforeTest()[pri:0, instance:org.niteco.selenium.platform.rs.RSFlow@62b9f149]" name="setUpBeforeTest" is-config="true" duration-ms="22735" started-at="2016-02-24T12:04:26Z" finished-at="2016-02-24T12:04:49Z">
         </test-method> <!-- setUpBeforeTest -->
-        <test-method status="PASS" signature="test01_flowiMisRSEx()[pri:0, instance:org.niteco.selenium.platform.rs.RSFlow@1a91dd8c]" name="test01_flowiMisRSEx" duration-ms="8485" started-at="2016-02-24T10:59:32Z" finished-at="2016-02-24T10:59:41Z">
+        <test-method status="PASS" signature="test01_flowiMisRSEx()[pri:0, instance:org.niteco.selenium.platform.rs.RSFlow@62b9f149]" name="test01_flowiMisRSEx" duration-ms="140804" started-at="2016-02-24T12:04:49Z" finished-at="2016-02-24T12:07:10Z">
         </test-method> <!-- test01_flowiMisRSEx -->
-        <test-method status="PASS" signature="afterTest()[pri:0, instance:org.niteco.selenium.platform.rs.RSFlow@1a91dd8c]" name="afterTest" is-config="true" duration-ms="1375" started-at="2016-02-24T10:59:41Z" finished-at="2016-02-24T10:59:42Z">
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:org.niteco.selenium.platform.rs.RSFlow@62b9f149]" name="afterTest" is-config="true" duration-ms="1453" started-at="2016-02-24T12:07:10Z" finished-at="2016-02-24T12:07:11Z">
         </test-method> <!-- afterTest -->
       </class> <!-- org.niteco.selenium.platform.rs.RSFlow -->
     </test> <!-- Default test -->
